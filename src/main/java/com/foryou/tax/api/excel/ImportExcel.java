@@ -1,8 +1,6 @@
 package com.foryou.tax.api.excel;
 
 import org.apache.poi.ss.usermodel.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,8 +15,6 @@ import java.util.Map;
  * @description : excel导入通用方法
  */
 public class ImportExcel {
-
-    private static final Logger log = LoggerFactory.getLogger(ImportExcel.class);
 
     public  static List<Map<String, Object>> importExcel(File excelFile) throws Exception {
 

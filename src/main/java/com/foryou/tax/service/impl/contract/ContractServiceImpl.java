@@ -5,8 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.dao.contract.ContractInfoPojoMapper;
 import com.foryou.tax.pojo.contract.ContractInfoPojo;
 import com.foryou.tax.service.contract.ContractService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -20,8 +19,6 @@ import java.util.List;
  */
 @Service
 public class ContractServiceImpl implements ContractService {
-
-    private static final Logger log =  LoggerFactory.getLogger(ContractServiceImpl.class);
 
     @Autowired
     private ContractInfoPojoMapper mapper;
@@ -37,7 +34,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public ContractInfoPojo queryContractInfoByRedis() {
-        log.info(" ------ ContractServiceImpl queryContractInfoByRedis start -----");
+        LoggerUtils.debug(getClass()," ------ ContractServiceImpl queryContractInfoByRedis start -----");
 
         ContractInfoPojo contractInfo = null;
 
@@ -50,7 +47,7 @@ public class ContractServiceImpl implements ContractService {
             List<ContractInfoPojo> ll = mapper.queryData();
         }
 
-        log.info(" ------ ContractServiceImpl queryContractInfoByRedis end -----");
+        LoggerUtils.debug(getClass(), " ------ ContractServiceImpl queryContractInfoByRedis end -----");
         return contractInfo;
     }
 }

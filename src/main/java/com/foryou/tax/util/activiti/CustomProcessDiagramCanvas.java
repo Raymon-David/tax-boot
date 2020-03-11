@@ -13,13 +13,12 @@ package com.foryou.tax.util.activiti;
  * limitations under the License.
  */
 
+import com.foryou.tax.util.LoggerUtils;
 import org.activiti.bpmn.model.AssociationDirection;
 import org.activiti.bpmn.model.GraphicInfo;
 import org.activiti.engine.ActivitiException;
 import org.activiti.image.exception.ActivitiImageException;
 import org.activiti.image.util.ReflectUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -42,12 +41,10 @@ import java.util.List;
  * Represents a canvas on which BPMN 2.0 constructs can be drawn. Some of the icons used are licensed under a Creative Commons Attribution 2.5 License, see
  * http://www.famfamfam.com/lab/icons/silk/
  * 
- * @see org.activiti.engine.impl.bpmn.diagram.DefaultProcessDiagramGenerator
+ * @see org.activiti.engine.impl.bpmn.diagram
  * @author Joram Barrez
  */
 public class CustomProcessDiagramCanvas {
-	
-	protected static final Logger LOGGER = LoggerFactory.getLogger(CustomProcessDiagramCanvas.class);
 	
 	public enum SHAPE_TYPE {
 		Rectangle, Rhombus, Ellipse
@@ -211,7 +208,7 @@ public class CustomProcessDiagramCanvas {
 			SIGNAL_THROW_IMAGE = ImageIO.read(ReflectUtil.getResource("org/activiti/icons/signal-throw.png", customClassLoader));
 			SIGNAL_CATCH_IMAGE = ImageIO.read(ReflectUtil.getResource("org/activiti/icons/signal.png", customClassLoader));
 		} catch (IOException e) {
-			LOGGER.warn("Could not load image for process diagram creation: {}", e.getMessage());
+			LoggerUtils.fmtError(getClass(), "Could not load image for process diagram creation: {}", e.getMessage());
 		}
 	}
 	
@@ -446,8 +443,9 @@ public class CustomProcessDiagramCanvas {
 	
 	public void drawSequenceflow(int srcX, int srcY, int targetX, int targetY, boolean conditional, boolean highLighted, double scaleFactor) {
 		Paint originalPaint = g.getPaint();
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(HIGHLIGHT_COLOR);
+		}
 		
 		Line2D.Double line = new Line2D.Double(srcX, srcY, targetX, targetY);
 		g.draw(line);
@@ -457,8 +455,9 @@ public class CustomProcessDiagramCanvas {
 			drawConditionalSequenceFlowIndicator(line, scaleFactor);
 		}
 		
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(originalPaint);
+		}
 	}
 	
 	public void drawAssociation(int[] xPoints, int[] yPoints, AssociationDirection associationDirection, boolean highLighted, double scaleFactor) {
@@ -521,8 +520,9 @@ public class CustomProcessDiagramCanvas {
 	
 	public void drawSequenceflowWithoutArrow(int srcX, int srcY, int targetX, int targetY, boolean conditional, boolean highLighted, double scaleFactor) {
 		Paint originalPaint = g.getPaint();
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(HIGHLIGHT_COLOR);
+		}
 		
 		Line2D.Double line = new Line2D.Double(srcX, srcY, targetX, targetY);
 		g.draw(line);
@@ -531,8 +531,9 @@ public class CustomProcessDiagramCanvas {
 			drawConditionalSequenceFlowIndicator(line, scaleFactor);
 		}
 		
-		if (highLighted)
+		if (highLighted) {
 			g.setPaint(originalPaint);
+		}
 	}
 	
 	public void drawArrowHead(Line2D.Double line, double scaleFactor) {
@@ -585,8 +586,9 @@ public class CustomProcessDiagramCanvas {
 	}
 	
 	public void drawConditionalSequenceFlowIndicator(Line2D.Double line, double scaleFactor) {
-		if (scaleFactor > 1.0)
+		if (scaleFactor > 1.0) {
 			return;
+		}
 		int horizontal = (int) (CONDITIONAL_INDICATOR_WIDTH * 0.7);
 		int halfOfHorizontal = horizontal / 2;
 		int halfOfVertical = CONDITIONAL_INDICATOR_WIDTH / 2;
@@ -665,8 +667,9 @@ public class CustomProcessDiagramCanvas {
 		g.setPaint(TASK_BOX_COLOR);
 		
 		int arcR = 6;
-		if (thickBorder)
+		if (thickBorder) {
 			arcR = 3;
+		}
 		
 		// shape
 		RoundRectangle2D rect = new RoundRectangle2D.Double(x, y, width, height, arcR, arcR);
@@ -1107,8 +1110,9 @@ public class CustomProcessDiagramCanvas {
 				textY += tl.getAscent();
 				Rectangle2D bb = tl.getBounds();
 				double tX = graphicInfo.getX();
-				if (centered)
+				if (centered) {
 					tX += (int) (graphicInfo.getWidth() / 2 - bb.getWidth() / 2);
+				}
 				tl.draw(g, (float) tX, textY);
 				textY += tl.getDescent() + tl.getLeading() + (interline - 1.0f) * tl.getAscent();
 			}

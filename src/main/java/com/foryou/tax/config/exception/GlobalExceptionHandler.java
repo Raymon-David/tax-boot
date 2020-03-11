@@ -2,11 +2,10 @@ package com.foryou.tax.config.exception;
 
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.util.CommonUtil;
+import com.foryou.tax.util.LoggerUtils;
 import com.foryou.tax.util.constants.ErrorEnum;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -22,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 @ControllerAdvice
 @ResponseBody
 public class GlobalExceptionHandler {
-    private Logger logger = LoggerFactory.getLogger("GlobalExceptionHandler");
 
     @ExceptionHandler(value = Exception.class)
     public JSONObject defaultErrorHandler(HttpServletRequest req, Exception e) throws Exception {
@@ -40,7 +38,7 @@ public class GlobalExceptionHandler {
         JSONObject errorObject = new JSONObject();
         errorObject.put("errorLocation", e.toString() + "    错误位置:" + errorPosition);
         jsonObject.put("returnData", errorObject);
-        logger.error("异常", e);
+        LoggerUtils.fmtError(getClass(),e,"异常");
         return jsonObject;
     }
 

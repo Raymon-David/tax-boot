@@ -5,12 +5,7 @@ import com.foryou.tax.api.bean.ErrorBean;
 import com.foryou.tax.api.bean.error.ErrorDesc;
 import com.foryou.tax.api.bean.error.ErrorInfo;
 import com.foryou.tax.api.constant.StatusCode;
-import com.foryou.tax.util.JsonTools;
-import com.foryou.tax.util.PatternUtil;
-import com.foryou.tax.util.StringUtils;
-import com.foryou.tax.util.URLDecoderUtil;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.foryou.tax.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,7 +23,6 @@ import java.util.Set;
  */
 public class BaseProcess implements ICommonProcess {
 
-    private static final Logger log = LoggerFactory.getLogger(BaseProcess.class);
     /**
      * 通用响应客户端方法
      * @param response
@@ -50,7 +44,7 @@ public class BaseProcess implements ICommonProcess {
             }
             pw.write(resultJson.toString());
         } catch (IOException e) {
-            log.error("返回客户端json出错:"+JSONObject.toJSON(obj).toString(),e);
+            LoggerUtils.fmtError(getClass(), "返回客户端json出错:"+JSONObject.toJSON(obj).toString(), e);
         } finally {
             if (null != pw) {
                 pw.flush();
@@ -75,7 +69,7 @@ public class BaseProcess implements ICommonProcess {
             }
             pw.write(result.toString());
         } catch (IOException e) {
-            log.error("返回客户端text出错:"+res,e);
+            LoggerUtils.error(getClass(), "返回客户端text出错:"+res, e);
         } finally {
             if (null != pw) {
                 pw.flush();
@@ -129,7 +123,7 @@ public class BaseProcess implements ICommonProcess {
             }
             if(obj instanceof String){
                 if(((String) obj).equalsIgnoreCase("undefined")){
-                    log.info("参数内容包含有undefined注入内容:key="+key+" content="+obj.toString());
+                    LoggerUtils.debug(getClass(), "参数内容包含有undefined注入内容:key="+key+" content="+obj.toString());
                     /**
                      * 参数中有undefined
                      */
@@ -140,7 +134,7 @@ public class BaseProcess implements ICommonProcess {
                  * 参数名和参数值都进行过滤
                  */
                 if(!PatternUtil.validateParamByRegex(obj.toString()+key)){
-                    log.info("参数内容包含有注入内容:key="+key+" content="+obj.toString());
+                    LoggerUtils.debug(getClass(), "参数内容包含有注入内容:key="+key+" content="+obj.toString());
                     //有不符合的直接终止
                     flag= false;
                     break;
@@ -148,25 +142,25 @@ public class BaseProcess implements ICommonProcess {
                 //不允许出现负数
             }else if(obj instanceof Integer){
                 if(((Integer) obj).intValue()<0){
-                    log.info("参数不合法出现负数:key="+key+" content="+obj.toString());
+                    LoggerUtils.debug(getClass(),"参数不合法出现负数:key="+key+" content="+obj.toString());
                     flag= false;
                     break;
                 }
             }else if(obj instanceof Long){
                 if(((Long) obj).longValue()<0){
-                    log.info("参数不合法出现负数:key="+key+" content="+obj.toString());
+                    LoggerUtils.debug(getClass(),"参数不合法出现负数:key="+key+" content="+obj.toString());
                     flag= false;
                     break;
                 }
             }else if(obj instanceof Double){
                 if(((Double) obj).doubleValue()<0){
-                    log.info("参数不合法出现负数:key="+key+" content="+obj.toString());
+                    LoggerUtils.debug(getClass(), "参数不合法出现负数:key="+key+" content="+obj.toString());
                     flag= false;
                     break;
                 }
             }else if(obj instanceof Float){
                 if(((Float) obj).floatValue()<0){
-                    log.info("参数不合法出现负数:key="+key+" content="+obj.toString());
+                    LoggerUtils.debug(getClass(),"参数不合法出现负数:key="+key+" content="+obj.toString());
                     flag= false;
                     break;
                 }
@@ -189,7 +183,7 @@ public class BaseProcess implements ICommonProcess {
             // 指定参数是否可空
             if (fieldMap.get(ICommonProcess.DEFAULT_MUST).equals(	ICommonProcess.DEFAULT_TRUE)) {
                 if (!resultmap.containsKey(key)) {
-                    log.info("必须参数不存在:key="+key+" "+resultmap);
+                    LoggerUtils.debug(getClass(),"必须参数不存在:key="+key+" "+resultmap);
                     info.setType(""+ fieldMap.get(ICommonProcess.DEFAULT_ERROR));
                     desc.setCode(""+ fieldMap.get(ICommonProcess.DEFAULT_ERROR));
                     desc.setMessage(fieldMap.get(ICommonProcess.DEFAULT_DESC));
@@ -200,7 +194,7 @@ public class BaseProcess implements ICommonProcess {
                 } else {
                     // 不符合请返回错误
                     if (!PatternUtil.validateDataByRegex(resultmap.get(key)	.toString(), fieldMap.get(ICommonProcess.DEFAULT_REGEX))) {
-                        log.info("不符合数据要求格式:key="+key+" regex="+fieldMap.get(ICommonProcess.DEFAULT_REGEX)+ "  "+resultmap);
+                        LoggerUtils.debug(getClass(),"不符合数据要求格式:key="+key+" regex="+fieldMap.get(ICommonProcess.DEFAULT_REGEX)+ "  "+resultmap);
                         info.setType(""+ fieldMap.get(ICommonProcess.DEFAULT_ERROR));
                         desc.setCode(""+ fieldMap.get(ICommonProcess.DEFAULT_ERROR));
                         desc.setMessage(fieldMap	.get(ICommonProcess.DEFAULT_DESC));
@@ -217,7 +211,7 @@ public class BaseProcess implements ICommonProcess {
                     Object o = resultmap.get(key);
                     // 不符合请返回错误
                     if (null!=o && !"".equals(o.toString()) && !PatternUtil.validateDataByRegex(resultmap.get(key).toString(), fieldMap.get(ICommonProcess.DEFAULT_REGEX))) {
-                        log.info("不符合数据要求格式:key="+key+" content="+resultmap.get(key)	.toString()+ " "+resultmap);
+                        LoggerUtils.debug(getClass(),"不符合数据要求格式:key="+key+" content="+resultmap.get(key)	.toString()+ " "+resultmap);
                         info.setType(""+ fieldMap.get(ICommonProcess.DEFAULT_ERROR));
                         desc.setCode(""+ fieldMap.get(ICommonProcess.DEFAULT_ERROR));
                         desc.setMessage(fieldMap	.get(ICommonProcess.DEFAULT_DESC));

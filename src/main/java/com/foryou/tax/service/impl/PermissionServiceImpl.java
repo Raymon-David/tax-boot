@@ -3,8 +3,6 @@ package com.foryou.tax.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.dao.PermissionDao;
 import com.foryou.tax.service.PermissionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +15,6 @@ import java.util.Set;
  */
 @Service
 public class PermissionServiceImpl implements PermissionService {
-    private Logger logger = LoggerFactory.getLogger(PermissionServiceImpl.class);
 
     @Autowired
     private PermissionDao permissionDao;

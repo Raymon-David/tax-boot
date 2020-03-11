@@ -2,12 +2,11 @@ package com.foryou.tax.session;
 
 import com.foryou.tax.pojo.permission.UserOnlineBo;
 import com.foryou.tax.pojo.user.UserPojo;
+import com.foryou.tax.util.LoggerUtils;
 import com.foryou.tax.util.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.support.DefaultSubjectContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -18,8 +17,6 @@ import java.util.*;
  */
 
 public class CustomSessionManager {
-
-	private static final Logger log = LoggerFactory.getLogger(CustomSessionManager.class);
 
 	/**
 	 * session status 
@@ -160,7 +157,7 @@ public class CustomSessionManager {
 			map.put("sessionStatusText", status?"踢出":"激活");
 			map.put("sessionStatusTextTd", status?"有效":"已踢出");
 		} catch (Exception e) {
-			log.error(getClass() + "-------改变Session状态错误，sessionId is" + sessionIds);
+			LoggerUtils.fmtError(getClass(), e,  "-------改变Session状态错误，sessionId is" + sessionIds);
 			map.put("status", 500);
 			map.put("message", "改变失败，有可能Session不存在，请刷新再试！");
 		}

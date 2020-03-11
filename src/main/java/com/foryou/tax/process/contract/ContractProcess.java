@@ -3,8 +3,7 @@ package com.foryou.tax.process.contract;
 import com.foryou.tax.pojo.contract.ContractInfoPojo;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.contract.ContractService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,8 +19,6 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 public class ContractProcess extends BaseProcess {
 
-    private static final Logger log =  LoggerFactory.getLogger(ContractProcess.class);
-
     @Autowired
     private ContractService contractService;
 
@@ -32,6 +29,7 @@ public class ContractProcess extends BaseProcess {
         ContractInfoPojo record = new ContractInfoPojo();
         record.setCntrtNo(contract_no);
         ContractInfoPojo contractInfo = contractService.queryContractInfoByContractNO(record);
+        LoggerUtils.debug(getClass(),"根据合同号查询合同信息" + contractInfo);
         writeClientJson(response, contractInfo, null);
     }
 
@@ -40,6 +38,7 @@ public class ContractProcess extends BaseProcess {
      */
     public void queryContractInfoByRedis(HttpServletRequest request, HttpServletResponse response){
         ContractInfoPojo contractInfo = contractService.queryContractInfoByRedis();
+        LoggerUtils.debug(getClass(),"通过redis查询合同信息" + contractInfo);
         writeClientJson(response, contractInfo, null);
     }
 }

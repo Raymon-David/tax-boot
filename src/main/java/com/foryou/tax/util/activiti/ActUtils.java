@@ -1,5 +1,6 @@
 package com.foryou.tax.util.activiti;
 
+import com.foryou.tax.util.LoggerUtils;
 import com.foryou.tax.util.StringUtils;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
@@ -8,8 +9,6 @@ import org.activiti.engine.*;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.image.ProcessDiagramGenerator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
 
 import java.io.InputStream;
@@ -27,7 +26,6 @@ import java.util.Map;
  * @version: 1.0$
  */
 public class ActUtils {
-    private static Logger logger = LoggerFactory.getLogger(ActUtils.class);
 
     private static RepositoryService repositoryService = SpringContextUtils.getBean(RepositoryService.class);
     private static HistoryService historyService = SpringContextUtils.getBean(HistoryService.class);
@@ -45,7 +43,7 @@ public class ActUtils {
     public static void getFlowImgByInstanceId(String processInstanceId, OutputStream outputStream) {
         try {
             if (StringUtils.isEmpty(processInstanceId)) {
-                logger.error("processInstanceId is null");
+                LoggerUtils.error(ActUtils.class,"processInstanceId is null");
                 return;
             }
             // 获取历史流程实例
@@ -84,7 +82,7 @@ public class ActUtils {
                 outputStream.write(b, 0, len);
             }
         } catch (Exception e) {
-            logger.error("processInstanceId" + processInstanceId + "生成流程图失败，原因：" + e.getMessage(), e);
+            LoggerUtils.fmtError(ActUtils.class, e, "processInstanceId" + processInstanceId + "生成流程图失败，原因：" + e.getMessage());
         }
 
     }
