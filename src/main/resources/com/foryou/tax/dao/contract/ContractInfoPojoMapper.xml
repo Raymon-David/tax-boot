@@ -1,0 +1,422 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.foryou.tax.dao.contract.ContractInfoPojoMapper" >
+  <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.contract.ContractInfoPojo" >
+    <result column="firm_cd" property="firmCd" jdbcType="VARCHAR" />
+    <result column="cntrt_no" property="cntrtNo" jdbcType="VARCHAR" />
+    <result column="ext_cnt" property="extCnt" jdbcType="VARCHAR" />
+    <result column="goods_cd" property="goodsCd" jdbcType="VARCHAR" />
+    <result column="cont_frm" property="contFrm" jdbcType="VARCHAR" />
+    <result column="acct_proc" property="acctProc" jdbcType="VARCHAR" />
+    <result column="cust_no" property="custNo" jdbcType="VARCHAR" />
+    <result column="req_cust_no" property="reqCustNo" jdbcType="VARCHAR" />
+    <result column="req_clerk" property="reqClerk" jdbcType="VARCHAR" />
+    <result column="juso_gb" property="jusoGb" jdbcType="VARCHAR" />
+    <result column="use_clerk" property="useClerk" jdbcType="VARCHAR" />
+    <result column="ls_rls_gb" property="lsRlsGb" jdbcType="VARCHAR" />
+    <result column="sale_cmp" property="saleCmp" jdbcType="VARCHAR" />
+    <result column="vndr_cust_no" property="vndrCustNo" jdbcType="VARCHAR" />
+    <result column="cont_dept" property="contDept" jdbcType="VARCHAR" />
+    <result column="mgt_dept" property="mgtDept" jdbcType="VARCHAR" />
+    <result column="biz_clerk" property="bizClerk" jdbcType="VARCHAR" />
+    <result column="mgt_clerk" property="mgtClerk" jdbcType="VARCHAR" />
+    <result column="agree_req_ymd" property="agreeReqYmd" jdbcType="VARCHAR" />
+    <result column="cont_empno" property="contEmpno" jdbcType="VARCHAR" />
+    <result column="product_yn" property="productYn" jdbcType="VARCHAR" />
+    <result column="auto_agree_gb" property="autoAgreeGb" jdbcType="VARCHAR" />
+    <result column="agree_ymd" property="agreeYmd" jdbcType="VARCHAR" />
+    <result column="ack_rst" property="ackRst" jdbcType="VARCHAR" />
+    <result column="judge_empno" property="judgeEmpno" jdbcType="VARCHAR" />
+    <result column="cost_set_date" property="costSetDate" jdbcType="VARCHAR" />
+    <result column="goods_set_date" property="goodsSetDate" jdbcType="VARCHAR" />
+    <result column="doc_set_date" property="docSetDate" jdbcType="VARCHAR" />
+    <result column="cont_set_ymd" property="contSetYmd" jdbcType="VARCHAR" />
+    <result column="cont_set_empno" property="contSetEmpno" jdbcType="VARCHAR" />
+    <result column="cont_vlt_ymd" property="contVltYmd" jdbcType="VARCHAR" />
+    <result column="mrtg_gb" property="mrtgGb" jdbcType="VARCHAR" />
+    <result column="cont_ymd" property="contYmd" jdbcType="VARCHAR" />
+    <result column="exe_ymd" property="exeYmd" jdbcType="VARCHAR" />
+    <result column="expr_ymd" property="exprYmd" jdbcType="VARCHAR" />
+    <result column="end_ymd" property="endYmd" jdbcType="VARCHAR" />
+    <result column="end_slip_no" property="endSlipNo" jdbcType="VARCHAR" />
+    <result column="end_gb" property="endGb" jdbcType="VARCHAR" />
+    <result column="acct_ymd" property="acctYmd" jdbcType="VARCHAR" />
+    <result column="slip_no" property="slipNo" jdbcType="VARCHAR" />
+    <result column="lmt_mgt_mth" property="lmtMgtMth" jdbcType="VARCHAR" />
+    <result column="dly_rat_cd" property="dlyRatCd" jdbcType="VARCHAR" />
+    <result column="dly_remit_dd" property="dlyRemitDd" jdbcType="NUMERIC" />
+    <result column="pay_cyl" property="payCyl" jdbcType="VARCHAR" />
+    <result column="nxt_pay_ymd" property="nxtPayYmd" jdbcType="VARCHAR" />
+    <result column="lst_dat_yn" property="lstDatYn" jdbcType="VARCHAR" />
+    <result column="repay_mth" property="repayMth" jdbcType="VARCHAR" />
+    <result column="first_ija_calc_mth" property="firstIjaCalcMth" jdbcType="VARCHAR" />
+    <result column="first_ija_amt" property="firstIjaAmt" jdbcType="NUMERIC" />
+    <result column="rcp_mth" property="rcpMth" jdbcType="VARCHAR" />
+    <result column="chrg_asst_yn" property="chrgAsstYn" jdbcType="VARCHAR" />
+    <result column="charge_no" property="chargeNo" jdbcType="VARCHAR" />
+    <result column="pre_def_gb" property="preDefGb" jdbcType="VARCHAR" />
+    <result column="req_snd_yn" property="reqSndYn" jdbcType="VARCHAR" />
+    <result column="equipt_cd" property="equiptCd" jdbcType="VARCHAR" />
+    <result column="assu_sttl_way" property="assuSttlWay" jdbcType="VARCHAR" />
+    <result column="assu_rat" property="assuRat" jdbcType="NUMERIC" />
+    <result column="assrn_amt" property="assrnAmt" jdbcType="NUMERIC" />
+    <result column="assu_setoff_way" property="assuSetoffWay" jdbcType="VARCHAR" />
+    <result column="ass_stff_rat" property="assStffRat" jdbcType="NUMERIC" />
+    <result column="assrn_setoff_amt" property="assrnSetoffAmt" jdbcType="NUMERIC" />
+    <result column="uarv_rtn_rat" property="uarvRtnRat" jdbcType="NUMERIC" />
+    <result column="uarv_pay_amt" property="uarvPayAmt" jdbcType="NUMERIC" />
+    <result column="imp_fee_rat" property="impFeeRat" jdbcType="NUMERIC" />
+    <result column="imp_fee" property="impFee" jdbcType="NUMERIC" />
+    <result column="pay_fee_rat" property="payFeeRat" jdbcType="NUMERIC" />
+    <result column="pay_fee_amt" property="payFeeAmt" jdbcType="NUMERIC" />
+    <result column="obtn_cst" property="obtnCst" jdbcType="NUMERIC" />
+    <result column="std_rat_cd" property="stdRatCd" jdbcType="VARCHAR" />
+    <result column="std_rat" property="stdRat" jdbcType="NUMERIC" />
+    <result column="ftp_cd" property="ftpCd" jdbcType="VARCHAR" />
+    <result column="ftp_rat" property="ftpRat" jdbcType="NUMERIC" />
+    <result column="ftp_adst_rat" property="ftpAdstRat" jdbcType="NUMERIC" />
+    <result column="sbz_day_bef" property="sbzDayBef" jdbcType="NUMERIC" />
+    <result column="trm_calc_way" property="trmCalcWay" jdbcType="VARCHAR" />
+    <result column="min_rat" property="minRat" jdbcType="NUMERIC" />
+    <result column="inhr_rat" property="inhrRat" jdbcType="NUMERIC" />
+    <result column="bfr_irr" property="bfrIrr" jdbcType="NUMERIC" />
+    <result column="aft_irr" property="aftIrr" jdbcType="NUMERIC" />
+    <result column="pr_pt_rat" property="prPtRat" jdbcType="NUMERIC" />
+    <result column="use_rat" property="useRat" jdbcType="NUMERIC" />
+    <result column="biz_ls_pt" property="bizLsPt" jdbcType="NUMERIC" />
+    <result column="earn_amt" property="earnAmt" jdbcType="NUMERIC" />
+    <result column="dsp_lss_prf" property="dspLssPrf" jdbcType="NUMERIC" />
+    <result column="prs_val" property="prsVal" jdbcType="NUMERIC" />
+    <result column="term1_mm" property="term1Mm" jdbcType="NUMERIC" />
+    <result column="term1_dd" property="term1Dd" jdbcType="NUMERIC" />
+    <result column="term1_ww" property="term1Ww" jdbcType="NUMERIC" />
+    <result column="t1_pay_rat" property="t1PayRat" jdbcType="NUMERIC" />
+    <result column="t1_pay_amt" property="t1PayAmt" jdbcType="NUMERIC" />
+    <result column="t1_spread" property="t1Spread" jdbcType="NUMERIC" />
+    <result column="t1_cap_int_amt" property="t1CapIntAmt" jdbcType="NUMERIC" />
+    <result column="t1_car_tax" property="t1CarTax" jdbcType="NUMERIC" />
+    <result column="t1_insu_amt" property="t1InsuAmt" jdbcType="NUMERIC" />
+    <result column="term2_mm" property="term2Mm" jdbcType="NUMERIC" />
+    <result column="t2_pay_rat" property="t2PayRat" jdbcType="NUMERIC" />
+    <result column="t2_pay_amt" property="t2PayAmt" jdbcType="NUMERIC" />
+    <result column="t2_spread" property="t2Spread" jdbcType="NUMERIC" />
+    <result column="t2_cap_int_amt" property="t2CapIntAmt" jdbcType="NUMERIC" />
+    <result column="t2_car_tax" property="t2CarTax" jdbcType="NUMERIC" />
+    <result column="t2_insu_amt" property="t2InsuAmt" jdbcType="NUMERIC" />
+    <result column="term3_mm" property="term3Mm" jdbcType="NUMERIC" />
+    <result column="t3_pay_rat" property="t3PayRat" jdbcType="NUMERIC" />
+    <result column="t3_pay_amt" property="t3PayAmt" jdbcType="NUMERIC" />
+    <result column="t3_spread" property="t3Spread" jdbcType="NUMERIC" />
+    <result column="t3_cap_int_amt" property="t3CapIntAmt" jdbcType="NUMERIC" />
+    <result column="t3_car_tax" property="t3CarTax" jdbcType="NUMERIC" />
+    <result column="t3_insu_amt" property="t3InsuAmt" jdbcType="NUMERIC" />
+    <result column="rls_trm" property="rlsTrm" jdbcType="NUMERIC" />
+    <result column="rls_spr_rat" property="rlsSprRat" jdbcType="NUMERIC" />
+    <result column="rlr_cpin_amt" property="rlrCpinAmt" jdbcType="NUMERIC" />
+    <result column="rls_car_tax" property="rlsCarTax" jdbcType="NUMERIC" />
+    <result column="rls_ins_rat" property="rlsInsRat" jdbcType="NUMERIC" />
+    <result column="sngl_unt_cd" property="snglUntCd" jdbcType="VARCHAR" />
+    <result column="sngl_prc_cd" property="snglPrcCd" jdbcType="VARCHAR" />
+    <result column="stm_amt" property="stmAmt" jdbcType="NUMERIC" />
+    <result column="biz_mth_cd" property="bizMthCd" jdbcType="VARCHAR" />
+    <result column="dlr_cust_no" property="dlrCustNo" jdbcType="VARCHAR" />
+    <result column="dlr_pay_mth" property="dlrPayMth" jdbcType="VARCHAR" />
+    <result column="dlr_inc_rat" property="dlrIncRat" jdbcType="NUMERIC" />
+    <result column="dlr_inc_amt" property="dlrIncAmt" jdbcType="NUMERIC" />
+    <result column="agnt_cust_no" property="agntCustNo" jdbcType="VARCHAR" />
+    <result column="agt_pay_mth" property="agtPayMth" jdbcType="VARCHAR" />
+    <result column="agt_incn_rat" property="agtIncnRat" jdbcType="NUMERIC" />
+    <result column="agt_incn_amt" property="agtIncnAmt" jdbcType="NUMERIC" />
+    <result column="deal_ymd" property="dealYmd" jdbcType="VARCHAR" />
+    <result column="deal_seq" property="dealSeq" jdbcType="VARCHAR" />
+    <result column="grp_yn" property="grpYn" jdbcType="VARCHAR" />
+    <result column="cls_obj_std" property="clsObjStd" jdbcType="VARCHAR" />
+    <result column="app_crr_rat" property="appCrrRat" jdbcType="NUMERIC" />
+    <result column="rv_incl_mth" property="rvInclMth" jdbcType="VARCHAR" />
+    <result column="sil_rat_app_cd" property="silRatAppCd" jdbcType="VARCHAR" />
+    <result column="fr_fix_mm" property="frFixMm" jdbcType="NUMERIC" />
+    <result column="liq_term" property="liqTerm" jdbcType="NUMERIC" />
+    <result column="add_rat" property="addRat" jdbcType="NUMERIC" />
+    <result column="prpy_yn" property="prpyYn" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="doc_no" property="docNo" jdbcType="VARCHAR" />
+    <result column="vir_accnt_no" property="virAccntNo" jdbcType="VARCHAR" />
+    <result column="settle_day" property="settleDay" jdbcType="VARCHAR" />
+    <result column="rslt_dept" property="rsltDept" jdbcType="VARCHAR" />
+    <result column="rslt_clerk" property="rsltClerk" jdbcType="VARCHAR" />
+    <result column="rslt_amt1" property="rsltAmt1" jdbcType="NUMERIC" />
+    <result column="rslt_ymd1" property="rsltYmd1" jdbcType="VARCHAR" />
+    <result column="rslt_amt2" property="rsltAmt2" jdbcType="NUMERIC" />
+    <result column="rslt_ymd2" property="rsltYmd2" jdbcType="VARCHAR" />
+    <result column="rslt_amt3" property="rsltAmt3" jdbcType="NUMERIC" />
+    <result column="rslt_ymd3" property="rsltYmd3" jdbcType="VARCHAR" />
+    <result column="remark1" property="remark1" jdbcType="VARCHAR" />
+    <result column="remark2" property="remark2" jdbcType="VARCHAR" />
+    <result column="send_mth" property="sendMth" jdbcType="VARCHAR" />
+    <result column="chg_mth" property="chgMth" jdbcType="VARCHAR" />
+    <result column="expd_amt" property="expdAmt" jdbcType="NUMERIC" />
+    <result column="cnv_amt" property="cnvAmt" jdbcType="NUMERIC" />
+    <result column="notarial_fee" property="notarialFee" jdbcType="NUMERIC" />
+    <result column="pnt_prc_msg" property="pntPrcMsg" jdbcType="VARCHAR" />
+    <result column="exe_gb" property="exeGb" jdbcType="VARCHAR" />
+    <result column="cntr_trm" property="cntrTrm" jdbcType="NUMERIC" />
+    <result column="cont_end_ymd" property="contEndYmd" jdbcType="VARCHAR" />
+    <result column="cls_ymd" property="clsYmd" jdbcType="VARCHAR" />
+    <result column="cls_why" property="clsWhy" jdbcType="VARCHAR" />
+    <result column="mngr_cust_no" property="mngrCustNo" jdbcType="VARCHAR" />
+    <result column="lst_exe_yn" property="lstExeYn" jdbcType="VARCHAR" />
+    <result column="rent_frm" property="rentFrm" jdbcType="VARCHAR" />
+    <result column="dc_dd_cnt" property="dcDdCnt" jdbcType="NUMERIC" />
+    <result column="sttl_mth" property="sttlMth" jdbcType="VARCHAR" />
+    <result column="buy_amt" property="buyAmt" jdbcType="NUMERIC" />
+    <result column="sale_amt1" property="saleAmt1" jdbcType="NUMERIC" />
+    <result column="fee_cust_no" property="feeCustNo" jdbcType="VARCHAR" />
+    <result column="notarial_pay_subj" property="notarialPaySubj" jdbcType="VARCHAR" />
+    <result column="stm_pay_subj" property="stmPaySubj" jdbcType="VARCHAR" />
+    <result column="re_fix_ymd" property="reFixYmd" jdbcType="VARCHAR" />
+    <result column="lst_mrepay_ymd" property="lstMrepayYmd" jdbcType="VARCHAR" />
+    <result column="exe_no" property="exeNo" jdbcType="VARCHAR" />
+    <result column="jdg_seq" property="jdgSeq" jdbcType="VARCHAR" />
+    <result column="car_tax_reqyn" property="carTaxReqyn" jdbcType="VARCHAR" />
+    <result column="thpy_insu_amt" property="thpyInsuAmt" jdbcType="NUMERIC" />
+    <result column="rtl_calc_mth" property="rtlCalcMth" jdbcType="VARCHAR" />
+    <result column="ins_empno" property="insEmpno" jdbcType="VARCHAR" />
+    <result column="ins_dt" property="insDt" jdbcType="DATE" />
+    <result column="lst_udt_empno" property="lstUdtEmpno" jdbcType="VARCHAR" />
+    <result column="lst_udt_dt" property="lstUdtDt" jdbcType="DATE" />
+    <result column="escape_fee" property="escapeFee" jdbcType="NUMERIC" />
+    <result column="fee_cd" property="feeCd" jdbcType="VARCHAR" />
+    <result column="debt_style" property="debtStyle" jdbcType="VARCHAR" />
+    <result column="uarv_rtn_rat2" property="uarvRtnRat2" jdbcType="NUMERIC" />
+    <result column="uarv_pay_amt2" property="uarvPayAmt2" jdbcType="NUMERIC" />
+    <result column="return_amt" property="returnAmt" jdbcType="NUMERIC" />
+    <result column="return_ymd" property="returnYmd" jdbcType="VARCHAR" />
+    <result column="per_pay_yn" property="perPayYn" jdbcType="VARCHAR" />
+    <result column="per_pay_ymd1" property="perPayYmd1" jdbcType="VARCHAR" />
+    <result column="per_pay_ymd2" property="perPayYmd2" jdbcType="VARCHAR" />
+    <result column="per_pay_ymd3" property="perPayYmd3" jdbcType="VARCHAR" />
+    <result column="per_pay_ymd4" property="perPayYmd4" jdbcType="VARCHAR" />
+    <result column="per_pay_amt" property="perPayAmt" jdbcType="NUMERIC" />
+    <result column="per_pay_amt1" property="perPayAmt1" jdbcType="NUMERIC" />
+    <result column="per_pay_amt2" property="perPayAmt2" jdbcType="NUMERIC" />
+    <result column="per_pay_amt3" property="perPayAmt3" jdbcType="NUMERIC" />
+    <result column="per_pay_amt4" property="perPayAmt4" jdbcType="NUMERIC" />
+    <result column="imp_fee1_cd" property="impFee1Cd" jdbcType="VARCHAR" />
+    <result column="imp_fee2_cd" property="impFee2Cd" jdbcType="VARCHAR" />
+    <result column="imp_fee3_cd" property="impFee3Cd" jdbcType="VARCHAR" />
+    <result column="imp_fee4_cd" property="impFee4Cd" jdbcType="VARCHAR" />
+    <result column="imp_fee_1" property="impFee1" jdbcType="NUMERIC" />
+    <result column="imp_fee_2" property="impFee2" jdbcType="NUMERIC" />
+    <result column="imp_fee_3" property="impFee3" jdbcType="NUMERIC" />
+    <result column="imp_fee_4" property="impFee4" jdbcType="NUMERIC" />
+    <result column="imp_fee_yn" property="impFeeYn" jdbcType="VARCHAR" />
+    <result column="agt_assrn_rat" property="agtAssrnRat" jdbcType="NUMERIC" />
+    <result column="agt_assrn_amt" property="agtAssrnAmt" jdbcType="NUMERIC" />
+    <result column="s_loan_mgt_no" property="sLoanMgtNo" jdbcType="VARCHAR" />
+    <result column="agnt_cntrt_no" property="agntCntrtNo" jdbcType="VARCHAR" />
+    <result column="agnt_ext_cnt" property="agntExtCnt" jdbcType="VARCHAR" />
+    <result column="ext_gb" property="extGb" jdbcType="VARCHAR" />
+    <result column="real_user" property="realUser" jdbcType="VARCHAR" />
+    <result column="rent_txt" property="rentTxt" jdbcType="VARCHAR" />
+    <result column="en_indust_form0" property="enIndustForm0" jdbcType="VARCHAR" />
+    <result column="en_indust_txt" property="enIndustTxt" jdbcType="VARCHAR" />
+    <result column="indust_addr" property="industAddr" jdbcType="VARCHAR" />
+    <result column="nolocal_yn" property="nolocalYn" jdbcType="VARCHAR" />
+    <result column="indust_month" property="industMonth" jdbcType="VARCHAR" />
+    <result column="indust_income" property="industIncome" jdbcType="NUMERIC" />
+    <result column="indust_account" property="industAccount" jdbcType="VARCHAR" />
+    <result column="idea" property="idea" jdbcType="VARCHAR" />
+    <result column="sys_level" property="sysLevel" jdbcType="VARCHAR" />
+    <result column="sys_result" property="sysResult" jdbcType="VARCHAR" />
+    <result column="final_status" property="finalStatus" jdbcType="VARCHAR" />
+    <result column="seq_no" property="seqNo" jdbcType="VARCHAR" />
+    <result column="apply_no" property="applyNo" jdbcType="VARCHAR" />
+    <result column="en_indust_form1" property="enIndustForm1" jdbcType="VARCHAR" />
+    <result column="en_indust_form2" property="enIndustForm2" jdbcType="VARCHAR" />
+    <result column="en_indust_form3" property="enIndustForm3" jdbcType="VARCHAR" />
+    <result column="en_indust_form4" property="enIndustForm4" jdbcType="VARCHAR" />
+    <result column="en_indust_form5" property="enIndustForm5" jdbcType="VARCHAR" />
+    <result column="en_indust_form6" property="enIndustForm6" jdbcType="VARCHAR" />
+    <result column="en_indust_form7" property="enIndustForm7" jdbcType="VARCHAR" />
+    <result column="std_rat_cd_add" property="stdRatCdAdd" jdbcType="VARCHAR" />
+    <result column="pay_cyl_type" property="payCylType" jdbcType="VARCHAR" />
+    <result column="rls_pay_rat" property="rlsPayRat" jdbcType="NUMERIC" />
+    <result column="rls_pay_amt" property="rlsPayAmt" jdbcType="NUMERIC" />
+    <result column="t1_app_rat" property="t1AppRat" jdbcType="NUMERIC" />
+    <result column="t2_app_rat" property="t2AppRat" jdbcType="NUMERIC" />
+    <result column="t3_app_rat" property="t3AppRat" jdbcType="NUMERIC" />
+    <result column="rls_app_rat" property="rlsAppRat" jdbcType="NUMERIC" />
+    <result column="agnt_cust_nm" property="agntCustNm" jdbcType="VARCHAR" />
+    <result column="finally_no" property="finallyNo" jdbcType="VARCHAR" />
+    <result column="calc_way" property="calcWay" jdbcType="VARCHAR" />
+    <result column="close_state" property="closeState" jdbcType="VARCHAR" />
+    <result column="synd_cust_no" property="syndCustNo" jdbcType="VARCHAR" />
+    <result column="synd_cust_cnt" property="syndCustCnt" jdbcType="VARCHAR" />
+    <result column="sort_no" property="sortNo" jdbcType="VARCHAR" />
+    <result column="imp_fee1_cd_rat" property="impFee1CdRat" jdbcType="NUMERIC" />
+    <result column="imp_fee2_cd_rat" property="impFee2CdRat" jdbcType="NUMERIC" />
+    <result column="cntrt_empno" property="cntrtEmpno" jdbcType="VARCHAR" />
+    <result column="cntrt_ins_dt" property="cntrtInsDt" jdbcType="DATE" />
+    <result column="obtn_cst_net_amt" property="obtnCstNetAmt" jdbcType="NUMERIC" />
+    <result column="obtn_cst_vat_amt" property="obtnCstVatAmt" jdbcType="NUMERIC" />
+    <result column="imp_fee_net_amt" property="impFeeNetAmt" jdbcType="NUMERIC" />
+    <result column="imp_fee_vat_amt" property="impFeeVatAmt" jdbcType="NUMERIC" />
+    <result column="pak_info" property="pakInfo" jdbcType="VARCHAR" />
+    <result column="insur_yn" property="insurYn" jdbcType="VARCHAR" />
+    <result column="insur_rat" property="insurRat" jdbcType="VARCHAR" />
+    <result column="insur_fee" property="insurFee" jdbcType="NUMERIC" />
+    <result column="cntrt_type" property="cntrtType" jdbcType="VARCHAR" />
+    <result column="sunshidanbao_yn" property="sunshidanbaoYn" jdbcType="VARCHAR" />
+    <result column="dc_cssh_installment_type" property="dcCsshInstallmentType" jdbcType="VARCHAR" />
+    <result column="dc_cssh_installment_rate" property="dcCsshInstallmentRate" jdbcType="NUMERIC" />
+    <result column="dc_cssh_installment_amt" property="dcCsshInstallmentAmt" jdbcType="NUMERIC" />
+    <result column="dc_cssh_installment_mm" property="dcCsshInstallmentMm" jdbcType="NUMERIC" />
+    <result column="installment_rat_cd" property="installmentRatCd" jdbcType="VARCHAR" />
+    <result column="installment_rat" property="installmentRat" jdbcType="NUMERIC" />
+    <result column="installment_rat_cd_add" property="installmentRatCdAdd" jdbcType="VARCHAR" />
+    <result column="trade_type" property="tradeType" jdbcType="VARCHAR" />
+    <result column="fix_rent_amt" property="fixRentAmt" jdbcType="NUMERIC" />
+    <result column="rent_assrn_amt" property="rentAssrnAmt" jdbcType="NUMERIC" />
+    <result column="sms_send_yn" property="smsSendYn" jdbcType="VARCHAR" />
+    <result column="dcs_no" property="dcsNo" jdbcType="VARCHAR" />
+    <result column="dc_cssh_amt_ze" property="dcCsshAmtZe" jdbcType="NUMERIC" />
+    <result column="pay_int_ze" property="payIntZe" jdbcType="NUMERIC" />
+    <result column="goods_cd_2" property="goodsCd2" jdbcType="VARCHAR" />
+    <result column="advances_yn" property="advancesYn" jdbcType="VARCHAR" />
+    <result column="advances_amt" property="advancesAmt" jdbcType="NUMERIC" />
+    <result column="dir_imp_fee_yn" property="dirImpFeeYn" jdbcType="VARCHAR" />
+    <result column="dir_imp_fee_sub_yn" property="dirImpFeeSubYn" jdbcType="VARCHAR" />
+    <result column="dir_imp_fee_rat" property="dirImpFeeRat" jdbcType="NUMERIC" />
+    <result column="dir_imp_fee_amt" property="dirImpFeeAmt" jdbcType="NUMERIC" />
+    <result column="cap_mon_yn" property="capMonYn" jdbcType="VARCHAR" />
+    <result column="cap_mon_amt" property="capMonAmt" jdbcType="NUMERIC" />
+    <result column="delay_mm" property="delayMm" jdbcType="NUMERIC" />
+    <result column="delay_rat" property="delayRat" jdbcType="NUMERIC" />
+    <result column="auth_ver_type" property="authVerType" jdbcType="VARCHAR" />
+    <result column="schedule_change_cd" property="scheduleChangeCd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+      firm_cd, cntrt_no, ext_cnt,
+      goods_cd, cont_frm, acct_proc,
+      cust_no, req_cust_no, req_clerk,
+      juso_gb, use_clerk, ls_rls_gb,
+      sale_cmp, vndr_cust_no, cont_dept,
+      mgt_dept, biz_clerk, mgt_clerk,
+      agree_req_ymd, cont_empno, product_yn,
+      auto_agree_gb, agree_ymd, ack_rst,
+      judge_empno, cost_set_date, goods_set_date,
+      doc_set_date, cont_set_ymd, cont_set_empno,
+      cont_vlt_ymd, mrtg_gb, cont_ymd,
+      exe_ymd, expr_ymd, end_ymd,
+      end_slip_no, end_gb, acct_ymd,
+      slip_no, lmt_mgt_mth, dly_rat_cd,
+      dly_remit_dd, pay_cyl, nxt_pay_ymd,
+      lst_dat_yn, repay_mth, first_ija_calc_mth,
+      first_ija_amt, rcp_mth, chrg_asst_yn,
+      charge_no, pre_def_gb, req_snd_yn,
+      equipt_cd, assu_sttl_way, assu_rat,
+      assrn_amt, assu_setoff_way, ass_stff_rat,
+      assrn_setoff_amt, uarv_rtn_rat, uarv_pay_amt,
+      imp_fee_rat, imp_fee, pay_fee_rat,
+      pay_fee_amt, obtn_cst, std_rat_cd,
+      std_rat, ftp_cd, ftp_rat,
+      ftp_adst_rat, sbz_day_bef, trm_calc_way,
+      min_rat, inhr_rat, bfr_irr,
+      aft_irr, pr_pt_rat, use_rat,
+      biz_ls_pt, earn_amt, dsp_lss_prf,
+      prs_val, term1_mm, term1_dd,
+      term1_ww, t1_pay_rat, t1_pay_amt,
+      t1_spread, t1_cap_int_amt, t1_car_tax,
+      t1_insu_amt, term2_mm, t2_pay_rat,
+      t2_pay_amt, t2_spread, t2_cap_int_amt,
+      t2_car_tax, t2_insu_amt, term3_mm,
+      t3_pay_rat, t3_pay_amt, t3_spread,
+      t3_cap_int_amt, t3_car_tax, t3_insu_amt,
+      rls_trm, rls_spr_rat, rlr_cpin_amt,
+      rls_car_tax, rls_ins_rat, sngl_unt_cd,
+      sngl_prc_cd, stm_amt, biz_mth_cd,
+      dlr_cust_no, dlr_pay_mth, dlr_inc_rat,
+      dlr_inc_amt, agnt_cust_no, agt_pay_mth,
+      agt_incn_rat, agt_incn_amt, deal_ymd,
+      deal_seq, grp_yn, cls_obj_std,
+      app_crr_rat, rv_incl_mth, sil_rat_app_cd,
+      fr_fix_mm, liq_term, add_rat,
+      prpy_yn, status, doc_no,
+      vir_accnt_no, settle_day, rslt_dept,
+      rslt_clerk, rslt_amt1, rslt_ymd1,
+      rslt_amt2, rslt_ymd2, rslt_amt3,
+      rslt_ymd3, remark1, remark2,
+      send_mth, chg_mth, expd_amt,
+      cnv_amt, notarial_fee, pnt_prc_msg,
+      exe_gb, cntr_trm, cont_end_ymd,
+      cls_ymd, cls_why, mngr_cust_no,
+      lst_exe_yn, rent_frm, dc_dd_cnt,
+      sttl_mth, buy_amt, sale_amt1,
+      fee_cust_no, notarial_pay_subj, stm_pay_subj,
+      re_fix_ymd, lst_mrepay_ymd, exe_no,
+      jdg_seq, car_tax_reqyn, thpy_insu_amt,
+      rtl_calc_mth, ins_empno, ins_dt,
+      lst_udt_empno, lst_udt_dt, escape_fee,
+      fee_cd, debt_style, uarv_rtn_rat2,
+      uarv_pay_amt2, return_amt, return_ymd,
+      per_pay_yn, per_pay_ymd1, per_pay_ymd2,
+      per_pay_ymd3, per_pay_ymd4, per_pay_amt,
+      per_pay_amt1, per_pay_amt2, per_pay_amt3,
+      per_pay_amt4, imp_fee1_cd, imp_fee2_cd,
+      imp_fee3_cd, imp_fee4_cd, imp_fee_1,
+      imp_fee_2, imp_fee_3, imp_fee_4,
+      imp_fee_yn, agt_assrn_rat, agt_assrn_amt,
+      s_loan_mgt_no, agnt_cntrt_no, agnt_ext_cnt,
+      ext_gb, real_user, rent_txt,
+      en_indust_form0, en_indust_txt, indust_addr,
+      nolocal_yn, indust_month, indust_income,
+      indust_account, idea, sys_level,
+      sys_result, final_status, seq_no,
+      apply_no, en_indust_form1, en_indust_form2,
+      en_indust_form3, en_indust_form4, en_indust_form5,
+      en_indust_form6, en_indust_form7, std_rat_cd_add,
+      pay_cyl_type, rls_pay_rat, rls_pay_amt,
+      t1_app_rat, t2_app_rat, t3_app_rat,
+      rls_app_rat, agnt_cust_nm, finally_no,
+      calc_way, close_state, synd_cust_no,
+      synd_cust_cnt, sort_no, imp_fee1_cd_rat,
+      imp_fee2_cd_rat, cntrt_empno, cntrt_ins_dt,
+      obtn_cst_net_amt, obtn_cst_vat_amt, imp_fee_net_amt,
+      imp_fee_vat_amt, pak_info, insur_yn,
+      insur_rat, insur_fee, cntrt_type,
+      sunshidanbao_yn, dc_cssh_installment_type,
+      dc_cssh_installment_rate, dc_cssh_installment_amt,
+      dc_cssh_installment_mm, installment_rat_cd,
+      installment_rat, installment_rat_cd_add, trade_type,
+      fix_rent_amt, rent_assrn_amt, sms_send_yn,
+      dcs_no, dc_cssh_amt_ze, pay_int_ze,
+      goods_cd_2, advances_yn, advances_amt,
+      dir_imp_fee_yn, dir_imp_fee_sub_yn, dir_imp_fee_rat,
+      dir_imp_fee_amt, cap_mon_yn, cap_mon_amt,
+      delay_mm, delay_rat, auth_ver_type,
+      schedule_change_cd
+  </sql>
+  <select id="queryDataByContractNO" resultMap="BaseResultMap" parameterType="com.foryou.tax.pojo.contract.ContractInfoPojo">
+    select DISTINCT
+    <include refid="Base_Column_List" />
+    from contract_info
+    where cntrt_no = #{cntrtNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryMaxContract" resultType="java.util.Map">
+    select concat(SUBSTR(date_format(now(), '%Y%m%d'), 1, 1),
+			SUBSTR(date_format(now(), '%Y%m%d'), 3, 2),
+			'EX',
+			'1',
+			trim(ifnull(max(SUBSTR(cntrt_no, 7, 5)), 0) + 1)
+			) as max_cntrt_no
+    from contract_info
+  </select>
+
+  <select id="queryData" resultMap="BaseResultMap">
+    select DISTINCT
+        cntrt_no
+    from contract_info
+    where ext_cnt = '0001'
+  </select>
+</mapper>

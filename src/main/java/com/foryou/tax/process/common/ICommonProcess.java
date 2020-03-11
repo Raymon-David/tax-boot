@@ -1,6 +1,7 @@
 package com.foryou.tax.process.common;
 
 import com.foryou.tax.api.bean.ErrorBean;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import java.util.Map;
  * @date ：Created in 2020/3/10
  * @description : process顶级接口，定义部分方法和常量
  */
+@Service
 public interface ICommonProcess {
     /**
      * 默认编码方式

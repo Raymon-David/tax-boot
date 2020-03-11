@@ -72,9 +72,9 @@ public class CodeGeneration {
         pc.setController("controller");
         pc.setService("service");
         pc.setServiceImpl("service.impl");
-        pc.setMapper("dao");
+        pc.setMapper("com/foryou/tax/dao");
         pc.setEntity("pojo");
-        pc.setXml("dao");
+        pc.setXml("com/foryou/tax/dao");
         mpg.setPackageInfo(pc);
 
         // 执行生成
