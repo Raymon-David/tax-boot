@@ -1,4 +1,4 @@
-package com.foryou.tax.dao;
+package com.foryou.tax.dao.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.BaseMapper;

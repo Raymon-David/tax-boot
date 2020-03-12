@@ -13,7 +13,7 @@ public class PatternUtil {
     /**
      * 参数值注入验证正则
      */
-    private static String regexStr = new String();
+    private static String regexStr = "";
     static{
         StringBuilder sb = new StringBuilder();
         sb.append(".*[A|a][L|l][E|e][R|r][T|t]\\s*\\(.*\\).*").append(";;");

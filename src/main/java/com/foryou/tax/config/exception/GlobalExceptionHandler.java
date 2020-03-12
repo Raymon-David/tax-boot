@@ -3,7 +3,7 @@ package com.foryou.tax.config.exception;
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.util.CommonUtil;
 import com.foryou.tax.util.LoggerUtils;
-import com.foryou.tax.util.constants.ErrorEnum;
+import com.foryou.tax.api.constant.ErrorEnum;
 import org.apache.shiro.authz.UnauthenticatedException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;

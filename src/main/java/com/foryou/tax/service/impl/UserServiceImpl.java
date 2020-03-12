@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.dao.UserDao;
 import com.foryou.tax.service.UserService;
 import com.foryou.tax.util.CommonUtil;
-import com.foryou.tax.util.constants.ErrorEnum;
+import com.foryou.tax.api.constant.ErrorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

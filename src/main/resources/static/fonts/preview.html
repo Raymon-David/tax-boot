@@ -1365,20 +1365,20 @@
         items[i].addEventListener('click', function(){
           selectText(this.querySelector('code'))
         }, false);
-      })
+      });
       
-      var sizes = document.querySelector('.js-size')
+      var sizes = document.querySelector('.js-size');
       
       function setSize (e) {
-        var iconsWrapper = document.getElementById('icons-preview')
+        var iconsWrapper = document.getElementById('icons-preview');
         iconsWrapper.className = e.target.value
       }
-      sizes.addEventListener('change', setSize, false)
+      sizes.addEventListener('change', setSize, false);
       
       var unicodes = document.querySelectorAll('.js-unicode');
       [].slice.call(unicodes).forEach(function(elem, i){
-        var codeValue = elem.textContent || elem.innerText
-        console.log(String.fromCodePoint(parseInt(codeValue, 16)))
+        var codeValue = elem.textContent || elem.innerText;
+        console.log(String.fromCodePoint(parseInt(codeValue, 16)));
         elem.innerHTML = String.fromCodePoint(parseInt(codeValue, 16))
       })
       

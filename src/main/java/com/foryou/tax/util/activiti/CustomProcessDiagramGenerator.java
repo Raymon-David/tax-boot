@@ -328,8 +328,8 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 				}
 				List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(artifact.getId());
 				graphicInfoList = connectionPerfectionizer(processDiagramCanvas, bpmnModel, sourceElement, targetElement, graphicInfoList);
-				int xPoints[] = new int[graphicInfoList.size()];
-				int yPoints[] = new int[graphicInfoList.size()];
+				int[] xPoints = new int[graphicInfoList.size()];
+				int[] yPoints = new int[graphicInfoList.size()];
 				for (int i = 1; i < graphicInfoList.size(); i++) {
 					GraphicInfo graphicInfo = graphicInfoList.get(i);
 					GraphicInfo previousGraphicInfo = graphicInfoList.get(i - 1);
@@ -364,20 +364,20 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 	}
 	
 	public InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities) {
-		return generateDiagram(bpmnModel, imageType, highLightedActivities, Collections.<String> emptyList());
+		return generateDiagram(bpmnModel, imageType, highLightedActivities, Collections.emptyList());
 	}
 	
 	public InputStream generateDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, double scaleFactor) {
-		return generateDiagram(bpmnModel, imageType, highLightedActivities, Collections.<String> emptyList(), scaleFactor);
+		return generateDiagram(bpmnModel, imageType, highLightedActivities, Collections.emptyList(), scaleFactor);
 	}
 	
 	public InputStream generateDiagram(BpmnModel bpmnModel, String imageType, String activityFontName, String labelFontName, ClassLoader customClassLoader) {
-		return generateDiagram(bpmnModel, imageType, Collections.<String> emptyList(), Collections.<String> emptyList(), activityFontName, labelFontName, customClassLoader, 1.0);
+		return generateDiagram(bpmnModel, imageType, Collections.emptyList(), Collections.emptyList(), activityFontName, labelFontName, customClassLoader, 1.0);
 	}
 	
 	public InputStream generateDiagram(BpmnModel bpmnModel, String imageType, String activityFontName, String labelFontName, ClassLoader customClassLoader, double scaleFactor) {
 		
-		return generateDiagram(bpmnModel, imageType, Collections.<String> emptyList(), Collections.<String> emptyList(), activityFontName, labelFontName, customClassLoader,
+		return generateDiagram(bpmnModel, imageType, Collections.emptyList(), Collections.emptyList(), activityFontName, labelFontName, customClassLoader,
 				scaleFactor);
 	}
 	
@@ -386,7 +386,7 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 	}
 	
 	public InputStream generatePngDiagram(BpmnModel bpmnModel, double scaleFactor) {
-		return generateDiagram(bpmnModel, "png", Collections.<String> emptyList(), Collections.<String> emptyList(), scaleFactor);
+		return generateDiagram(bpmnModel, "png", Collections.emptyList(), Collections.emptyList(), scaleFactor);
 	}
 	
 	public InputStream generateJpgDiagram(BpmnModel bpmnModel) {
@@ -394,7 +394,7 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 	}
 	
 	public InputStream generateJpgDiagram(BpmnModel bpmnModel, double scaleFactor) {
-		return generateDiagram(bpmnModel, "jpg", Collections.<String> emptyList(), Collections.<String> emptyList());
+		return generateDiagram(bpmnModel, "jpg", Collections.emptyList(), Collections.emptyList());
 	}
 	
 	public BufferedImage generateImage(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, List<String> highLightedFlows, String activityFontName,
@@ -410,7 +410,7 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 	}
 	
 	public BufferedImage generatePngImage(BpmnModel bpmnModel, double scaleFactor) {
-		return generateImage(bpmnModel, "png", Collections.<String> emptyList(), Collections.<String> emptyList(), scaleFactor);
+		return generateImage(bpmnModel, "png", Collections.emptyList(), Collections.emptyList(), scaleFactor);
 	}
 	
 	protected CustomProcessDiagramCanvas generateProcessDiagram(BpmnModel bpmnModel, String imageType, List<String> highLightedActivities, List<String> highLightedFlows,
@@ -510,8 +510,8 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 			List<GraphicInfo> graphicInfoList = bpmnModel.getFlowLocationGraphicInfo(sequenceFlow.getId());
 			if (graphicInfoList != null && graphicInfoList.size() > 0) {
 				graphicInfoList = connectionPerfectionizer(processDiagramCanvas, bpmnModel, sourceElement, targetElement, graphicInfoList);
-				int xPoints[] = new int[graphicInfoList.size()];
-				int yPoints[] = new int[graphicInfoList.size()];
+				int[] xPoints = new int[graphicInfoList.size()];
+				int[] yPoints = new int[graphicInfoList.size()];
 				
 				for (int i = 1; i < graphicInfoList.size(); i++) {
 					GraphicInfo graphicInfo = graphicInfoList.get(i);
@@ -591,8 +591,8 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 	protected static GraphicInfo getLineCenter(List<GraphicInfo> graphicInfoList) {
 		GraphicInfo gi = new GraphicInfo();
 		
-		int xPoints[] = new int[graphicInfoList.size()];
-		int yPoints[] = new int[graphicInfoList.size()];
+		int[] xPoints = new int[graphicInfoList.size()];
+		int[] yPoints = new int[graphicInfoList.size()];
 		
 		double length = 0;
 		double[] lengths = new double[graphicInfoList.size()];
@@ -858,14 +858,14 @@ public class CustomProcessDiagramGenerator implements ProcessDiagramGenerator {
 	@Override
 	public InputStream generateDiagram(BpmnModel bpmnModel, String imageType, String activityFontName, String labelFontName, String annotationFontName,
 			ClassLoader customClassLoader) {
-		return generateDiagram(bpmnModel, imageType, Collections.<String> emptyList(), Collections.<String> emptyList(), activityFontName, labelFontName, customClassLoader, 1.0);
+		return generateDiagram(bpmnModel, imageType, Collections.emptyList(), Collections.emptyList(), activityFontName, labelFontName, customClassLoader, 1.0);
 	}
 	
 	@Override
 	public InputStream generateDiagram(BpmnModel bpmnModel, String imageType, String activityFontName, String labelFontName, String annotationFontName,
 			ClassLoader customClassLoader, double scaleFactor) {
 		// TODO Auto-generated method stub
-		return generateDiagram(bpmnModel, imageType, Collections.<String> emptyList(), Collections.<String> emptyList(), activityFontName, labelFontName, customClassLoader,
+		return generateDiagram(bpmnModel, imageType, Collections.emptyList(), Collections.emptyList(), activityFontName, labelFontName, customClassLoader,
 				scaleFactor);
 	}
 	

@@ -58,7 +58,7 @@ public class CodeGeneration {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude(new String[] { "sys_role" });
+        strategy.setInclude("sys_role");
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);

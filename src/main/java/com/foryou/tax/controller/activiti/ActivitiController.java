@@ -1,4 +1,4 @@
-package com.foryou.tax.controller;
+package com.foryou.tax.controller.activiti;
 
 import com.foryou.tax.pojo.activiti.ProcessPojo;
 import com.foryou.tax.util.DateUtil;
@@ -30,7 +30,7 @@ import java.util.Map;
  * @version: 1.0$
  */
 @RestController
-public class ProcessController {
+public class ActivitiController {
 
     @Autowired
     private RuntimeService runtimeService;

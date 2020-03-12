@@ -5,9 +5,9 @@ import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.dao.contract.ContractInfoPojoMapper;
 import com.foryou.tax.pojo.contract.ContractInfoPojo;
 import com.foryou.tax.service.contract.ContractService;
+import com.foryou.tax.service.redis.RedisService;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class ContractServiceImpl implements ContractService {
     private ContractInfoPojoMapper mapper;
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisService redisService;
 
     @Override
     public ContractInfoPojo queryContractInfoByContractNO(ContractInfoPojo record) {
@@ -38,12 +38,12 @@ public class ContractServiceImpl implements ContractService {
 
         ContractInfoPojo contractInfo = null;
 
-        if(redisTemplate.opsForValue().get("queryContractInfoByRedis") != null){
-            String str = JSON.toJSONString(redisTemplate.opsForValue().get("queryContractInfoByRedis"));
+        if(redisService.get("queryContractInfoByRedis") != null){
+            String str = JSON.toJSONString(redisService.get("queryContractInfoByRedis"));
             JSONObject userJson = JSONObject.parseObject(str);
             contractInfo = JSON.toJavaObject(userJson, ContractInfoPojo.class);
         }else{
-            redisTemplate.opsForValue().set("queryContractInfoByRedis", mapper.queryData());
+            redisService.putValue("queryContractInfoByRedis", mapper.queryData(), 3000);
             List<ContractInfoPojo> ll = mapper.queryData();
         }
 

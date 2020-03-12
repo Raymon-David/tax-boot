@@ -1,9 +1,9 @@
 package com.foryou.tax.config.shiro;
 
 import com.alibaba.fastjson.JSONObject;
-import com.foryou.tax.service.LoginService;
+import com.foryou.tax.api.constant.Constants;
+import com.foryou.tax.service.user.LoginService;
 import com.foryou.tax.util.LoggerUtils;
-import com.foryou.tax.util.constants.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

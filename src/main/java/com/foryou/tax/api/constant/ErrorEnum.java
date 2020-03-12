@@ -1,4 +1,4 @@
-package com.foryou.tax.util.constants;
+package com.foryou.tax.api.constant;
 
 /**
  * @author: raymon

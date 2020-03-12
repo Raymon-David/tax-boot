@@ -342,7 +342,7 @@ public class StringUtils {
      */
     public static boolean isDigit2(String strNum) {
         Pattern pattern = Pattern.compile("[0-9]{1,}");
-        Matcher matcher = pattern.matcher((CharSequence) strNum);
+        Matcher matcher = pattern.matcher(strNum);
         return matcher.matches();
     }
 
@@ -527,11 +527,9 @@ public class StringUtils {
             return true;
         }
 
-        if (!(str.startsWith("139") || str.startsWith("138")
+        return str.startsWith("139") || str.startsWith("138")
                 || str.startsWith("137") || str.startsWith("136") || str
-                .startsWith("135")))
-            return false;
-        return true;
+                .startsWith("135");
     }
 
     public static boolean validateMobile(String str) {
@@ -605,7 +603,7 @@ public class StringUtils {
      */
     public static String GBToUTF8(String s) {
         try {
-            StringBuffer out = new StringBuffer("");
+            StringBuffer out = new StringBuffer();
             byte[] bytes = s.getBytes("unicode");
             for (int i = 2; i < bytes.length - 1; i += 2) {
                 out.append("\\u");
@@ -957,7 +955,7 @@ public class StringUtils {
      * @return
      */
     public static String htmlEncode(String value) {
-        String re[][] = { { "<", "&lt;" }, { ">", "&gt;" }, { "\"", "&quot;" },
+        String[][] re = { { "<", "&lt;" }, { ">", "&gt;" }, { "\"", "&quot;" },
                 { "\\′", "&acute;" }, { "&", "&amp;" } };
 
         for (int i = 0; i < 4; i++) {
@@ -974,7 +972,7 @@ public class StringUtils {
      */
     public static boolean sql_inj(String str) {
         String inj_str = "'|and|exec|insert|select|delete|update|count|*|%|chr|mid|master|truncate|char|declare|;|or|-|+|,";
-        String inj_stra[] = inj_str.split("|");
+        String[] inj_stra = inj_str.split("|");
         for (int i = 0; i < inj_stra.length; i++) {
             if (str.indexOf(inj_stra[i]) >= 0) {
                 return true;
@@ -1152,7 +1150,7 @@ public class StringUtils {
         }
         Set<? extends Object> keys = map.keySet();
         for (Object key : keys ) {
-            result += ((String)key + "=" + (String)map.get(key) + "&");
+            result += (key + "=" + map.get(key) + "&");
         }
 
         return isBlank(result) ? result : result.substring(0,result.length() - 1);
@@ -1169,7 +1167,7 @@ public class StringUtils {
         args = args.trim();
         //如果是?开头,把?去掉
         if(args.startsWith("?")){
-            args = args.substring(1,args.length());
+            args = args.substring(1);
         }
         String[] argsArray = args.split("&");
 
@@ -1200,7 +1198,7 @@ public class StringUtils {
      * @return
      */
     public static String toUnicode(String str) {
-        String as[] = new String[str.length()];
+        String[] as = new String[str.length()];
         String s1 = "";
         for (int i = 0; i < str.length(); i++) {
             int v = str.charAt(i);

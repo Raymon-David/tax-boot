@@ -1,5 +1,6 @@
 package com.foryou.tax.util;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Random;
 
@@ -40,7 +41,7 @@ public class MathUtil {
         try {
             messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.reset();
-            messageDigest.update(str.getBytes("UTF-8"));
+            messageDigest.update(str.getBytes(StandardCharsets.UTF_8));
         } catch (Exception e) {
             LoggerUtils.fmtError(MathUtil.class,e, "MD5转换异常！message：%s", e.getMessage());
         }

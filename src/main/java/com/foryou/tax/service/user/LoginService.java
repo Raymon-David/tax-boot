@@ -1,4 +1,4 @@
-package com.foryou.tax.service;
+package com.foryou.tax.service.user;
 
 import com.alibaba.fastjson.JSONObject;
 

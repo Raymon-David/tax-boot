@@ -221,7 +221,7 @@ module.exports = Emitter;
 
 function Emitter(obj) {
   if (obj) return mixin(obj);
-};
+}
 
 /**
  * Mixin the emitter properties.
@@ -566,7 +566,7 @@ require.register("dropzone/lib/dropzone.js", function(exports, require, module){
           regex = _ref[_i];
           if (regex.test(navigator.userAgent)) {
             capableBrowser = false;
-            continue;
+
           }
         }
       } else {

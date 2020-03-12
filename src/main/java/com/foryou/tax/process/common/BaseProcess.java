@@ -36,7 +36,7 @@ public class BaseProcess implements ICommonProcess {
         PrintWriter pw = null;
         try {
             pw = response.getWriter();
-            StringBuilder resultJson = new StringBuilder("");
+            StringBuilder resultJson = new StringBuilder();
             if(callback != null && !"".equals(callback)) {
                 resultJson.append(callback).append('(').append(JSONObject.toJSON(obj).toString()).append(')');
             } else {
@@ -61,7 +61,7 @@ public class BaseProcess implements ICommonProcess {
         PrintWriter pw = null;
         try {
             pw = response.getWriter();
-            StringBuilder result = new StringBuilder("");
+            StringBuilder result = new StringBuilder();
             if(callback != null && !"".equals(callback)) {
                 result.append(callback).append('(').append(res).append(')');
             } else {

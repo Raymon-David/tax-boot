@@ -1,11 +1,11 @@
-package com.foryou.tax.service.impl;
+package com.foryou.tax.service.impl.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.foryou.tax.dao.LoginDao;
-import com.foryou.tax.service.LoginService;
+import com.foryou.tax.api.constant.Constants;
+import com.foryou.tax.dao.user.LoginDao;
+import com.foryou.tax.service.user.LoginService;
 import com.foryou.tax.service.PermissionService;
 import com.foryou.tax.util.CommonUtil;
-import com.foryou.tax.util.constants.Constants;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;

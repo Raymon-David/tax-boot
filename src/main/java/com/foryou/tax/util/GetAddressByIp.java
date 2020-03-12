@@ -35,7 +35,7 @@ public class GetAddressByIp {
                     + IP);
             JSONObject obj = JSONObject.fromObject(str);
             JSONObject obj2 = (JSONObject) obj.get("data");
-            String code = (String) (obj.get("code")+"");
+            String code = obj.get("code")+"";
             if (code.equals("0")) {
                 resout = obj2.get("country") + "--" + obj2.get("area") + "--"
                         + obj2.get("city") + "--" + obj2.get("isp");
@@ -62,7 +62,7 @@ public class GetAddressByIp {
                     + IP);
             JSONObject obj = JSONObject.fromObject(str);
             JSONObject obj2 = (JSONObject) obj.get("data");
-            String code = (String) (obj.get("code")+"");
+            String code = obj.get("code")+"";
             if (code.equals("0")) {
                 Map<String,String> map = new HashMap<String, String>();
                 map.put("country", obj2.getString("country"));

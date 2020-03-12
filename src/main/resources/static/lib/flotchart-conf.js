@@ -165,7 +165,7 @@ var Script = function () {
             // zip the generated y values with the x values
             var res = [];
             for (var i = 0; i < data.length; ++i)
-                res.push([i, data[i]])
+                res.push([i, data[i]]);
             return res;
         }
 
