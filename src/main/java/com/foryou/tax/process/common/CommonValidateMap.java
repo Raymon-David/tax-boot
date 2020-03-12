@@ -66,56 +66,6 @@ public class CommonValidateMap {
         validateMap.put(ICommonProcess.DEFAULT_EMAIL, emailMap);
 
         /**
-         * 支付密码验证
-         */
-        Map<String, String> paypwdMap = new HashMap<String, String>();
-        paypwdMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        paypwdMap.put(ICommonProcess.DEFAULT_REGEX,"^[0-9]{6}$");
-        paypwdMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.UserPayPasswordVaildateFailure.getValue());
-        paypwdMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.UserPayPasswordVaildateFailure.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_PAYPWD, paypwdMap);
-
-        /**
-         * 支付新确认密码验证
-         */
-        Map<String, String> newpaypwdMap = new HashMap<String, String>();
-        newpaypwdMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        newpaypwdMap.put(ICommonProcess.DEFAULT_REGEX,"^[0-9]{6}$");
-        newpaypwdMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.UserPayPasswordVaildateFailure.getValue());
-        newpaypwdMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.UserPayPasswordVaildateFailure.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_NEWPAYPWD, newpaypwdMap);
-
-        /**
-         * 支付新密码验证
-         */
-        Map<String, String> repaypwdMap = new HashMap<String, String>();
-        repaypwdMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        repaypwdMap.put(ICommonProcess.DEFAULT_REGEX,"^[0-9]{6}$");
-        repaypwdMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.UserPayPasswordVaildateFailure.getValue());
-        repaypwdMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.UserPayPasswordVaildateFailure.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_REPAYPWD, repaypwdMap);
-
-        /**
-         * 图片验证码
-         */
-        Map<String, String> mobileCodeMap = new HashMap<String, String>();
-        mobileCodeMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_FALSE);
-        mobileCodeMap.put(ICommonProcess.DEFAULT_REGEX,"^[a-zA-Z0-9]{6}$");
-        mobileCodeMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.VerifyCodeError.getValue());
-        mobileCodeMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.VerifyCodeError.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_MOBILECODE, mobileCodeMap);
-
-        /**
-         * 短信验证码
-         */
-        Map<String, String> chkCodeMap = new HashMap<String, String>();
-        chkCodeMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        chkCodeMap.put(ICommonProcess.DEFAULT_REGEX,"^[0-9]{6}$");
-        chkCodeMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.VerifyCodeError.getValue());
-        chkCodeMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.VerifyCodeError.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_CHKCODE, chkCodeMap);
-
-        /**
          *身份证验证
          */
         Map<String, String> idcardMap = new HashMap<String, String>();
@@ -124,26 +74,6 @@ public class CommonValidateMap {
         idcardMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.IdCardVerifyFail.getValue());
         idcardMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.IdCardVerifyFail.GetDescription());
         validateMap.put(ICommonProcess.DEFAULT_IDCARD, idcardMap);
-
-        /**
-         *克重验证 保留3位小数
-         */
-        Map<String, String> gramMap = new HashMap<String, String>();
-        gramMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        gramMap.put(ICommonProcess.DEFAULT_REGEX,"^([1-9]\\d*\\.?\\d*)|([0]\\.\\d{1,3})$");
-        gramMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.GramIsError.getValue());
-        gramMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.GramIsError.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_GRAM, gramMap);
-
-        /**
-         *金额验证保留2位小数
-         */
-        Map<String, String> amountMap = new HashMap<String, String>();
-        amountMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        amountMap.put(ICommonProcess.DEFAULT_REGEX,"^([1-9]\\d*\\.?\\d*)|([0]\\.\\d{1,2})$");
-        amountMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.AmountError.getValue());
-        amountMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.AmountError.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_AMOUNT, amountMap);
 
         /**
          *用户类型
@@ -187,57 +117,6 @@ public class CommonValidateMap {
         busTypeMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.UserTypeIsEmpty.getValue());
         busTypeMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.UserTypeIsEmpty.GetDescription());
         validateMap.put(ICommonProcess.DEFAULT_BIZ_TYPE, busTypeMap);
-
-        /**
-         * 周期
-         */
-        Map<String, String> cycleMap = new HashMap<String, String>();
-        cycleMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        cycleMap.put(ICommonProcess.DEFAULT_REGEX,"^[1-9]{1}[0-9]{0,3}$");
-        cycleMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.RequestParamsNotValid.getValue());
-        cycleMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.RequestParamsNotValid.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_CYCLE, cycleMap);
-
-
-        /**
-         *订单编号
-         */
-        Map<String, String> orderMap = new HashMap<String, String>();
-        orderMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        orderMap.put(ICommonProcess.DEFAULT_REGEX,"^(([0-9]){15,19})$");
-        orderMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.OrderIsNotExists.getValue());
-        orderMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.OrderIsNotExists.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_ORDER_NO, orderMap);
-
-        /**
-         *企业电话
-         */
-        Map<String, String> comPhoneMap = new HashMap<String, String>();
-        comPhoneMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        comPhoneMap.put(ICommonProcess.DEFAULT_REGEX,"^(\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$");
-        comPhoneMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.ComUserPhoneInfoFail.getValue());
-        comPhoneMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.ComUserPhoneInfoFail.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_COMPANY_PHONE, comPhoneMap);
-
-        /**
-         *公司紧急联系人电话
-         */
-        Map<String, String> comEmerPhoneMap = new HashMap<String, String>();
-        comEmerPhoneMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        comEmerPhoneMap.put(ICommonProcess.DEFAULT_REGEX,"^(\\d{11})|^((\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})|(\\d{4}|\\d{3})-(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1})|(\\d{7,8})-(\\d{4}|\\d{3}|\\d{2}|\\d{1}))$");
-        comEmerPhoneMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.ComEmerPhoneInfoFail.getValue());
-        comEmerPhoneMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.ComEmerPhoneInfoFail.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_COMPANY_EMER_PHONE, comEmerPhoneMap);
-
-        /**
-         * 营业执照号
-         */
-        Map<String, String> busiLicenseMap = new HashMap<String, String>();
-        busiLicenseMap.put(ICommonProcess.DEFAULT_MUST, ICommonProcess.DEFAULT_TRUE);
-        busiLicenseMap.put(ICommonProcess.DEFAULT_REGEX,"^(\\d{15})$");
-        busiLicenseMap.put(ICommonProcess.DEFAULT_ERROR,"" + StatusCode.BusiLicenseFail.getValue());
-        busiLicenseMap.put(ICommonProcess.DEFAULT_DESC,	"" + StatusCode.BusiLicenseFail.GetDescription());
-        validateMap.put(ICommonProcess.DEFAULT_COMPANY_BUSIlICENSE, busiLicenseMap);
 
     }
     public static Map<String, String> getValueByKey(String key){
