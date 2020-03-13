@@ -1,6 +1,7 @@
 package com.foryou.tax.util;
 
 import com.alibaba.fastjson.JSONObject;
+import com.foryou.tax.api.constant.Constants;
 import com.foryou.tax.api.constant.ErrorEnum;
 
 import javax.servlet.http.HttpServletRequest;

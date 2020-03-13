@@ -21,13 +21,12 @@ import java.util.concurrent.TimeUnit;
 public class RedisServiceImpl implements RedisService {
 
     @Autowired
-    protected RedisTemplate<String,Object> redisTemplate;
+    protected RedisTemplate redisTemplate;
 
     @Override
     public void putValue(String key, Object obj, Integer timeout) {
         if (null != obj) {
-            ValueOperations<String, Object> operations = this.redisTemplate
-                    .opsForValue();
+            ValueOperations<String, Object> operations = this.redisTemplate.opsForValue();
             // 设置过期时间
             operations.set(key, obj,
                     timeout, TimeUnit.SECONDS);
@@ -36,8 +35,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public void addList(String key, List<Object> obj, Integer timeout) {
-        ListOperations<String, Object> operations = redisTemplate
-                .opsForList();
+        ListOperations<String, Object> operations = redisTemplate.opsForList();
         operations.leftPushAll(key, obj.toArray(new Object[obj.size()]));
         redisTemplate.expire(key, timeout, TimeUnit.SECONDS);
     }
@@ -48,16 +46,14 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public Object get(String key) {
-        ValueOperations<String, Object> operations = this.redisTemplate
-                .opsForValue();
+        ValueOperations<String, Object> operations = this.redisTemplate.opsForValue();
         Object obj = operations.get(key);
         return obj;
     }
 
     @Override
     public Object getList(int start, int end, String key) {
-        ListOperations<String, Object> operations = redisTemplate
-                .opsForList();
+        ListOperations<String, Object> operations = redisTemplate.opsForList();
         List<Object> content = operations.range(key, start, end);
         return content;
     }
@@ -69,8 +65,7 @@ public class RedisServiceImpl implements RedisService {
 
     @Override
     public  <T> T get(String key, Class<T> clazz) {
-        ValueOperations<String, Object> operations = this.redisTemplate
-                .opsForValue();
+        ValueOperations<String, Object> operations = this.redisTemplate.opsForValue();
         Object obj = operations.get(key);
         return JSON.parseObject(obj.toString(), clazz);
     }

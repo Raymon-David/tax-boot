@@ -9,6 +9,7 @@ import com.foryou.tax.service.UserService;
 import com.foryou.tax.util.MemberTools;
 import com.foryou.tax.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @date ：Created in 2020/3/12
  * @description:
  */
+@Service
 public class UserProcess extends BaseProcess {
 
     @Autowired
