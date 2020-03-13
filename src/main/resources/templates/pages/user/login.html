@@ -87,18 +87,19 @@
     function sign_submit() {
         var username = $("#username").val();
         var password = $("#password").val();
+        debugger;
         var datas = {
             username: username,
             password: password
         };
-        $.ajax({
-            url: baseUrl + "login/auth",
+      $.ajax({
+            url: "${/request/@context_path}/login/auth",
             data: JSON.stringify(datas),
             type: "post",
             contentType: "application/json;charset=UTF-8",
             success: function (datas) {
                 if (datas.success) {
-                    window.location.href = "/templates/index.html";
+                    window.location.href = "/templates/pages/user/index.html";
                 } else {
 
                 }

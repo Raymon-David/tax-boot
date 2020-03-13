@@ -41,6 +41,8 @@ public class LoginServiceImpl implements LoginService {
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         try {
+            //JSONObject jsonObject1 = this.getUser(username, password);
+
             currentUser.login(token);
             returnData.put("result", "success");
         } catch (AuthenticationException e) {
