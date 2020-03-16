@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.eleinvoice.EleInvoiceMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.eleinvoice.EleInvoice">
+        <id column="ELE_INVOICE_ID" property="eleInvoiceId" />
+        <result column="INVOICE_ID" property="invoiceId" />
+        <result column="DOCUMENT_TYPE" property="documentType" />
+        <result column="DOCUMENT_CATEGORY" property="documentCategory" />
+        <result column="SERIAL_NUM" property="serialNum" />
+        <result column="SALE_TAX" property="saleTax" />
+        <result column="CUST_NAME" property="custName" />
+        <result column="CUST_TAX_NO" property="custTaxNo" />
+        <result column="CUST_ADDR" property="custAddr" />
+        <result column="CUST_TELEPHONE" property="custTelephone" />
+        <result column="CUST_PHONE" property="custPhone" />
+        <result column="CUST_EMAIL" property="custEmail" />
+        <result column="CUST_BANK_ACCOUNT" property="custBankAccount" />
+        <result column="CUST_TYPE" property="custType" />
+        <result column="ELE_INVOICE_MEMO" property="eleInvoiceMemo" />
+        <result column="ELE_INVOICE_TYPE" property="eleInvoiceType" />
+        <result column="BILL_DATE" property="billDate" />
+        <result column="CANCEL_NUM" property="cancelNum" />
+        <result column="BILL_TYPE" property="billType" />
+        <result column="SPECIAL_RED_FLAG" property="specialRedFlag" />
+        <result column="OPERATION_CODE" property="operationCode" />
+        <result column="LSSUER" property="lssuer" />
+        <result column="PAYEE" property="payee" />
+        <result column="REVIEWER" property="reviewer" />
+        <result column="FORMER_INVOICE_CODE" property="formerInvoiceCode" />
+        <result column="FORMER_INVOICE_NUM" property="formerInvoiceNum" />
+        <result column="RED_REASON" property="redReason" />
+        <result column="ELE_INVOICE_STATUS" property="eleInvoiceStatus" />
+        <result column="PDF_URL" property="pdfUrl" />
+        <result column="ERROR_CODE" property="errorCode" />
+        <result column="ERROR_MESSAGE" property="errorMessage" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+</mapper>

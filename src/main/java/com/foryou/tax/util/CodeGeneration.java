@@ -48,7 +48,7 @@ public class CodeGeneration {
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://10.40.59.129:3306/law");
+        dsc.setUrl("jdbc:mysql://10.40.59.129:3306/tax");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -58,7 +58,7 @@ public class CodeGeneration {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude("sys_role");
+        strategy.setInclude("PAPER_INVOICE");
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
@@ -69,12 +69,12 @@ public class CodeGeneration {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.foryou.tax");
-        pc.setController("controller");
-        pc.setService("service");
-        pc.setServiceImpl("service.impl");
-        pc.setMapper("com/foryou/tax/dao");
-        pc.setEntity("pojo");
-        pc.setXml("com/foryou/tax/dao");
+        pc.setController("controller.paperinvoice");
+        pc.setService("service/paperinvoice");
+        pc.setServiceImpl("service.impl.paperinvoice");
+        pc.setMapper("com.foryou.tax.dao.paperinvoice");
+        pc.setEntity("pojo.paperinvoice");
+        pc.setXml("com.foryou.tax.dao.paperinvoice");
         mpg.setPackageInfo(pc);
 
         // 执行生成
