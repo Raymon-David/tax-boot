@@ -24,7 +24,9 @@ public class LoggerUtils {
      * @param message	输出信息
      */
     public static void debug(Class<? extends Object> clazz ,String message){
-        if(!isDebug)return ;
+        if(!isDebug) {
+            return ;
+        }
         Logger logger = LoggerFactory.getLogger(clazz);
         logger.debug(message);
     }

@@ -58,7 +58,7 @@ public class CodeGeneration {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude("PAPER_INVOICE");
+        strategy.setInclude("ELE_INVOICE_DETAIL");
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
@@ -69,12 +69,12 @@ public class CodeGeneration {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.foryou.tax");
-        pc.setController("controller.paperinvoice");
-        pc.setService("service/paperinvoice");
-        pc.setServiceImpl("service.impl.paperinvoice");
-        pc.setMapper("com.foryou.tax.dao.paperinvoice");
-        pc.setEntity("pojo.paperinvoice");
-        pc.setXml("com.foryou.tax.dao.paperinvoice");
+        pc.setController("controller.eleinvoice");
+        pc.setService("service/eleinvoice");
+        pc.setServiceImpl("service.impl.eleinvoice");
+        pc.setMapper("com.foryou.tax.dao.eleinvoice");
+        pc.setEntity("pojo.eleinvoice");
+        pc.setXml("com.foryou.tax.dao.eleinvoice");
         mpg.setPackageInfo(pc);
 
         // 执行生成
