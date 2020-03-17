@@ -28,9 +28,9 @@ public class EleInvoiceController {
 
     //金税接口发票开票接口入口
     @RequestMapping(value = "/eleInvoice/info/submit")
-    public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, @RequestBody List<EleInvoice> eleInvoiceData){
+    public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, @RequestBody List<ALLInvoiceInfo> allInvoiceDataList){
 
-        eleInvoiceProcess.eleInvoiceInfoSubmit(request, response, eleInvoiceData);
+        eleInvoiceProcess.eleInvoiceInfoSubmit(request, response, allInvoiceDataList);
     }
 }
 
