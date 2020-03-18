@@ -30,7 +30,7 @@ public class CodeGeneration {
         // XML ResultMap
         gc.setBaseResultMap(true);
         // XML columList
-        gc.setBaseColumnList(false);
+        gc.setBaseColumnList(true);
         // 作者
         gc.setAuthor("raymon");
 
@@ -58,7 +58,7 @@ public class CodeGeneration {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude("ALL_INVOICE_INFO");
+        strategy.setInclude("ELE_INVOICE_INFO");
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
@@ -69,12 +69,12 @@ public class CodeGeneration {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.foryou.tax");
-        pc.setController("controller.allinvoice");
-        pc.setService("service.allinvoice");
-        pc.setServiceImpl("service.impl.allinvoice");
-        pc.setMapper("com.foryou.tax.dao.allinvoice");
-        pc.setEntity("pojo.allinvoice");
-        pc.setXml("com.foryou.tax.dao.allinvoice");
+        pc.setController("controller.eleinvoice");
+        pc.setService("service.eleinvoice");
+        pc.setServiceImpl("service.impl.eleinvoice");
+        pc.setMapper("dao.eleinvoice");
+        pc.setEntity("pojo.eleinvoice");
+        pc.setXml("dao.eleinvoice");
         mpg.setPackageInfo(pc);
 
         // 执行生成
