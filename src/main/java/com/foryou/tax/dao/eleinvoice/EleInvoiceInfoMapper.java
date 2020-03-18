@@ -1,6 +1,5 @@
 package com.foryou.tax.dao.eleinvoice;
 
-
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +9,10 @@ import org.springframework.stereotype.Component;
  * </p>
  *
  * @author raymon
- * @since 2020-03-16
+ * @since 2020-03-18
  */
 @Component
 @Mapper
-public interface EleInvoiceMapper {
+public interface EleInvoiceInfoMapper{
 
 }

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.allinvoice.AllInvoiceInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.allinvoice.AllInvoiceInfo">
+        <id column="INVOICE_ID" property="invoiceId" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="INVOICE_NUM" property="invoiceNum" />
+        <result column="INVOICE_KIND" property="invoiceKind" />
+        <result column="BILLING_METHOD" property="billingMethod" />
+        <result column="BILLING_WAY" property="billingWay" />
+        <result column="MANUAL_INVOICE_CODE" property="manualInvoiceCode" />
+        <result column="MANUAL_INVOICE_NAME" property="manualInvoiceName" />
+        <result column="DOCUMENT_CATEGORY" property="documentCategory" />
+        <result column="COMMODITY_CODE" property="commodityCode" />
+        <result column="COMMODITY_NAME" property="commodityName" />
+        <result column="OWNER_USER_ID" property="ownerUserId" />
+        <result column="OBJECT_CODE" property="objectCode" />
+        <result column="OBJECT_NAME" property="objectName" />
+        <result column="INVOICE_TITLE" property="invoiceTitle" />
+        <result column="TAX_REGISTRY_NUM" property="taxRegistryNum" />
+        <result column="INVOICE_OBJECT_ADDRESS_PHONE" property="invoiceObjectAddressPhone" />
+        <result column="INVOICE_OBJECT_BANK_ACCOUNT" property="invoiceObjectBankAccount" />
+        <result column="INVOICE_MEMO" property="invoiceMemo" />
+        <result column="TOTAL_AMOUNT" property="totalAmount" />
+        <result column="TAX_AMOUNT" property="taxAmount" />
+        <result column="CURRENCY" property="currency" />
+        <result column="EXCHANGE_RATE_TYPE" property="exchangeRateType" />
+        <result column="EXCHANGE_RATE_QUOTATION" property="exchangeRateQuotation" />
+        <result column="EXCHANGE_RATE" property="exchangeRate" />
+        <result column="PERIOD_CODE" property="periodCode" />
+        <result column="PERIOD_NAME" property="periodName" />
+        <result column="INVOICE_STATUS_CODE" property="invoiceStatusCode" />
+        <result column="INVOICE_STATUS_NAME" property="invoiceStatusName" />
+        <result column="ACCOUNT_PAYEE" property="accountPayee" />
+        <result column="ACCOUNT_TIME" property="accountTime" />
+        <result column="ISSUER" property="issuer" />
+        <result column="ISSUED_TIME" property="issuedTime" />
+        <result column="REVIEWER" property="reviewer" />
+        <result column="REVIEWED_TIME" property="reviewedTime" />
+        <result column="POSTER" property="poster" />
+        <result column="POSTED_TIME" property="postedTime" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+</mapper>

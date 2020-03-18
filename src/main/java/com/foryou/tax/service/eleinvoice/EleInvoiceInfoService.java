@@ -9,6 +9,6 @@ package com.foryou.tax.service.eleinvoice;
  * @author raymon
  * @since 2020-03-16
  */
-public interface EleInvoiceService {
+public interface EleInvoiceInfoService {
 
 }

@@ -1,10 +1,10 @@
 package com.foryou.tax.util.eleinvoice;
 
 import com.alibaba.fastjson.JSONObject;
-import com.foryou.tax.pojo.eleinvoice.EleInvoice;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail;
+import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
-import com.foryou.tax.service.eleinvoice.EleInvoiceService;
+import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
 import com.foryou.tax.util.LoggerUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -37,7 +37,7 @@ public class EleInvoiceSubmitXmlUtil {
     private static  String msg = "";
 
     //封装报文
-    public static String eleInvoiceSubmitXml(ALLInvoiceInfo allInvoiceInfo, EleInvoiceService eleInvoiceService, EleInvoiceDetailService eleInvoiceDetailService){
+    public static String eleInvoiceSubmitXml(ALLInvoiceInfo allInvoiceInfo, EleInvoiceInfoService eleInvoiceInfoService, EleInvoiceDetailService eleInvoiceDetailService){
         StringBuffer stringBuffer = new StringBuffer();
         /**
          * 报文 header 命名空间
@@ -55,10 +55,10 @@ public class EleInvoiceSubmitXmlUtil {
         /**
          * 全部发票表信息(通过全部发票表 ALLInvoiceInfo ID 找电子发票表 EleInvoice 只有一条)
          */
-        EleInvoice eleInvoice = new EleInvoice();
-        eleInvoice.setInvoiceId(allInvoiceInfo.getInvoiceId());
-        List<EleInvoice> EleInvoices = eleInvoiceService.getEleInvoiceInfo(eleInvoice);
-        EleInvoice eleInvoiceData = EleInvoices.get(0);
+        EleInvoiceInfo eleInvoiceInfo = new EleInvoiceInfo();
+        eleInvoiceInfo.setInvoiceId(allInvoiceInfo.getInvoiceId());
+        List<EleInvoice> EleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
+        EleInvoiceInfo eleInvoiceData = EleInvoices.get(0);
         //报文详细内容
         //流水号
         stringBuffer.append("<swno>");
@@ -169,7 +169,7 @@ public class EleInvoiceSubmitXmlUtil {
         stringBuffer.append("</operationCode>");
         //开票员
         stringBuffer.append("<kpy>");
-        stringBuffer.append(eleInvoiceData.getLssuer());
+        stringBuffer.append(eleInvoiceData.getIssuer());
         stringBuffer.append("</kpy>");
         //收款员
         stringBuffer.append("<sky>");
