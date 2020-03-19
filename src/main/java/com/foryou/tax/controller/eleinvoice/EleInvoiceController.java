@@ -1,6 +1,7 @@
 package com.foryou.tax.controller.eleinvoice;
 
 
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import com.foryou.tax.process.eleinvoice.EleInvoiceProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * <p>
@@ -28,7 +30,7 @@ public class EleInvoiceController {
      * 金税接口发票开票接口入口
      */
     @RequestMapping(value = "/eleInvoice/info/submit")
-    public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, @RequestBody List<ALLInvoiceInfo> allInvoiceDataList){
+    public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, @RequestBody List<AllInvoiceInfo> allInvoiceDataList){
 
         eleInvoiceProcess.eleInvoiceInfoSubmit(request, response, allInvoiceDataList);
     }

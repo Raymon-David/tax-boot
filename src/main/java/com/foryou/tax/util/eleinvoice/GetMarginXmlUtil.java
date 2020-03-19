@@ -103,6 +103,8 @@ public class GetMarginXmlUtil {
         client.getParams().setSoTimeout(60*1000);
         try{
             myPost.setRequestEntity(new StringRequestEntity(xml,"text/xml","utf-8"));
+            LoggerUtils.debug(GetMarginXmlUtil.class, myPost.toString());
+
             int statusCode = client.executeMethod(myPost);
             if(statusCode == HttpStatus.SC_OK){
                 BufferedInputStream bis = new BufferedInputStream(myPost.getResponseBodyAsStream());

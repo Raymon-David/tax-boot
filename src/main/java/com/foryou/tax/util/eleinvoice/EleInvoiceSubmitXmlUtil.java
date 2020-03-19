@@ -1,10 +1,12 @@
 package com.foryou.tax.util.eleinvoice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
+import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -37,7 +39,7 @@ public class EleInvoiceSubmitXmlUtil {
     private static  String msg = "";
 
     //封装报文
-    public static String eleInvoiceSubmitXml(ALLInvoiceInfo allInvoiceInfo, EleInvoiceInfoService eleInvoiceInfoService, EleInvoiceDetailService eleInvoiceDetailService){
+    public static String eleInvoiceSubmitXml(AllInvoiceInfo allInvoiceInfo, EleInvoiceInfoService eleInvoiceInfoService, EleInvoiceDetailService eleInvoiceDetailService){
         StringBuffer stringBuffer = new StringBuffer();
         /**
          * 报文 header 命名空间
@@ -57,7 +59,7 @@ public class EleInvoiceSubmitXmlUtil {
          */
         EleInvoiceInfo eleInvoiceInfo = new EleInvoiceInfo();
         eleInvoiceInfo.setInvoiceId(allInvoiceInfo.getInvoiceId());
-        List<EleInvoice> EleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
+        List<EleInvoiceInfo> EleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
         EleInvoiceInfo eleInvoiceData = EleInvoices.get(0);
         //报文详细内容
         //流水号
@@ -137,12 +139,9 @@ public class EleInvoiceSubmitXmlUtil {
         stringBuffer.append(eleInvoiceData.getEleInvoiceType());
         stringBuffer.append("</invType>");
         //单据日期
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String date;
         try {
-            date = sdf.format(eleInvoiceData.getBillDate());
             stringBuffer.append("<billDate>");
-            stringBuffer.append(date);
+            stringBuffer.append(DateUtil.getNow(DateUtil.FORMAT_LONG));
             stringBuffer.append("</billDate>");
         }catch (Exception e){
             e.printStackTrace();
@@ -173,10 +172,10 @@ public class EleInvoiceSubmitXmlUtil {
         stringBuffer.append("</kpy>");
         //收款员
         stringBuffer.append("<sky>");
-        if("".equals(eleInvoiceData.getPayee()) || eleInvoiceData.getPayee() == null){
+        if("".equals(eleInvoiceData.getAccountPayee()) || eleInvoiceData.getAccountPayee() == null){
             stringBuffer.append("");
         }else{
-            stringBuffer.append(eleInvoiceData.getPayee());
+            stringBuffer.append(eleInvoiceData.getAccountPayee());
         }
         stringBuffer.append("</sky>");
         //复核人
@@ -205,10 +204,10 @@ public class EleInvoiceSubmitXmlUtil {
         stringBuffer.append("</yfphm>");
         //冲红原因
         stringBuffer.append("<chyy>");
-        if("".equals(eleInvoiceData.getRedReason()) || eleInvoiceData.getRedReason() == null){
+        if("".equals(eleInvoiceData.getInvoiceReverseDesc()) || eleInvoiceData.getInvoiceReverseDesc() == null){
             stringBuffer.append("");
         }else{
-            stringBuffer.append(eleInvoiceData.getRedReason());
+            stringBuffer.append(eleInvoiceData.getInvoiceReverseDesc());
         }
         stringBuffer.append("</chyy>");
 
