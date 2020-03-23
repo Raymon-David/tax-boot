@@ -1,12 +1,13 @@
 package com.foryou.tax.pojo.eleinvoice;
 
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -14,7 +15,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author raymon
- * @since 2020-03-17
+ * @since 2020-03-23
  */
 @TableName("ELE_INVOICE_DETAIL")
 public class EleInvoiceDetail implements Serializable {
@@ -84,8 +85,8 @@ public class EleInvoiceDetail implements Serializable {
     /**
      * 数量
      */
-    @TableField("TAX_RQUANTITYATE")
-    private Integer taxRquantityate;
+    @TableField("TAX_QUANTITY")
+    private Integer taxQuantity;
     /**
      * 单价
      */
@@ -239,12 +240,12 @@ public class EleInvoiceDetail implements Serializable {
         this.taxRate = taxRate;
     }
 
-    public Integer getTaxRquantityate() {
-        return taxRquantityate;
+    public Integer getTaxQuantity() {
+        return taxQuantity;
     }
 
-    public void setTaxRquantityate(Integer taxRquantityate) {
-        this.taxRquantityate = taxRquantityate;
+    public void setTaxQuantity(Integer taxQuantity) {
+        this.taxQuantity = taxQuantity;
     }
 
     public BigDecimal getTaxPrice() {
@@ -338,30 +339,30 @@ public class EleInvoiceDetail implements Serializable {
     @Override
     public String toString() {
         return "EleInvoiceDetail{" +
-        ", eleInvoiceDetailId=" + eleInvoiceDetailId +
-        ", eleInvoiceId=" + eleInvoiceId +
-        ", invoiceId=" + invoiceId +
-        ", invoiceDetailId=" + invoiceDetailId +
-        ", contractNo=" + contractNo +
-        ", billNo=" + billNo +
-        ", billName=" + billName +
-        ", billCode=" + billCode +
-        ", lineType=" + lineType +
-        ", spec=" + spec +
-        ", unit=" + unit +
-        ", taxRate=" + taxRate +
-        ", taxRquantityate=" + taxRquantityate +
-        ", taxPrice=" + taxPrice +
-        ", totalAmount=" + totalAmount +
-        ", yhzcbs=" + yhzcbs +
-        ", yhzcnr=" + yhzcnr +
-        ", lslbs=" + lslbs +
-        ", zxbm=" + zxbm +
-        ", kce=" + kce +
-        ", createdBy=" + createdBy +
-        ", createTime=" + createTime +
-        ", updatedBy=" + updatedBy +
-        ", updateTime=" + updateTime +
-        "}";
+                ", eleInvoiceDetailId=" + eleInvoiceDetailId +
+                ", eleInvoiceId=" + eleInvoiceId +
+                ", invoiceId=" + invoiceId +
+                ", invoiceDetailId=" + invoiceDetailId +
+                ", contractNo=" + contractNo +
+                ", billNo=" + billNo +
+                ", billName=" + billName +
+                ", billCode=" + billCode +
+                ", lineType=" + lineType +
+                ", spec=" + spec +
+                ", unit=" + unit +
+                ", taxRate=" + taxRate +
+                ", taxQuantity=" + taxQuantity +
+                ", taxPrice=" + taxPrice +
+                ", totalAmount=" + totalAmount +
+                ", yhzcbs=" + yhzcbs +
+                ", yhzcnr=" + yhzcnr +
+                ", lslbs=" + lslbs +
+                ", zxbm=" + zxbm +
+                ", kce=" + kce +
+                ", createdBy=" + createdBy +
+                ", createTime=" + createTime +
+                ", updatedBy=" + updatedBy +
+                ", updateTime=" + updateTime +
+                "}";
     }
 }

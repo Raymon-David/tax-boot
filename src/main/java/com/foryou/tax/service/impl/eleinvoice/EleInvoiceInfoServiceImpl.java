@@ -1,6 +1,9 @@
 package com.foryou.tax.service.impl.eleinvoice;
 
+import com.foryou.tax.dao.eleinvoice.EleInvoiceInfoMapper;
+import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,4 +17,23 @@ import org.springframework.stereotype.Service;
 @Service
 public class EleInvoiceInfoServiceImpl implements EleInvoiceInfoService {
 
+    @Autowired
+    EleInvoiceInfoMapper eleInvoiceInfoMapper;
+
+    @Override
+    public EleInvoiceInfo getEleInvoiceInfo(EleInvoiceInfo eleInvoiceInfo) {
+
+        return eleInvoiceInfoMapper.getEleInvoiceInfo(eleInvoiceInfo);
+    }
+
+    @Override
+    public int updateEleInvoiceTaxError(EleInvoiceInfo eleInvoiceInfo) {
+
+        return eleInvoiceInfoMapper.updateEleInvoiceTaxError(eleInvoiceInfo);
+    }
+
+    @Override
+    public int deleteData(EleInvoiceInfo eleInvoiceInfo) {
+        return eleInvoiceInfoMapper.deleteData(eleInvoiceInfo);
+    }
 }

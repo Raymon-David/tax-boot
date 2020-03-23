@@ -82,25 +82,27 @@ public class EleInvoiceProcess extends BaseProcess {
                     EleInvoiceInfo eleInvoiceInfo = new EleInvoiceInfo();
                     eleInvoiceInfo.setInvoiceId(allInvoiceDataList.get(i).getInvoiceId());
 
-                    List<EleInvoiceInfo> eleInvoices = eleInvoiceInfoService.select(eleInvoiceInfo);
+                    EleInvoiceInfo eleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
 
                     /**
                      * 如果出现"请维护对应的税收分类编码"这种错误
                      * 先删掉 ele_invoice_info , ele_invoice_detail 中这条数据
+                     * 因为 税收编码跟随着每一条现金流
                      */
-                    for(int j = 0; j < eleInvoices.size(); j++){
-                        if("请维护对应的税收分类编码".equals(eleInvoices.get(j).getEleInvoiceStatusName())){
-                            long eleId = eleInvoices.get(j).getEleInvoiceId();
-                            eleInvoiceInfoService.deleteData(eleId);
-                            eleInvoiceDetailService.deleteData(eleId);
+                    if(eleInvoices != null){
+                        if(EleErrorEnum.E_E_2006.getErrorCode().equals(eleInvoices.getInvoiceInterfaceTaxCode())){
+                            long eleId = eleInvoices.getEleInvoiceId();
+                            eleInvoiceInfoService.deleteData(eleInvoices);
+                            eleInvoiceDetailService.deleteData(eleInvoices);
                         }
                     }
+
                     /**
                      * 删完之后再重新查询一下
                      */
-                    eleInvoices = eleInvoiceInfoService.select(eleInvoiceInfo);
+                    eleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
 
-                    if (eleInvoices.size() == 0) {
+                    if (eleInvoices == null) {
                         data = insertEleInvoiceInfo(request, response, allInvoiceDataList.get(i));
 
                         if (data != null){
@@ -109,7 +111,7 @@ public class EleInvoiceProcess extends BaseProcess {
 
                             //调用发送接口工具类
                             JSONObject jsonObject = EleInvoiceSubmitXmlUtil.postData(xml);
-                            if (jsonObject == null || 0 == jsonObject.size()) {
+                            if (0 == jsonObject.size()) {
                                 EleInvoiceInfo eleInvoiceInfo1 = new EleInvoiceInfo();
                                 eleInvoiceInfo1.setInvoiceId(allInvoiceDataList.get(i).getInvoiceId());
 
@@ -204,9 +206,9 @@ public class EleInvoiceProcess extends BaseProcess {
          */
         EleInvoiceInfo eleInvoiceInfo = new EleInvoiceInfo();
         eleInvoiceInfo.setInvoiceId(allInvoiceInfo.getInvoiceId());
-        List<EleInvoiceInfo> eleInvoiceHds = eleInvoiceInfoService.queryAllData(eleInvoiceInfo);
+        EleInvoiceInfo eleInvoiceHds = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
 
-        if (eleInvoiceHds.size() > 0) {
+        if (eleInvoiceHds != null) {
             errorDesc.setMessage(EleErrorEnum.E_E_2000.getErrorMsg());
             errorDesc.setCode(EleErrorEnum.E_E_2000.getErrorCode());
             errorInfo.setErrDesc(errorDesc);
@@ -217,9 +219,9 @@ public class EleInvoiceProcess extends BaseProcess {
             /**
              * 流水号
              * 关键字段不能为空，必须唯一 由数字、字母、下划线组成 字段固定长度是20位
-             * 规则 EI_年月日_1000000001
+             * 规则 EI_年月日_companyid_000000001
              */
-            String swno = eleInvoiceInfoService.getSwnoDocumentNumber(iRequest.getUserId(), iRequest.getCompanyId());
+            String swno = eleInvoiceInfoService.getSwnoDocumentNumber(allInvoiceInfo.getCompanyId());
             /**
              * 购货方企业类型
              * 查询开票对象表

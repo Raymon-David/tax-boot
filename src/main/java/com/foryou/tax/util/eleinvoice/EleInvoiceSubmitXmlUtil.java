@@ -17,7 +17,6 @@ import org.apache.logging.log4j.util.PropertiesUtil;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Properties;
 
@@ -55,12 +54,12 @@ public class EleInvoiceSubmitXmlUtil {
         stringBuffer.append("<InvoInfo>");
 
         /**
-         * 全部发票表信息(通过全部发票表 ALLInvoiceInfo ID 找电子发票表 EleInvoice 只有一条)
+         * 全部发票表信息(通过全部发票表 ALLInvoiceInfo ID 找电子发票表 EleInvoiceInfo 只有一条)
          */
         EleInvoiceInfo eleInvoiceInfo = new EleInvoiceInfo();
         eleInvoiceInfo.setInvoiceId(allInvoiceInfo.getInvoiceId());
-        List<EleInvoiceInfo> EleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
-        EleInvoiceInfo eleInvoiceData = EleInvoices.get(0);
+        EleInvoiceInfo eleInvoiceData = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
+
         //报文详细内容
         //流水号
         stringBuffer.append("<swno>");
@@ -215,7 +214,9 @@ public class EleInvoiceSubmitXmlUtil {
         stringBuffer.append("<Orders>");
         stringBuffer.append("<Order>");
 
-        List<EleInvoiceDetail> eleInvoiceDetails = eleInvoiceDetailService.getEleInvoiceDetailInfo(eleInvoiceData.getEleInvoiceId());
+        EleInvoiceDetail eleInvoiceDetail1 = new EleInvoiceDetail();
+        eleInvoiceDetail1.setEleInvoiceId(eleInvoiceData.getEleInvoiceId());
+        List<EleInvoiceDetail> eleInvoiceDetails = eleInvoiceDetailService.getEleInvoiceDetailInfo(eleInvoiceDetail1);
         /**
          * 订单号
          * (因为之前存行表的时候，取的是合同编号，所以虽然发票行信息不一致，
@@ -264,7 +265,7 @@ public class EleInvoiceSubmitXmlUtil {
             stringBuffer.append("</taxRate>");
             //数量
             stringBuffer.append("<quantity>");
-            stringBuffer.append(eleInvoiceDetail.getTaxRquantityate());
+            stringBuffer.append(eleInvoiceDetail.getTaxQuantity());
             stringBuffer.append("</quantity>");
             //单价
             stringBuffer.append("<taxPrice>");
