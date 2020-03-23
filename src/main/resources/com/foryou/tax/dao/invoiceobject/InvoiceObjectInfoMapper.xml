@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.invoiceobject.InvoiceObjectInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo">
+        <id column="INVOICE_OBJECT_INFO_ID" property="invoiceObjectInfoId" />
+        <result column="OBJECT_CODE" property="objectCode" />
+        <result column="OBJECT_NAME" property="objectName" />
+        <result column="OBJECT_PHONE" property="objectPhone" />
+        <result column="OBJECT_ID_CARD" property="objectIdCard" />
+        <result column="OBJECT_SOCIAL_CODE" property="objectSocialCode" />
+        <result column="OBJECT_EMAIL" property="objectEmail" />
+        <result column="OBJECT_TYPE_CODE" property="objectTypeCode" />
+        <result column="OBJECT_TYPE_NAME" property="objectTypeName" />
+        <result column="OBJECT_TAX_TYPE_CODE" property="objectTaxTypeCode" />
+        <result column="OBJECT_TAX_TYPE_NAME" property="objectTaxTypeName" />
+        <result column="OBJECT_TAX_REGISTRY_NUM" property="objectTaxRegistryNum" />
+        <result column="INVOICE_TITLE" property="invoiceTitle" />
+        <result column="INVOICE_OBJECT_BANK_ACCOUNT_NUM" property="invoiceObjectBankAccountNum" />
+        <result column="INVOICE_OBJECT_ADDRESS" property="invoiceObjectAddress" />
+        <result column="INVOICE_OBJECT_BANK" property="invoiceObjectBank" />
+        <result column="INVOICE_PHONE" property="invoicePhone" />
+        <result column="INVOICE_EMAIL" property="invoiceEmail" />
+        <result column="INVOICE_INFO_TYPE" property="invoiceInfoType" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        INVOICE_OBJECT_INFO_ID, OBJECT_CODE, OBJECT_NAME, OBJECT_PHONE, OBJECT_ID_CARD, OBJECT_SOCIAL_CODE, OBJECT_EMAIL, OBJECT_TYPE_CODE, OBJECT_TYPE_NAME, OBJECT_TAX_TYPE_CODE, OBJECT_TAX_TYPE_NAME, OBJECT_TAX_REGISTRY_NUM, INVOICE_TITLE, INVOICE_OBJECT_BANK_ACCOUNT_NUM, INVOICE_OBJECT_ADDRESS, INVOICE_OBJECT_BANK, INVOICE_PHONE, INVOICE_EMAIL, INVOICE_INFO_TYPE, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+
+</mapper>

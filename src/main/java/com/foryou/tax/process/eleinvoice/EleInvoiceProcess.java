@@ -8,9 +8,11 @@ import com.foryou.tax.api.constant.EleErrorEnum;
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
+import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
+import com.foryou.tax.service.invoiceobject.InvoiceObjectInfoService;
 import com.foryou.tax.util.eleinvoice.EleInvoiceSubmitXmlUtil;
 import com.foryou.tax.util.eleinvoice.GetMarginXmlUtil;
 import org.apache.logging.log4j.util.PropertiesUtil;
@@ -38,6 +40,9 @@ public class EleInvoiceProcess extends BaseProcess {
 
     @Autowired
     private EleInvoiceDetailService eleInvoiceDetailService;
+
+    @Autowired
+    private InvoiceObjectInfoService invoiceObjectInfoService;
 
     public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, List<AllInvoiceInfo> allInvoiceDataList){
 
@@ -219,168 +224,195 @@ public class EleInvoiceProcess extends BaseProcess {
             /**
              * 流水号
              * 关键字段不能为空，必须唯一 由数字、字母、下划线组成 字段固定长度是20位
-             * 规则 EI_年月日_companyid_000000001
+             * 规则 EI_年月日_companycode_000000001
+             * select
+             * concat(
+             * 			'EI',
+             * 			'_',
+             * 			substr(date_format(now(), '%Y%m%d'), 5, 8 ),
+             *          '_',
+             *          10001,
+             *          '_',
+             *          rpad(1, 6, 0) + 1
+             * 				)
+             * from dual
              */
-            String swno = eleInvoiceInfoService.getSwnoDocumentNumber(allInvoiceInfo.getCompanyId());
+            String swno = eleInvoiceInfoService.getSerialNum(allInvoiceInfo.getCompanyId());
             /**
              * 购货方企业类型
              * 查询开票对象表
              */
-            String bpClass = eleInvoiceInfoService.getBpClass(allInvoiceInfo.getObjectCode());
-            String custType = null;
-            /**
-             * 01：企业
-             * 02：机关执业单位
-             * 03：个人
-             * 04：其他
-             */
-            if ("NP".equals(bpClass)) {
-                custType = "03";
-            } else {
-                custType = "01";
-            }
-            /**
-             * 获取电话号码
-             * 查询开票对象表
-             */
-            String custTelephone = eleInvoiceInfoService.getCellPhone(allInvoiceInfo.getObjectCode());
-            if ("".equals(custTelephone) || custTelephone == null) {
+            if(allInvoiceInfo.getObjectCode() == null){
+
+                errorDesc.setMessage(EleErrorEnum.E_E_2007.getErrorMsg());
+                errorDesc.setCode(EleErrorEnum.E_E_2007.getErrorCode());
+                errorInfo.setErrDesc(errorDesc);
+                errorInfo.setType("error");
+                errorBean.setError(errorInfo);
+                writeClientJson(response, errorBean, null);
+            }else{
+
+                InvoiceObjectInfo invoiceObjectInfo = invoiceObjectInfoService.getInvoiceObjectInfo(allInvoiceInfo);
+
                 /**
-                 * 如果开电子发票报错，则把报错信息放入 ELE_INVOICE_INFO 表中 INVOICE_INTERFACE_TAX_CODE 和 INVOICE_INTERFACE_TAX_MESSAGE
+                 * 01：企业
+                 * 02：机关执业单位
+                 * 03：个人
+                 * 04：其他
                  */
-                EleInvoiceInfo a = new EleInvoiceInfo();
-                a.setInvoiceId(allInvoiceInfo.getInvoiceId());
-                a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2003.getErrorCode());
-                a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2003.getErrorMsg());
-                //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
-                eleInvoiceInfoService.updateEleInvoiceTaxError(a);
-            }
-            /**
-             * 获取邮箱
-             * 查询开票对象表
-             */
-            String email = eleInvoiceInfoService.getEmail(allInvoiceInfo.getObjectCode());
+                String custType = invoiceObjectInfo.getObjectTypeCode();
+                if("".equals(custType) || custType == null){
+                    EleInvoiceInfo a = new EleInvoiceInfo();
+                    a.setInvoiceId(allInvoiceInfo.getInvoiceId());
+                    a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2008.getErrorCode());
+                    a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2008.getErrorMsg());
+                    //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
+                    eleInvoiceInfoService.updateEleInvoiceTaxError(a);
+                }
 
-            /**
-             * 判断发票类型，如果是专票，不允许开
-             */
-            if ("0".equals(allInvoiceInfo.getInvoiceKind())) {
-
-                EleInvoiceInfo a = new EleInvoiceInfo();
-                a.setInvoiceId(allInvoiceInfo.getInvoiceId());
-                a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2004.getErrorCode());
-                a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2004.getErrorMsg());
-                //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
-                eleInvoiceInfoService.updateEleInvoiceTaxError(a);
-            }
-
-            //获取开票人名称
-            String name = allInvoiceInfo.getIssuer().toString();
-            //获取确认人名称
-            String fhrName = allInvoiceInfo.getReviewer().toString();
-            System.out.println(name.length());
-            if (name.length() > 4 || fhrName.length() > 4) {
-
-                EleInvoiceInfo a = new EleInvoiceInfo();
-                a.setInvoiceId(allInvoiceInfo.getInvoiceId());
-                a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2005.getErrorCode());
-                a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2005.getErrorMsg());
-                //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
-                eleInvoiceInfoService.updateEleInvoiceTaxError(a);
-            }
-
-            //插入电子发票中间头表
-            EleInvoiceInfo eleInvoiceInfo1 = new EleInvoiceInfo();
-            eleInvoiceInfo1.setInvoiceId(allInvoiceInfo.getInvoiceId());
-            eleInvoiceInfo1.setDocumentType("ELE_INVOICE_INFO");
-            eleInvoiceInfo1.setDocumentCategory("ELE_INVOICE_INFO");
-            //流水号
-            eleInvoiceInfo1.setSerialNum(swno);
-            eleInvoiceInfo1.setSaleTax(saleTax);
-            eleInvoiceInfo1.setCustName(allInvoiceInfo.getObjectName());
-            eleInvoiceInfo1.setCustTaxNo(allInvoiceInfo.getTaxRegistryNum());
-            eleInvoiceInfo1.setCustAddr(allInvoiceInfo.getInvoiceObjectAddressPhone());
-            eleInvoiceInfo1.setCustTelephone(custTelephone);
-            eleInvoiceInfo1.setCustPhone("");
-            eleInvoiceInfo1.setCustEmail(email);
-            eleInvoiceInfo1.setCustBankAccount(allInvoiceInfo.getInvoiceObjectBankAccount());
-            eleInvoiceInfo1.setCustType(custType);
-            eleInvoiceInfo1.setEleInvoiceMemo(allInvoiceInfo.getInvoiceMemo());
-            eleInvoiceInfo1.setEleInvoiceType("3");
-            eleInvoiceInfo1.setIssuedTime(new Date());
-            eleInvoiceInfo1.setCancelNum("");
-            //开票类型 1代表开正票
-            eleInvoiceInfo1.setBillType("1");
-            //默认0  代表正常冲红，电子发票
-            eleInvoiceInfo1.setSpecialRedFlag("0");
-            //正票正常开具
-            eleInvoiceInfo1.setOperationCode("10");
-            //用户名称
-            eleInvoiceInfo1.setIssuer(allInvoiceInfo.getIssuer());
-            //同开票人
-            eleInvoiceInfo1.setReviewer(allInvoiceInfo.getReviewer());
-            //原发票代码 红冲使用，这里是空
-            eleInvoiceInfo1.setFormerInvoiceCode("");
-            //原发票代码 红冲使用，这里是空
-            eleInvoiceInfo1.setFormerInvoiceNum("");
-            //正常票填0
-            eleInvoiceInfo1.setInvoiceReverseDesc("0");
-            eleInvoiceInfo1.setEleInvoiceStatusCode("NEW");
-            acrEleInvoiceHd = eleInvoiceInfoService.insertData(iRequest, eleInvoiceInfo1);
-
-            /**
-             * 插入电子发票明细表
-             */
-            List<EleInvoiceDetail> acrInvoiceLns = acrInvoiceLnMapper.selectAllInvoiceDetail(hd.getInvoiceHdId());
-            for (int i = 0; i < acrInvoiceLns.size(); i++) {
-                //获取合同ID和合同编号
-                List<Map> list = acrEleInvoiceHdMapper.getContractDetail(acrInvoiceLns.get(i).getCashflowId());
                 /**
-                 * 从 ALL_INVOICE_DETAIL
-                 * 获取每一个行项目的税收分类编码
-                 *
+                 * 获取电话号码
+                 * 查询开票对象表
                  */
-                AcrEleInvoiceHd invoiceHd = new AcrEleInvoiceHd();
-                invoiceHd.setCashflowId(acrInvoiceLns.get(i).getCashflowId());
-                invoiceHd.setCfType(acrInvoiceLns.get(i).getCfType());
-                String code = acrEleInvoiceHdMapper.getTaxClassNum(invoiceHd);
+                String custTelephone = invoiceObjectInfo.getInvoicePhone();
+                if ("".equals(custTelephone) || custTelephone == null) {
+                    /**
+                     * 如果开电子发票报错，则把报错信息放入 ELE_INVOICE_INFO 表中 INVOICE_INTERFACE_TAX_CODE 和 INVOICE_INTERFACE_TAX_MESSAGE
+                     */
+                    EleInvoiceInfo a = new EleInvoiceInfo();
+                    a.setInvoiceId(allInvoiceInfo.getInvoiceId());
+                    a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2003.getErrorCode());
+                    a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2003.getErrorMsg());
+                    //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
+                    eleInvoiceInfoService.updateEleInvoiceTaxError(a);
+                }
+                /**
+                 * 获取邮箱
+                 * 查询开票对象表
+                 */
+                String email = invoiceObjectInfo.getInvoiceEmail();
 
-                if ("".equals(code) || code == null) {
+                /**
+                 * 判断发票类型，如果是专票，不允许开
+                 */
+                if ("0".equals(allInvoiceInfo.getInvoiceKind())) {
 
                     EleInvoiceInfo a = new EleInvoiceInfo();
                     a.setInvoiceId(allInvoiceInfo.getInvoiceId());
-                    a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2006.getErrorCode());
-                    a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2006.getErrorMsg());
+                    a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2004.getErrorCode());
+                    a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2004.getErrorMsg());
                     //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
                     eleInvoiceInfoService.updateEleInvoiceTaxError(a);
-                    return;
                 }
 
-                EleInvoiceDetail eleInvoiceDetail = new EleInvoiceDetail();
-                eleInvoiceDetail.setEleInvoiceId(acrEleInvoiceHd.getEleInvoiceHdId());
-                eleInvoiceDetail.setInvoiceId(acrInvoiceLns.get(i).getInvoiceHdId());
-                //eleInvoiceDetail.setInvoiceLnId(acrInvoiceLns.get(i).getInvoiceLnId());
-                eleInvoiceDetail.setContractNo(String.valueOf(list.get(0).get("contractNo")));
-                //eleInvoiceDetail.setCashflowId(acrInvoiceLns.get(i).getCashflowId());
-                eleInvoiceDetail.setBillNo(String.valueOf(list.get(0).get("contractNumber")));
-                eleInvoiceDetail.setBillName(acrInvoiceLns.get(i).getProductName());
-                eleInvoiceDetail.setBillCode(code); //税收分类编码
-                eleInvoiceDetail.setLineType("0");
-                eleInvoiceDetail.setSpec(acrInvoiceLns.get(i).getSpecification());
-                //acrEleInvoiceLn.setUnit(acrInvoiceLns.get(i).getUom());
-                eleInvoiceDetail.setUnit("台");
-                eleInvoiceDetail.setTaxRate(acrInvoiceLns.get(i).getTaxTypeRate());
-                eleInvoiceDetail.setTaxRquantityate(acrInvoiceLns.get(i).getQuantity());
-                eleInvoiceDetail.setTaxPrice(acrInvoiceLns.get(i).getPrice());
-                eleInvoiceDetail.setTotalAmount(acrInvoiceLns.get(i).getTotalAmount());
-                eleInvoiceDetail.setYhzcbs("0");
-                eleInvoiceDetail.setYhzcnr("");
-                eleInvoiceDetail.setLslbs(null);
-                eleInvoiceDetail.setZxbm("");
-                eleInvoiceDetail.setKce(null);
-                eleInvoiceDetailService.insertData(iRequest, eleInvoiceDetail);
+                //获取开票人名称
+                String name = allInvoiceInfo.getIssuer().toString();
+                //获取确认人名称
+                String fhrName = allInvoiceInfo.getReviewer().toString();
+                System.out.println(name.length());
+                if (name.length() > 4 || fhrName.length() > 4) {
+
+                    EleInvoiceInfo a = new EleInvoiceInfo();
+                    a.setInvoiceId(allInvoiceInfo.getInvoiceId());
+                    a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2005.getErrorCode());
+                    a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2005.getErrorMsg());
+                    //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
+                    eleInvoiceInfoService.updateEleInvoiceTaxError(a);
+                }
+
+                //插入电子发票中间头表
+                EleInvoiceInfo eleInvoiceInfo1 = new EleInvoiceInfo();
+                eleInvoiceInfo1.setInvoiceId(allInvoiceInfo.getInvoiceId());
+                eleInvoiceInfo1.setDocumentType("ELE_INVOICE_INFO");
+                eleInvoiceInfo1.setDocumentCategory("ELE_INVOICE_INFO");
+                //流水号
+                eleInvoiceInfo1.setSerialNum(swno);
+                eleInvoiceInfo1.setSaleTax(saleTax);
+                eleInvoiceInfo1.setCustName(allInvoiceInfo.getObjectName());
+                eleInvoiceInfo1.setCustTaxNo(allInvoiceInfo.getTaxRegistryNum());
+                eleInvoiceInfo1.setCustAddr(allInvoiceInfo.getInvoiceObjectAddressPhone());
+                eleInvoiceInfo1.setCustTelephone(custTelephone);
+                eleInvoiceInfo1.setCustPhone("");
+                eleInvoiceInfo1.setCustEmail(email);
+                eleInvoiceInfo1.setCustBankAccount(allInvoiceInfo.getInvoiceObjectBankAccount());
+                eleInvoiceInfo1.setCustType(custType);
+                eleInvoiceInfo1.setEleInvoiceMemo(allInvoiceInfo.getInvoiceMemo());
+                eleInvoiceInfo1.setEleInvoiceType("3");
+                eleInvoiceInfo1.setIssuedTime(new Date());
+                eleInvoiceInfo1.setCancelNum("");
+                //开票类型 1代表开正票
+                eleInvoiceInfo1.setBillType("1");
+                //默认0  代表正常冲红，电子发票
+                eleInvoiceInfo1.setSpecialRedFlag("0");
+                //正票正常开具
+                eleInvoiceInfo1.setOperationCode("10");
+                //用户名称
+                eleInvoiceInfo1.setIssuer(allInvoiceInfo.getIssuer());
+                //同开票人
+                eleInvoiceInfo1.setReviewer(allInvoiceInfo.getReviewer());
+                //原发票代码 红冲使用，这里是空
+                eleInvoiceInfo1.setFormerInvoiceCode("");
+                //原发票代码 红冲使用，这里是空
+                eleInvoiceInfo1.setFormerInvoiceNum("");
+                //正常票填0
+                eleInvoiceInfo1.setInvoiceReverseDesc("0");
+                eleInvoiceInfo1.setEleInvoiceStatusCode("NEW");
+                eleInvoiceInfoService.insertData(request, eleInvoiceInfo1);
+
+                /**
+                 * 插入电子发票明细表
+                 */
+                List<EleInvoiceDetail> acrInvoiceLns = acrInvoiceLnMapper.selectAllInvoiceDetail(allInvoiceInfo.getInvoiceHdId());
+                for (int i = 0; i < acrInvoiceLns.size(); i++) {
+                    //获取合同ID和合同编号
+                    List<Map> list = acrEleInvoiceHdMapper.getContractDetail(acrInvoiceLns.get(i).getCashflowId());
+                    /**
+                     * 从 ALL_INVOICE_DETAIL
+                     * 获取每一个行项目的税收分类编码
+                     *
+                     */
+                    AcrEleInvoiceHd invoiceHd = new AcrEleInvoiceHd();
+                    invoiceHd.setCashflowId(acrInvoiceLns.get(i).getCashflowId());
+                    invoiceHd.setCfType(acrInvoiceLns.get(i).getCfType());
+                    String code = acrEleInvoiceHdMapper.getTaxClassNum(invoiceHd);
+
+                    if ("".equals(code) || code == null) {
+
+                        EleInvoiceInfo a = new EleInvoiceInfo();
+                        a.setInvoiceId(allInvoiceInfo.getInvoiceId());
+                        a.setInvoiceInterfaceTaxCode(EleErrorEnum.E_E_2006.getErrorCode());
+                        a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2006.getErrorMsg());
+                        //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
+                        eleInvoiceInfoService.updateEleInvoiceTaxError(a);
+                        return;
+                    }
+
+                    EleInvoiceDetail eleInvoiceDetail = new EleInvoiceDetail();
+                    eleInvoiceDetail.setEleInvoiceId(acrEleInvoiceHd.getEleInvoiceHdId());
+                    eleInvoiceDetail.setInvoiceId(acrInvoiceLns.get(i).getInvoiceHdId());
+                    //eleInvoiceDetail.setInvoiceLnId(acrInvoiceLns.get(i).getInvoiceLnId());
+                    eleInvoiceDetail.setContractNo(String.valueOf(list.get(0).get("contractNo")));
+                    //eleInvoiceDetail.setCashflowId(acrInvoiceLns.get(i).getCashflowId());
+                    eleInvoiceDetail.setBillNo(String.valueOf(list.get(0).get("contractNumber")));
+                    eleInvoiceDetail.setBillName(acrInvoiceLns.get(i).getProductName());
+                    eleInvoiceDetail.setBillCode(code); //税收分类编码
+                    eleInvoiceDetail.setLineType("0");
+                    eleInvoiceDetail.setSpec(acrInvoiceLns.get(i).getSpecification());
+                    //acrEleInvoiceLn.setUnit(acrInvoiceLns.get(i).getUom());
+                    eleInvoiceDetail.setUnit("台");
+                    eleInvoiceDetail.setTaxRate(acrInvoiceLns.get(i).getTaxTypeRate());
+                    eleInvoiceDetail.setTaxQuantity(acrInvoiceLns.get(i).getQuantity());
+                    eleInvoiceDetail.setTaxPrice(acrInvoiceLns.get(i).getPrice());
+                    eleInvoiceDetail.setTotalAmount(acrInvoiceLns.get(i).getTotalAmount());
+                    eleInvoiceDetail.setYhzcbs("0");
+                    eleInvoiceDetail.setYhzcnr("");
+                    eleInvoiceDetail.setLslbs(null);
+                    eleInvoiceDetail.setZxbm("");
+                    eleInvoiceDetail.setKce(null);
+                    eleInvoiceDetailService.insertData(iRequest, eleInvoiceDetail);
+                }
+
             }
         }
-        return responseData;
     }
 }
