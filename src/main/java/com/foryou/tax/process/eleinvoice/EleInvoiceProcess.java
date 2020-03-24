@@ -5,14 +5,15 @@ import com.foryou.tax.api.bean.ErrorBean;
 import com.foryou.tax.api.bean.error.ErrorDesc;
 import com.foryou.tax.api.bean.error.ErrorInfo;
 import com.foryou.tax.api.constant.EleErrorEnum;
-import com.foryou.tax.api.constant.StatusCode;
 import com.foryou.tax.api.constant.StatusCodeEnum;
+import com.foryou.tax.pojo.allinvoice.AllInvoiceDetail;
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import com.foryou.tax.pojo.companies.FyCompanies;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
 import com.foryou.tax.process.common.BaseProcess;
+import com.foryou.tax.service.allinvoice.AllInvoiceDetatilService;
 import com.foryou.tax.service.companies.FyCompaniesService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
@@ -26,6 +27,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -50,6 +52,9 @@ public class EleInvoiceProcess extends BaseProcess {
 
     @Autowired
     private FyCompaniesService fyCompaniesService;
+
+    @Autowired
+    private AllInvoiceDetatilService allInvoiceDetatilService;
 
     public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, List<AllInvoiceInfo> allInvoiceDataList){
 
@@ -363,24 +368,30 @@ public class EleInvoiceProcess extends BaseProcess {
                 eleInvoiceInfo1.setEleInvoiceStatusName(StatusCodeEnum.ES_2001.getStatusName());
                 eleInvoiceInfo1.setInvoiceInterfaceStatusCode(StatusCodeEnum.EIS_3001.getStatusCode());
                 eleInvoiceInfo1.setInvoiceInterfaceStatusName(StatusCodeEnum.EIS_3001.getStatusName());
+                /**
+                 * request 里有用户相关信息
+                 */
                 eleInvoiceInfoService.insertData(request, eleInvoiceInfo1);
 
                 /**
                  * 插入电子发票明细表
                  */
-                List<EleInvoiceDetail> acrInvoiceLns = acrInvoiceLnMapper.selectAllInvoiceDetail(allInvoiceInfo.getInvoiceHdId());
-                for (int i = 0; i < acrInvoiceLns.size(); i++) {
-                    //获取合同ID和合同编号
-                    List<Map> list = acrEleInvoiceHdMapper.getContractDetail(acrInvoiceLns.get(i).getCashflowId());
+                List<AllInvoiceDetail> allInvoiceDetails = allInvoiceDetatilService.getAllInvoiceDetailInfo(allInvoiceInfo.getInvoiceId());
+                for (int i = 0; i < allInvoiceDetails.size(); i++) {
                     /**
-                     * 从 ALL_INVOICE_DETAIL
+                     * 获取合同编号
+                     * 插入 ELE_INVOICE_DETAIL 中的 CONTRACT_NO 和 BILL_NO
+                     */
+                    List<Map> list = acrEleInvoiceHdMapper.getContractDetail(allInvoiceDetails.get(i).getCashflowId());
+
+                    /**
+                     * 通过 ALL_INVOICE_DETAIL 中的 CASHFLOW_ID 和 CASHFLOW_ITEM_CODE
+                     * ALL_INVOICE_INFO 中的 COMMODITY_CODE
+                     * 从 INVOICE_TAX_CLASSIFICATION_CODE
                      * 获取每一个行项目的税收分类编码
                      *
                      */
-                    AcrEleInvoiceHd invoiceHd = new AcrEleInvoiceHd();
-                    invoiceHd.setCashflowId(acrInvoiceLns.get(i).getCashflowId());
-                    invoiceHd.setCfType(acrInvoiceLns.get(i).getCfType());
-                    String code = acrEleInvoiceHdMapper.getTaxClassNum(invoiceHd);
+                    String code = eleInvoiceDetailService.getTaxClassNum(allInvoiceDetails.get(i));
 
                     if ("".equals(code) || code == null) {
 
@@ -394,26 +405,26 @@ public class EleInvoiceProcess extends BaseProcess {
                     }
 
                     EleInvoiceDetail eleInvoiceDetail = new EleInvoiceDetail();
-                    eleInvoiceDetail.setEleInvoiceId(acrEleInvoiceHd.getEleInvoiceHdId());
-                    eleInvoiceDetail.setInvoiceId(acrInvoiceLns.get(i).getInvoiceHdId());
-                    eleInvoiceDetail.setContractNo(String.valueOf(list.get(0).get("contractNo")));
+                    eleInvoiceDetail.setEleInvoiceId(eleInvoiceInfo1.getEleInvoiceId());
+                    eleInvoiceDetail.setInvoiceId(allInvoiceDetails.get(i).getInvoiceId());
+                    eleInvoiceDetail.setContractNo(String.valueOf(list.get(0).get("contractNumber")));
                     eleInvoiceDetail.setBillNo(String.valueOf(list.get(0).get("contractNumber")));
-                    eleInvoiceDetail.setBillName(acrInvoiceLns.get(i).getProductName());
+                    eleInvoiceDetail.setBillName(allInvoiceDetails.get(i).getProductName());
                     //税收分类编码
                     eleInvoiceDetail.setBillCode(code);
                     eleInvoiceDetail.setLineType("0");
-                    eleInvoiceDetail.setSpec(acrInvoiceLns.get(i).getSpecification());
+                    eleInvoiceDetail.setSpec(allInvoiceDetails.get(i).getSpec());
                     eleInvoiceDetail.setUnit("台");
-                    eleInvoiceDetail.setTaxRate(acrInvoiceLns.get(i).getTaxTypeRate());
-                    eleInvoiceDetail.setTaxQuantity(acrInvoiceLns.get(i).getQuantity());
-                    eleInvoiceDetail.setTaxPrice(acrInvoiceLns.get(i).getPrice());
-                    eleInvoiceDetail.setTotalAmount(acrInvoiceLns.get(i).getTotalAmount());
+                    eleInvoiceDetail.setTaxRate(BigDecimal.valueOf(allInvoiceDetails.get(i).getTaxRate()));
+                    eleInvoiceDetail.setTaxQuantity(allInvoiceDetails.get(i).getTaxQuantity());
+                    eleInvoiceDetail.setTaxPrice(allInvoiceDetails.get(i).getTaxPrice());
+                    eleInvoiceDetail.setTotalAmount(allInvoiceDetails.get(i).getTotalAmount());
                     eleInvoiceDetail.setYhzcbs("0");
                     eleInvoiceDetail.setYhzcnr("");
                     eleInvoiceDetail.setLslbs(null);
                     eleInvoiceDetail.setZxbm("");
                     eleInvoiceDetail.setKce(null);
-                    eleInvoiceDetailService.insertData(iRequest, eleInvoiceDetail);
+                    eleInvoiceDetailService.insertData(request, eleInvoiceDetail);
                 }
 
             }

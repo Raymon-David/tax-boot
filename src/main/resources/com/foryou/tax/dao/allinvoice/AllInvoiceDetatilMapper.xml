@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.allinvoice.AllInvoiceDetatilMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.allinvoice.AllInvoiceDetail">
+        <id column="INVOICE_DETAIL_ID" property="invoiceDetailId" />
+        <result column="INVOICE_ID" property="invoiceId" />
+        <result column="PRODUCT_ID" property="productId" />
+        <result column="PRODUCT_NAME" property="productName" />
+        <result column="SPEC" property="spec" />
+        <result column="TAX_QUANTITY" property="taxQuantity" />
+        <result column="UNIT" property="unit" />
+        <result column="TAX_PRICE" property="taxPrice" />
+        <result column="TAX_NET_PRICE" property="taxNetPrice" />
+        <result column="TAX_TYPE" property="taxType" />
+        <result column="TAX_RATE" property="taxRate" />
+        <result column="TAX_INCLUDED_FLAG" property="taxIncludedFlag" />
+        <result column="TOTAL_AMOUNT" property="totalAmount" />
+        <result column="TAX_AMOUNT" property="taxAmount" />
+        <result column="TAX_NET_AMOUNT" property="taxNetAmount" />
+        <result column="INVOICE_DETAIL_MEMO" property="invoiceDetailMemo" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        INVOICE_DETAIL_ID, INVOICE_ID, PRODUCT_ID, PRODUCT_NAME, SPEC, TAX_QUANTITY, UNIT, TAX_PRICE, TAX_NET_PRICE, TAX_TYPE, TAX_RATE, TAX_INCLUDED_FLAG, TOTAL_AMOUNT, TAX_AMOUNT, TAX_NET_AMOUNT, INVOICE_DETAIL_MEMO, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+
+</mapper>
