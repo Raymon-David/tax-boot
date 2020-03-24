@@ -1,5 +1,7 @@
 package com.foryou.tax.service.invoiceobject;
 
+import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
+
 /**
  * <p>
  * 开票对象信息表 服务类
@@ -10,4 +12,5 @@ package com.foryou.tax.service.invoiceobject;
  */
 public interface InvoiceObjectInfoService{
 
+    InvoiceObjectInfo getInvoiceObjectInfo(InvoiceObjectInfo invoiceObjectInfo);
 }

@@ -1,7 +1,6 @@
 package com.foryou.tax.dao.invoiceobject;
 
 import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -17,4 +16,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface InvoiceObjectInfoMapper {
 
+    InvoiceObjectInfo getInvoiceObjectInfo(InvoiceObjectInfo invoiceObjectInfo);
 }

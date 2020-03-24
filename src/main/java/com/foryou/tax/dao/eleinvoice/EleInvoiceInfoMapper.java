@@ -1,5 +1,6 @@
 package com.foryou.tax.dao.eleinvoice;
 
+import com.foryou.tax.pojo.companies.FyCompanies;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
@@ -21,4 +22,10 @@ public interface EleInvoiceInfoMapper{
     int updateEleInvoiceTaxError(EleInvoiceInfo eleInvoiceInfo);
 
     int deleteData(EleInvoiceInfo eleInvoiceInfo);
+
+    String searchSerialNum(FyCompanies fyCompanies);
+
+    String getSerialNum1(FyCompanies fyCompanies);
+
+    String getSerialNum2(FyCompanies fyCompanies);
 }

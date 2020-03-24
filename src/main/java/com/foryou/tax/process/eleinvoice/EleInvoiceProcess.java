@@ -5,11 +5,15 @@ import com.foryou.tax.api.bean.ErrorBean;
 import com.foryou.tax.api.bean.error.ErrorDesc;
 import com.foryou.tax.api.bean.error.ErrorInfo;
 import com.foryou.tax.api.constant.EleErrorEnum;
+import com.foryou.tax.api.constant.StatusCode;
+import com.foryou.tax.api.constant.StatusCodeEnum;
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
+import com.foryou.tax.pojo.companies.FyCompanies;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
 import com.foryou.tax.process.common.BaseProcess;
+import com.foryou.tax.service.companies.FyCompaniesService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
 import com.foryou.tax.service.invoiceobject.InvoiceObjectInfoService;
@@ -43,6 +47,9 @@ public class EleInvoiceProcess extends BaseProcess {
 
     @Autowired
     private InvoiceObjectInfoService invoiceObjectInfoService;
+
+    @Autowired
+    private FyCompaniesService fyCompaniesService;
 
     public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, List<AllInvoiceInfo> allInvoiceDataList){
 
@@ -155,20 +162,23 @@ public class EleInvoiceProcess extends BaseProcess {
                                 errorBean.setError(errorInfo);
                                 writeClientJson(response, errorBean, null);
                             } else {
-                                //更新电子发票状态，表示已经传入金税接口
-                                eleInvoiceInfoService.updateAcrEleHdStatus(allInvoiceDataList.get(i).getInvoiceId());
+                                /**
+                                 * 更新电子发票状态，表示已经传入金税接口
+                                 * 金税接口状态（PENDING-暂挂 / TRANSFERRED-已传金税 / BACK-金税已回写）
+                                 */
+
+                                eleInvoiceInfoService.updateEleInvoiceInterfaceStatus(allInvoiceDataList.get(i).getInvoiceId());
 
                                 //开票成功结束后，更新发票余量
                                 int num = acrEleNumber - allInvoiceDataList.size();
 
                                 /**
-                                 * FND_COMPANIES 表
+                                 * 查询 FY_COMPANIES 表
                                  */
-                                Long companyId = iRequest.getCompanyId();
-                                AcrEleInvoiceHd acrEleInvoiceHd = new AcrEleInvoiceHd();
-                                acrEleInvoiceHd.setAcrEleNumber(num);
-                                acrEleInvoiceHd.setCompanyId(companyId);
-                                eleInvoiceInfoService.updateAceEleNumber(acrEleInvoiceHd);
+                                FyCompanies fyCompanies = new FyCompanies();
+                                fyCompanies.setCompanyId(allInvoiceDataList.get(i).getCompanyId());
+                                fyCompanies.setCompanyEleMargin(num);
+                                fyCompaniesService.updateCompanyEleMargin(fyCompanies);
                             }
                         }
                     }
@@ -224,20 +234,11 @@ public class EleInvoiceProcess extends BaseProcess {
             /**
              * 流水号
              * 关键字段不能为空，必须唯一 由数字、字母、下划线组成 字段固定长度是20位
-             * 规则 EI_年月日_companycode_000000001
-             * select
-             * concat(
-             * 			'EI',
-             * 			'_',
-             * 			substr(date_format(now(), '%Y%m%d'), 5, 8 ),
-             *          '_',
-             *          10001,
-             *          '_',
-             *          rpad(1, 6, 0) + 1
-             * 				)
-             * from dual
+             * 规则 EI_年月日_companycode_100000001
              */
-            String swno = eleInvoiceInfoService.getSerialNum(allInvoiceInfo.getCompanyId());
+            FyCompanies fyCompanies = new FyCompanies();
+            fyCompanies.setCompanyId(allInvoiceInfo.getCompanyId());
+            String serialNum = eleInvoiceInfoService.getSerialNum(fyCompanies);
             /**
              * 购货方企业类型
              * 查询开票对象表
@@ -252,7 +253,9 @@ public class EleInvoiceProcess extends BaseProcess {
                 writeClientJson(response, errorBean, null);
             }else{
 
-                InvoiceObjectInfo invoiceObjectInfo = invoiceObjectInfoService.getInvoiceObjectInfo(allInvoiceInfo);
+                InvoiceObjectInfo invoiceObjectInfo1 = new InvoiceObjectInfo();
+                invoiceObjectInfo1.setObjectCode(allInvoiceInfo.getObjectCode());
+                InvoiceObjectInfo invoiceObjectInfo = invoiceObjectInfoService.getInvoiceObjectInfo(invoiceObjectInfo1);
 
                 /**
                  * 01：企业
@@ -326,7 +329,7 @@ public class EleInvoiceProcess extends BaseProcess {
                 eleInvoiceInfo1.setDocumentType("ELE_INVOICE_INFO");
                 eleInvoiceInfo1.setDocumentCategory("ELE_INVOICE_INFO");
                 //流水号
-                eleInvoiceInfo1.setSerialNum(swno);
+                eleInvoiceInfo1.setSerialNum(serialNum);
                 eleInvoiceInfo1.setSaleTax(saleTax);
                 eleInvoiceInfo1.setCustName(allInvoiceInfo.getObjectName());
                 eleInvoiceInfo1.setCustTaxNo(allInvoiceInfo.getTaxRegistryNum());
@@ -356,7 +359,8 @@ public class EleInvoiceProcess extends BaseProcess {
                 eleInvoiceInfo1.setFormerInvoiceNum("");
                 //正常票填0
                 eleInvoiceInfo1.setInvoiceReverseDesc("0");
-                eleInvoiceInfo1.setEleInvoiceStatusCode("NEW");
+                eleInvoiceInfo1.setEleInvoiceStatusCode(StatusCodeEnum.ES_2001.getStatusCode());
+                eleInvoiceInfo1.setEleInvoiceStatusName(StatusCodeEnum.ES_2001.getStatusName());
                 eleInvoiceInfoService.insertData(request, eleInvoiceInfo1);
 
                 /**
@@ -390,15 +394,13 @@ public class EleInvoiceProcess extends BaseProcess {
                     EleInvoiceDetail eleInvoiceDetail = new EleInvoiceDetail();
                     eleInvoiceDetail.setEleInvoiceId(acrEleInvoiceHd.getEleInvoiceHdId());
                     eleInvoiceDetail.setInvoiceId(acrInvoiceLns.get(i).getInvoiceHdId());
-                    //eleInvoiceDetail.setInvoiceLnId(acrInvoiceLns.get(i).getInvoiceLnId());
                     eleInvoiceDetail.setContractNo(String.valueOf(list.get(0).get("contractNo")));
-                    //eleInvoiceDetail.setCashflowId(acrInvoiceLns.get(i).getCashflowId());
                     eleInvoiceDetail.setBillNo(String.valueOf(list.get(0).get("contractNumber")));
                     eleInvoiceDetail.setBillName(acrInvoiceLns.get(i).getProductName());
-                    eleInvoiceDetail.setBillCode(code); //税收分类编码
+                    //税收分类编码
+                    eleInvoiceDetail.setBillCode(code);
                     eleInvoiceDetail.setLineType("0");
                     eleInvoiceDetail.setSpec(acrInvoiceLns.get(i).getSpecification());
-                    //acrEleInvoiceLn.setUnit(acrInvoiceLns.get(i).getUom());
                     eleInvoiceDetail.setUnit("台");
                     eleInvoiceDetail.setTaxRate(acrInvoiceLns.get(i).getTaxTypeRate());
                     eleInvoiceDetail.setTaxQuantity(acrInvoiceLns.get(i).getQuantity());

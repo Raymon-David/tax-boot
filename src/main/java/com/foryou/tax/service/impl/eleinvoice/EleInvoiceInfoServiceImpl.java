@@ -1,6 +1,7 @@
 package com.foryou.tax.service.impl.eleinvoice;
 
 import com.foryou.tax.dao.eleinvoice.EleInvoiceInfoMapper;
+import com.foryou.tax.pojo.companies.FyCompanies;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,17 @@ public class EleInvoiceInfoServiceImpl implements EleInvoiceInfoService {
     @Override
     public int deleteData(EleInvoiceInfo eleInvoiceInfo) {
         return eleInvoiceInfoMapper.deleteData(eleInvoiceInfo);
+    }
+
+    @Override
+    public String getSerialNum(FyCompanies fyCompanies) {
+
+        String serialNum = eleInvoiceInfoMapper.searchSerialNum(fyCompanies);
+        if (serialNum == null || "".equals(serialNum)) {
+            serialNum = eleInvoiceInfoMapper.getSerialNum2(fyCompanies);
+        }else {
+            serialNum = eleInvoiceInfoMapper.getSerialNum1(fyCompanies);
+        }
+        return serialNum;
     }
 }

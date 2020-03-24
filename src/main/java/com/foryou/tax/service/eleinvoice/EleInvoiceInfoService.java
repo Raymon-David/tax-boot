@@ -1,6 +1,7 @@
 package com.foryou.tax.service.eleinvoice;
 
 
+import com.foryou.tax.pojo.companies.FyCompanies;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 
 /**
@@ -18,4 +19,6 @@ public interface EleInvoiceInfoService {
     int updateEleInvoiceTaxError(EleInvoiceInfo eleInvoiceInfo);
 
     int deleteData(EleInvoiceInfo eleInvoiceInfo);
+
+    String getSerialNum(FyCompanies fyCompanies);
 }

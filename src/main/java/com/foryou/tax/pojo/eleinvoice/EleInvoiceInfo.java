@@ -1,11 +1,12 @@
 package com.foryou.tax.pojo.eleinvoice;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -196,7 +197,7 @@ public class EleInvoiceInfo implements Serializable {
     @TableField("INVOICE_INTERFACE_STATUS_CODE")
     private String invoiceInterfaceStatusCode;
     /**
-     * 金税接口状态NAME（PENDING-暂挂 / TRANSFERED-已传金税 / BACK-金税已回写）
+     * 金税接口状态NAME（PENDING-暂挂 / TRANSFERRED-已传金税 / BACK-金税已回写）
      */
     @TableField("INVOICE_INTERFACE_STATUS_NAME")
     private String invoiceInterfaceStatusName;

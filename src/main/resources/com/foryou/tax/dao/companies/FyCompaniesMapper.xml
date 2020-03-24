@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.companies.FyCompaniesMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.companies.FyCompanies">
+        <id column="COMPANY_ID" property="companyId" />
+        <result column="COMPANY_CODE" property="companyCode" />
+        <result column="COMPANY_TYPE" property="companyType" />
+        <result column="COMPANY_ADDRESS" property="companyAddress" />
+        <result column="COMPANY_PHONE" property="companyPhone" />
+        <result column="ACTIVE_START_DATE" property="activeStartDate" />
+        <result column="ACTIVE_END_DATE" property="activeEndDate" />
+        <result column="INVOICE_TITLE" property="invoiceTitle" />
+        <result column="TAX_REGISTRY_NUM" property="taxRegistryNum" />
+        <result column="INVOICE_COMPANY_ADDRESS_PHONE_NUM" property="invoiceCompanyAddressPhoneNum" />
+        <result column="INVOICE_COMPANY_BANK_ACCOUNT" property="invoiceCompanyBankAccount" />
+        <result column="COMPANY_FULL_NAME" property="companyFullName" />
+        <result column="COMPANY_SHORT_NAME" property="companyShortName" />
+        <result column="COMPANY_BANK_ACCOUNT_ID" property="companyBankAccountId" />
+        <result column="COMPANY_ELE_MARGIN" property="companyEleMargin" />
+        <result column="COMPANY_CUSTOMER_ID" property="companyCustomerId" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        COMPANY_ID, COMPANY_CODE, COMPANY_TYPE, COMPANY_ADDRESS, COMPANY_PHONE, ACTIVE_START_DATE, ACTIVE_END_DATE, INVOICE_TITLE, TAX_REGISTRY_NUM, INVOICE_COMPANY_ADDRESS_PHONE_NUM, INVOICE_COMPANY_BANK_ACCOUNT, COMPANY_FULL_NAME, COMPANY_SHORT_NAME, COMPANY_BANK_ACCOUNT_ID, COMPANY_ELE_MARGIN, COMPANY_CUSTOMER_ID, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+    <update id="updateCompanyEleMargin">
+        update FY_COMPANIES
+        set COMPANY_ELE_MARGIN = #{companyEleMargin}
+        where COMPANY_ID = #{companyId}
+    </update>
+
+</mapper>

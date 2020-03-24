@@ -34,4 +34,11 @@
         INVOICE_OBJECT_INFO_ID, OBJECT_CODE, OBJECT_NAME, OBJECT_PHONE, OBJECT_ID_CARD, OBJECT_SOCIAL_CODE, OBJECT_EMAIL, OBJECT_TYPE_CODE, OBJECT_TYPE_NAME, OBJECT_TAX_TYPE_CODE, OBJECT_TAX_TYPE_NAME, OBJECT_TAX_REGISTRY_NUM, INVOICE_TITLE, INVOICE_OBJECT_BANK_ACCOUNT_NUM, INVOICE_OBJECT_ADDRESS, INVOICE_OBJECT_BANK, INVOICE_PHONE, INVOICE_EMAIL, INVOICE_INFO_TYPE, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
     </sql>
 
+    <select id="getInvoiceObjectInfo" resultMap="BaseResultMap" parameterType="com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo">
+        select
+        <include refid="Base_Column_List" />
+        from INVOICE_OBJECT_INFO
+        where OBJECT_CODE = #{objectCode}
+    </select>
+
 </mapper>

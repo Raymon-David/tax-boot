@@ -86,5 +86,37 @@
         deletet from ELE_INVOICE_INFO
         where ELE_INVOICE_ID = #{eleInvoiceId}
     </delete>
+    <select id="searchSerialNum" resultType="java.lang.String" parameterType="com.foryou.tax.pojo.companies.FyCompanies">
+        select SERIAL_NUM
+        from ELE_INVOICE_INFO
+        where substr(SERIAL_NUM, 9, 5) = #{companyId}
+        and substr(SERIAL_NUM, 4, 4) = substr(date_format(now(), '%Y%m%d'), 5, 8 )
+    </select>
+    <select id="getSerialNum1" resultType="java.lang.String" parameterType="com.foryou.tax.pojo.companies.FyCompanies">
+        select
+        concat(
+                'EI',
+                '_',
+                substr(date_format(now(), '%Y%m%d'), 5, 8 ),
+                        '_',
+                        (select COMPANY_CODE from FY_COMPANIES where COMPANY_ID = #{companyId} ),
+                        '_',
+                        trim( ifnull( max(substr(SERIAL_NUM, 15, 6) ), 0 ) + 1 )
+                    )
+        from ELE_INVOICE_INFO
+    </select>
+    <select id="getSerialNum2" resultType="java.lang.String" parameterType="com.foryou.tax.pojo.companies.FyCompanies">
+        select
+        concat(
+                'EI',
+                '_',
+                substr(date_format(now(), '%Y%m%d'), 5, 8 ),
+                        '_',
+                        (select COMPANY_CODE from FY_COMPANIES where COMPANY_ID = #{companyId} ),
+                        '_',
+                        rpad(1, 6, 0) + 1
+                    )
+        from dual
+    </select>
 
 </mapper>

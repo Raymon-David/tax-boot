@@ -5,19 +5,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum StatusCode {
-    @CodeAnnot("正确处理") OK(1),//
-    @CodeAnnot("系统错误") SystemError(9999),//
-    @CodeAnnot("系统繁忙,请稍后再试") SystemBusy(9998),//
-    @CodeAnnot("MD5验证失败") Md5ValidEroor(9997),//
-    @CodeAnnot("应用程序错误") AppError(2), //
-    @CodeAnnot("数据库错误") DBException(3), //
-    
-    @CodeAnnot("参数错误") RequestParamsNotValid(9001), //
-    @CodeAnnot("邮箱格式不正确") EmailValid(10001), //
-    @CodeAnnot("用户名长度必须为5-13") NickNameLengthValid(10002),//
-    @CodeAnnot("接口错误") ItfcError(999),//
-    @CodeAnnot("已存在") Exists(1111),//
-    @CodeAnnot("记录不存在") NotExists(0000),//
+    @CodeAnnot("正确处理") OK(1),
+    @CodeAnnot("系统错误") SystemError(9999),
+    @CodeAnnot("系统繁忙,请稍后再试") SystemBusy(9998),
+    @CodeAnnot("MD5验证失败") Md5ValidEroor(9997),
+    @CodeAnnot("应用程序错误") AppError(2),
+    @CodeAnnot("数据库错误") DBException(3),
+
+    @CodeAnnot("参数错误") RequestParamsNotValid(9001),
+    @CodeAnnot("邮箱格式不正确") EmailValid(10001),
+    @CodeAnnot("用户名长度必须为5-13") NickNameLengthValid(10002),
+    @CodeAnnot("接口错误") ItfcError(999),
+    @CodeAnnot("已存在") Exists(1111),
+    @CodeAnnot("记录不存在") NotExists(0000),
     @CodeAnnot("申请成功，请等待平台审核!") WaitApply(11110),
     @CodeAnnot("一审通过") FirstAdopt(11111),
     @CodeAnnot("二审通过") Adopt(11112),
@@ -26,8 +26,8 @@ public enum StatusCode {
     @CodeAnnot("注册失败") RegisterError(11142),
     @CodeAnnot("登陆失败") LoginError(11143),
     @CodeAnnot("客户状态失效") clientStatusInActive(800001),
-    @CodeAnnot("文件找不到") UploadFileNotFound(9002),//
-    @CodeAnnot("该用户已存在") UserNameHasExits(10001),//
+    @CodeAnnot("文件找不到") UploadFileNotFound(9002),
+    @CodeAnnot("该用户已存在") UserNameHasExits(10001),
     @CodeAnnot("邮箱格式错误") EmailFormatError(10002),
     @CodeAnnot("用户名为空") UserNameIsEmpty(10003),
     @CodeAnnot("用户名和邮箱绑定关系不存在,或者存在多个绑定关系") EmailAndUserNameBindError(10004),
@@ -96,7 +96,9 @@ public enum StatusCode {
     private final int value;
     private static final Map<String, String> hMap = new HashMap<String, String>();
 
-    // 构造器默认也只能是private, 从而保证构造函数只能在内部使用
+    /**
+     * 构造器默认也只能是private, 从而保证构造函数只能在内部使用
+     */
     StatusCode(int value) {
         this.value = value;
     }
@@ -105,8 +107,7 @@ public enum StatusCode {
         Field[] fields = StatusCode.class.getFields();
         for (Field field : fields) {
             if (field.isAnnotationPresent(CodeAnnot.class)) {
-                hMap.put(field.getName(), field.getAnnotation(CodeAnnot.class)
-                        .value());
+                hMap.put(field.getName(), field.getAnnotation(CodeAnnot.class).value());
             }
         }
     }
