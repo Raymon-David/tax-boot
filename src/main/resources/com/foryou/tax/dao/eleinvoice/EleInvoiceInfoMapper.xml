@@ -119,4 +119,371 @@
         from dual
     </select>
 
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo" >
+        insert into ELE_INVOICE_INFO
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="eleInvoiceId != null" >
+                ELE_INVOICE_ID,
+            </if>
+            <if test="invoiceId != null" >
+                INVOICE_ID,
+            </if>
+            <if test="documentType != null" >
+                DOCUMENT_TYPE,
+            </if>
+            <if test="documentCategory != null" >
+                DOCUMENT_CATEGORY,
+            </if>
+            <if test="serialNum != null" >
+                SERIAL_NUM,
+            </if>
+            <if test="saleTax != null" >
+                SALE_TAX,
+            </if>
+            <if test="custName != null" >
+                CUST_NAME,
+            </if>
+            <if test="custTaxNo != null" >
+                CUST_TAX_NO,
+            </if>
+            <if test="custAddr != null" >
+                CUST_ADDR,
+            </if>
+            <if test="custTelephone != null" >
+                CUST_TELEPHONE,
+            </if>
+            <if test="custPhone != null" >
+                CUST_PHONE,
+            </if>
+            <if test="custEmail != null" >
+                CUST_EMAIL,
+            </if>
+            <if test="custBankAccount != null" >
+                CUST_BANK_ACCOUNT,
+            </if>
+            <if test="custType != null" >
+                CUST_TYPE,
+            </if>
+            <if test="eleInvoiceMemo != null" >
+                ELE_INVOICE_MEMO,
+            </if>
+            <if test="eleInvoiceType != null" >
+                ELE_INVOICE_TYPE,
+            </if>
+            <if test="cancelNum != null" >
+                CANCEL_NUM,
+            </if>
+            <if test="billType != null" >
+                BILL_TYPE,
+            </if>
+            <if test="specialRedFlag != null" >
+                SPECIAL_RED_FLAG,
+            </if>
+            <if test="operationCode != null" >
+                OPERATION_CODE,
+            </if>
+            <if test="accountPayee != null" >
+                ACCOUNT_PAYEE,
+            </if>
+            <if test="accountTime != null" >
+                ACCOUNT_TIME,
+            </if>
+            <if test="issuer != null" >
+                ISSUER,
+            </if>
+            <if test="issuedTime != null" >
+                ISSUED_TIME,
+            </if>
+            <if test="reviewer != null" >
+                REVIEWER,
+            </if>
+            <if test="reviewedTime != null" >
+                REVIEWED_TIME,
+            </if>
+            <if test="formerInvoiceCode != null" >
+                FORMER_INVOICE_CODE,
+            </if>
+            <if test="formerInvoiceNum != null" >
+                FORMER_INVOICE_NUM,
+            </if>
+            <if test="eleInvoiceStatusCode != null" >
+                ELE_INVOICE_STATUS_CODE,
+            </if>
+            <if test="eleInvoiceStatusName != null" >
+                ELE_INVOICE_STATUS_NAME,
+            </if>
+            <if test="pdfUrl != null" >
+                PDF_URL,
+            </if>
+            <if test="invoiceDate != null" >
+                INVOICE_DATE,
+            </if>
+            <if test="invoiceNumber != null" >
+                INVOICE_NUMBER,
+            </if>
+            <if test="invoiceCode != null" >
+                INVOICE_CODE,
+            </if>
+            <if test="invoiceInterfaceStatusCode != null" >
+                INVOICE_INTERFACE_STATUS_CODE,
+            </if>
+            <if test="invoiceInterfaceStatusName != null" >
+                INVOICE_INTERFACE_STATUS_NAME,
+            </if>
+            <if test="invoiceInterfaceTaxCode != null" >
+                INVOICE_INTERFACE_TAX_CODE,
+            </if>
+            <if test="invoiceInterfaceTaxMessage != null" >
+                INVOICE_INTERFACE_TAX_MESSAGE,
+            </if>
+            <if test="invoiceCancelFlag != null" >
+                INVOICE_CANCEL_FLAG,
+            </if>
+            <if test="invoiceCancelDesc != null" >
+                INVOICE_CANCEL_DESC,
+            </if>
+            <if test="invoiceCancelDate != null" >
+                INVOICE_CANCEL_DATE,
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                INVOICE_INVALID_FLAG,
+            </if>
+            <if test="invoiceInvalidDesc != null" >
+                INVOICE_INVALID_DESC,
+            </if>
+            <if test="invoiceInvalidCode != null" >
+                INVOICE_INVALID_CODE,
+            </if>
+            <if test="invoiceInvalidName != null" >
+                INVOICE_INVALID_NAME,
+            </if>
+            <if test="invoiceInterfaceInvalidCode != null" >
+                INVOICE_INTERFACE_INVALID_CODE,
+            </if>
+            <if test="invoiceInterfaceInvalidMessage != null" >
+                INVOICE_INTERFACE_INVALID_MESSAGE,
+            </if>
+            <if test="invoiceInvalidDate != null" >
+                INVOICE_INVALID_DATE,
+            </if>
+            <if test="invoiceReverseFlag != null" >
+                INVOICE_REVERSE_FLAG,
+            </if>
+            <if test="invoiceReverseDesc != null" >
+                INVOICE_REVERSE_DESC,
+            </if>
+            <if test="invoiceReverseCode != null" >
+                INVOICE_REVERSE_CODE,
+            </if>
+            <if test="invoiceReverseName != null" >
+                INVOICE_REVERSE_NAME,
+            </if>
+            <if test="invoiceInterfaceReverseCode != null" >
+                INVOICE_INTERFACE_REVERSE_CODE,
+            </if>
+            <if test="invoiceInterfaceReverseMessage != null" >
+                INVOICE_INTERFACE_REVERSE_MESSAGE,
+            </if>
+            <if test="invoiceRedNoticeNum != null" >
+                INVOICE_RED_NOTICE_NUM,
+            </if>
+            <if test="invoiceReverseDate != null" >
+                INVOICE_REVERSE_DATE,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="eleInvoiceId != null" >
+                #{eleInvoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="invoiceId != null" >
+                #{invoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="documentType != null" >
+                #{documentType,jdbcType=VARCHAR},
+            </if>
+            <if test="documentCategory != null" >
+                #{documentCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNum != null" >
+                #{serialNum,jdbcType=VARCHAR},
+            </if>
+            <if test="saleTax != null" >
+                #{saleTax,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null" >
+                #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="custTaxNo != null" >
+                #{custTaxNo,jdbcType=VARCHAR},
+            </if>
+            <if test="custAddr != null" >
+                #{custAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="custTelephone != null" >
+                #{custTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="custPhone != null" >
+                #{custPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="custEmail != null" >
+                #{custEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="custBankAccount != null" >
+                #{custBankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="custType != null" >
+                #{custType,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceMemo != null" >
+                #{eleInvoiceMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceType != null" >
+                #{eleInvoiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="cancelNum != null" >
+                #{cancelNum,jdbcType=VARCHAR},
+            </if>
+            <if test="billType != null" >
+                #{billType,jdbcType=VARCHAR},
+            </if>
+            <if test="specialRedFlag != null" >
+                #{specialRedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="operationCode != null" >
+                #{operationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="accountPayee != null" >
+                #{accountPayee,jdbcType=VARCHAR},
+            </if>
+            <if test="accountTime != null" >
+                #{accountTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issuer != null" >
+                #{issuer,jdbcType=INTEGER},
+            </if>
+            <if test="issuedTime != null" >
+                #{issuedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reviewer != null" >
+                #{reviewer,jdbcType=INTEGER},
+            </if>
+            <if test="reviewedTime != null" >
+                #{reviewedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="formerInvoiceCode != null" >
+                #{formerInvoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="formerInvoiceNum != null" >
+                #{formerInvoiceNum,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceStatusCode != null" >
+                #{eleInvoiceStatusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceStatusName != null" >
+                #{eleInvoiceStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="pdfUrl != null" >
+                #{pdfUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceDate != null" >
+                #{invoiceDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceNumber != null" >
+                #{invoiceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCode != null" >
+                #{invoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceStatusCode != null" >
+                #{invoiceInterfaceStatusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceStatusName != null" >
+                #{invoiceInterfaceStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceTaxCode != null" >
+                #{invoiceInterfaceTaxCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceTaxMessage != null" >
+                #{invoiceInterfaceTaxMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCancelFlag != null" >
+                #{invoiceCancelFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCancelDesc != null" >
+                #{invoiceCancelDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCancelDate != null" >
+                #{invoiceCancelDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                #{invoiceInvalidFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidDesc != null" >
+                #{invoiceInvalidDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidCode != null" >
+                #{invoiceInvalidCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidName != null" >
+                #{invoiceInvalidName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceInvalidCode != null" >
+                #{invoiceInterfaceInvalidCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceInvalidMessage != null" >
+                #{invoiceInterfaceInvalidMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidDate != null" >
+                #{invoiceInvalidDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceReverseFlag != null" >
+                #{invoiceReverseFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseDesc != null" >
+                #{invoiceReverseDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseCode != null" >
+                #{invoiceReverseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseName != null" >
+                #{invoiceReverseName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceReverseCode != null" >
+                #{invoiceInterfaceReverseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceReverseMessage != null" >
+                #{invoiceInterfaceReverseMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceRedNoticeNum != null" >
+                #{invoiceRedNoticeNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseDate != null" >
+                #{invoiceReverseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
 </mapper>

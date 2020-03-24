@@ -13,9 +13,9 @@ public enum StatusCodeEnum {
      * 电子发票金税接口状态 INVOICE_INTERFACE_STATUS_CODE
      */
     EIS_3001("EIS3001", "新建"),
-    EIS_3002("EIS3002", "暂挂"),
-    EIS_3003("EIS3003", "已传金税"),
-    EIS_3004("EIS3004", "金税已回写"),
+    EIS_3002("EIS3002", "已传金税"),
+    EIS_3003("EIS3003", "金税已回写"),
+    EIS_3004("EIS3004", "金税返回错误"),
     ;
 
     private String statusCode;

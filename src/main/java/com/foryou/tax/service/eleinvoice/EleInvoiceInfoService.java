@@ -4,6 +4,8 @@ package com.foryou.tax.service.eleinvoice;
 import com.foryou.tax.pojo.companies.FyCompanies;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 电子发票表 服务类
@@ -21,4 +23,6 @@ public interface EleInvoiceInfoService {
     int deleteData(EleInvoiceInfo eleInvoiceInfo);
 
     String getSerialNum(FyCompanies fyCompanies);
+
+    int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo1);
 }

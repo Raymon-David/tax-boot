@@ -361,6 +361,8 @@ public class EleInvoiceProcess extends BaseProcess {
                 eleInvoiceInfo1.setInvoiceReverseDesc("0");
                 eleInvoiceInfo1.setEleInvoiceStatusCode(StatusCodeEnum.ES_2001.getStatusCode());
                 eleInvoiceInfo1.setEleInvoiceStatusName(StatusCodeEnum.ES_2001.getStatusName());
+                eleInvoiceInfo1.setInvoiceInterfaceStatusCode(StatusCodeEnum.EIS_3001.getStatusCode());
+                eleInvoiceInfo1.setInvoiceInterfaceStatusName(StatusCodeEnum.EIS_3001.getStatusName());
                 eleInvoiceInfoService.insertData(request, eleInvoiceInfo1);
 
                 /**

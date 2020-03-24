@@ -5,6 +5,8 @@ import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 电子发票表 Mapper 接口
@@ -28,4 +30,6 @@ public interface EleInvoiceInfoMapper{
     String getSerialNum1(FyCompanies fyCompanies);
 
     String getSerialNum2(FyCompanies fyCompanies);
+
+    int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo);
 }

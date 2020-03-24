@@ -7,6 +7,8 @@ import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * <p>
  * 电子发票表 服务实现类
@@ -48,5 +50,10 @@ public class EleInvoiceInfoServiceImpl implements EleInvoiceInfoService {
             serialNum = eleInvoiceInfoMapper.getSerialNum1(fyCompanies);
         }
         return serialNum;
+    }
+
+    @Override
+    public int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo) {
+        return eleInvoiceInfoMapper.insertData(request, eleInvoiceInfo);
     }
 }
