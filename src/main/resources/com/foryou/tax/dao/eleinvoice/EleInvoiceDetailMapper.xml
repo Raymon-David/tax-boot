@@ -40,10 +40,275 @@
         <include refid="Base_Column_List" />
         from ELE_INVOICE_DETAIL
         where ELE_INVOICE_ID = #{eleInvoiceId}
-    </select>
+</select>
     <delete id="deleteData" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo">
         deletet from ELE_INVOICE_DETAIL
         where ELE_INVOICE_ID = #{eleInvoiceId}
     </delete>
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail" >
+        insert into ELE_INVOICE_DETAIL
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="eleInvoiceDetailId != null" >
+                ELE_INVOICE_DETAIL_ID,
+            </if>
+            <if test="eleInvoiceId != null" >
+                ELE_INVOICE_ID,
+            </if>
+            <if test="invoiceId != null" >
+                INVOICE_ID,
+            </if>
+            <if test="invoiceDetailId != null" >
+                INVOICE_DETAIL_ID,
+            </if>
+            <if test="contractNo != null" >
+                CONTRACT_NO,
+            </if>
+            <if test="billNo != null" >
+                BILL_NO,
+            </if>
+            <if test="billName != null" >
+                BILL_NAME,
+            </if>
+            <if test="billCode != null" >
+                BILL_CODE,
+            </if>
+            <if test="lineType != null" >
+                LINE_TYPE,
+            </if>
+            <if test="spec != null" >
+                SPEC,
+            </if>
+            <if test="unit != null" >
+                UNIT,
+            </if>
+            <if test="taxRate != null" >
+                TAX_RATE,
+            </if>
+            <if test="taxQuantity != null" >
+                TAX_QUANTITY,
+            </if>
+            <if test="taxPrice != null" >
+                TAX_PRICE,
+            </if>
+            <if test="totalAmount != null" >
+                TOTAL_AMOUNT,
+            </if>
+            <if test="yhzcbs != null" >
+                YHZCBS,
+            </if>
+            <if test="yhzcnr != null" >
+                YHZCNR,
+            </if>
+            <if test="lslbs != null" >
+                LSLBS,
+            </if>
+            <if test="zxbm != null" >
+                ZXBM,
+            </if>
+            <if test="kce != null" >
+                KCE,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="eleInvoiceDetailId != null" >
+                #{eleInvoiceDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="eleInvoiceId != null" >
+                #{eleInvoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="invoiceId != null" >
+                #{invoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="invoiceDetailId != null" >
+                #{invoiceDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="contractNo != null" >
+                #{contractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="billNo != null" >
+                #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="billName != null" >
+                #{billName,jdbcType=VARCHAR},
+            </if>
+            <if test="billCode != null" >
+                #{billCode,jdbcType=VARCHAR},
+            </if>
+            <if test="lineType != null" >
+                #{lineType,jdbcType=VARCHAR},
+            </if>
+            <if test="spec != null" >
+                #{spec,jdbcType=VARCHAR},
+            </if>
+            <if test="unit != null" >
+                #{unit,jdbcType=VARCHAR},
+            </if>
+            <if test="taxRate != null" >
+                #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="taxQuantity != null" >
+                #{taxQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="taxPrice != null" >
+                #{taxPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="totalAmount != null" >
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="yhzcbs != null" >
+                #{yhzcbs,jdbcType=VARCHAR},
+            </if>
+            <if test="yhzcnr != null" >
+                #{yhzcnr,jdbcType=VARCHAR},
+            </if>
+            <if test="lslbs != null" >
+                #{lslbs,jdbcType=INTEGER},
+            </if>
+            <if test="zxbm != null" >
+                #{zxbm,jdbcType=VARCHAR},
+            </if>
+            <if test="kce != null" >
+                #{kce,jdbcType=DECIMAL},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail" >
+        update ELE_INVOICE_DETAIL
+        <set >
+            <if test="eleInvoiceId != null" >
+                ELE_INVOICE_ID = #{eleInvoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="invoiceId != null" >
+                INVOICE_ID = #{invoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="invoiceDetailId != null" >
+                INVOICE_DETAIL_ID = #{invoiceDetailId,jdbcType=INTEGER},
+            </if>
+            <if test="contractNo != null" >
+                CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
+            </if>
+            <if test="billNo != null" >
+                BILL_NO = #{billNo,jdbcType=VARCHAR},
+            </if>
+            <if test="billName != null" >
+                BILL_NAME = #{billName,jdbcType=VARCHAR},
+            </if>
+            <if test="billCode != null" >
+                BILL_CODE = #{billCode,jdbcType=VARCHAR},
+            </if>
+            <if test="lineType != null" >
+                LINE_TYPE = #{lineType,jdbcType=VARCHAR},
+            </if>
+            <if test="spec != null" >
+                SPEC = #{spec,jdbcType=VARCHAR},
+            </if>
+            <if test="unit != null" >
+                UNIT = #{unit,jdbcType=VARCHAR},
+            </if>
+            <if test="taxRate != null" >
+                TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="taxQuantity != null" >
+                TAX_QUANTITY = #{taxQuantity,jdbcType=INTEGER},
+            </if>
+            <if test="taxPrice != null" >
+                TAX_PRICE = #{taxPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="totalAmount != null" >
+                TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="yhzcbs != null" >
+                YHZCBS = #{yhzcbs,jdbcType=VARCHAR},
+            </if>
+            <if test="yhzcnr != null" >
+                YHZCNR = #{yhzcnr,jdbcType=VARCHAR},
+            </if>
+            <if test="lslbs != null" >
+                LSLBS = #{lslbs,jdbcType=INTEGER},
+            </if>
+            <if test="zxbm != null" >
+                ZXBM = #{zxbm,jdbcType=VARCHAR},
+            </if>
+            <if test="kce != null" >
+                KCE = #{kce,jdbcType=DECIMAL},
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY = #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY = #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ELE_INVOICE_DETAIL_ID = #{eleInvoiceDetailId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceDetail" >
+    update ELE_INVOICE_DETAIL
+    set ELE_INVOICE_ID = #{eleInvoiceId,jdbcType=INTEGER},
+      INVOICE_ID = #{invoiceId,jdbcType=INTEGER},
+      INVOICE_DETAIL_ID = #{invoiceDetailId,jdbcType=INTEGER},
+      CONTRACT_NO = #{contractNo,jdbcType=VARCHAR},
+      BILL_NO = #{billNo,jdbcType=VARCHAR},
+      BILL_NAME = #{billName,jdbcType=VARCHAR},
+      BILL_CODE = #{billCode,jdbcType=VARCHAR},
+      LINE_TYPE = #{lineType,jdbcType=VARCHAR},
+      SPEC = #{spec,jdbcType=VARCHAR},
+      UNIT = #{unit,jdbcType=VARCHAR},
+      TAX_RATE = #{taxRate,jdbcType=DECIMAL},
+      TAX_QUANTITY = #{taxQuantity,jdbcType=INTEGER},
+      TAX_PRICE = #{taxPrice,jdbcType=DECIMAL},
+      TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      YHZCBS = #{yhzcbs,jdbcType=VARCHAR},
+      YHZCNR = #{yhzcnr,jdbcType=VARCHAR},
+      LSLBS = #{lslbs,jdbcType=INTEGER},
+      ZXBM = #{zxbm,jdbcType=VARCHAR},
+      KCE = #{kce,jdbcType=DECIMAL},
+      CREATED_BY = #{createdBy,jdbcType=INTEGER},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATED_BY = #{updatedBy,jdbcType=INTEGER},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+    where ELE_INVOICE_DETAIL_ID = #{eleInvoiceDetailId,jdbcType=INTEGER}
+  </update>
+    <select id="getTaxClassificationCode" resultType="java.lang.String" parameterType="com.foryou.tax.pojo.allinvoice.AllInvoiceDetail">
+        select TAX_CLASSIFICATION_CODE
+        from INVOICE_TAX_CLASSIFICATION_CODE
+        where PRODUCT_CODE = (select COMMODITY_CODE from ALL_INVOICE_INFO where INVOICE_ID = #{invoiceId})
+        and GOODS_CODE = //通过cashflow_id查contract_id,再查合同类型,即商业模式,直租或售后回租
+        and CASHFLOW_ITEM_CODE = #{cashflowItemCode}
+    </select>
+    <select id="getContractDetail" resultType="java.util.Map" parameterType="integer">
+        select CONTRACT_NUMBER contractNumber
+        from //合同表
+        where CASHFLOW_ID = #{cashflowId}
+    </select>
 
 </mapper>

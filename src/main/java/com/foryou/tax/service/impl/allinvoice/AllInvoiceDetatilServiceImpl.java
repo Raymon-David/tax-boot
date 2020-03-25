@@ -1,7 +1,13 @@
 package com.foryou.tax.service.impl.allinvoice;
 
+import com.foryou.tax.dao.allinvoice.AllInvoiceDetatilMapper;
+import com.foryou.tax.pojo.allinvoice.AllInvoiceDetail;
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import com.foryou.tax.service.allinvoice.AllInvoiceDetatilService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,4 +20,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class AllInvoiceDetatilServiceImpl implements AllInvoiceDetatilService {
 
+    @Autowired
+    AllInvoiceDetatilMapper allInvoiceDetatilMapper;
+
+    @Override
+    public List<AllInvoiceDetail> getAllInvoiceDetailInfo(AllInvoiceInfo allInvoiceInfo) {
+        return allInvoiceDetatilMapper.getAllInvoiceDetailInfo(allInvoiceInfo);
+    }
 }

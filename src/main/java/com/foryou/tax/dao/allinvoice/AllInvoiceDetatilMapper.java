@@ -1,7 +1,11 @@
 package com.foryou.tax.dao.allinvoice;
 
+import com.foryou.tax.pojo.allinvoice.AllInvoiceDetail;
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +19,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface AllInvoiceDetatilMapper {
 
+    List<AllInvoiceDetail> getAllInvoiceDetailInfo(AllInvoiceInfo allInvoiceInfo);
 }

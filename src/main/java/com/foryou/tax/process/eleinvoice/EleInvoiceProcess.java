@@ -23,7 +23,6 @@ import com.foryou.tax.util.eleinvoice.GetMarginXmlUtil;
 import org.apache.logging.log4j.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -120,9 +119,9 @@ public class EleInvoiceProcess extends BaseProcess {
                     eleInvoices = eleInvoiceInfoService.getEleInvoiceInfo(eleInvoiceInfo);
 
                     if (eleInvoices == null) {
-                        data = insertEleInvoiceInfo(request, response, allInvoiceDataList.get(i));
+                        int data = insertEleInvoiceInfo(request, response, allInvoiceDataList.get(i));
 
-                        if (data != null){
+                        if (data != 0){
                             //调用发送接口报文封装类
                             String xml = EleInvoiceSubmitXmlUtil.eleInvoiceSubmitXml(allInvoiceDataList.get(i), eleInvoiceInfoService, eleInvoiceDetailService);
 
@@ -204,9 +203,10 @@ public class EleInvoiceProcess extends BaseProcess {
      * 4。没有对应的税收分类编码
      *
      */
-    public void insertEleInvoiceInfo(HttpServletRequest request, HttpServletResponse response, AllInvoiceInfo allInvoiceInfo){
+    public int insertEleInvoiceInfo(HttpServletRequest request, HttpServletResponse response, AllInvoiceInfo allInvoiceInfo){
 
         String saleTax = "";
+        int success = 0;
         ErrorBean errorBean = new ErrorBean();
         ErrorInfo errorInfo = new ErrorInfo();
         ErrorDesc errorDesc = new ErrorDesc();
@@ -376,13 +376,13 @@ public class EleInvoiceProcess extends BaseProcess {
                 /**
                  * 插入电子发票明细表
                  */
-                List<AllInvoiceDetail> allInvoiceDetails = allInvoiceDetatilService.getAllInvoiceDetailInfo(allInvoiceInfo.getInvoiceId());
+                List<AllInvoiceDetail> allInvoiceDetails = allInvoiceDetatilService.getAllInvoiceDetailInfo(allInvoiceInfo);
                 for (int i = 0; i < allInvoiceDetails.size(); i++) {
                     /**
                      * 获取合同编号
                      * 插入 ELE_INVOICE_DETAIL 中的 CONTRACT_NO 和 BILL_NO
                      */
-                    List<Map> list = acrEleInvoiceHdMapper.getContractDetail(allInvoiceDetails.get(i).getCashflowId());
+                    List<Map> list = eleInvoiceDetailService.getContractDetail(allInvoiceDetails.get(i).getCashflowId());
 
                     /**
                      * 通过 ALL_INVOICE_DETAIL 中的 CASHFLOW_ID 和 CASHFLOW_ITEM_CODE
@@ -391,7 +391,7 @@ public class EleInvoiceProcess extends BaseProcess {
                      * 获取每一个行项目的税收分类编码
                      *
                      */
-                    String code = eleInvoiceDetailService.getTaxClassNum(allInvoiceDetails.get(i));
+                    String code = eleInvoiceDetailService.getTaxClassificationCode(allInvoiceDetails.get(i));
 
                     if ("".equals(code) || code == null) {
 
@@ -401,7 +401,7 @@ public class EleInvoiceProcess extends BaseProcess {
                         a.setInvoiceInterfaceTaxMessage(EleErrorEnum.E_E_2006.getErrorMsg());
                         //更新电子发票状态，表示已经传入金税接口，并更新错误代码和错误提示
                         eleInvoiceInfoService.updateEleInvoiceTaxError(a);
-                        return;
+                        return success;
                     }
 
                     EleInvoiceDetail eleInvoiceDetail = new EleInvoiceDetail();
@@ -428,6 +428,8 @@ public class EleInvoiceProcess extends BaseProcess {
                 }
 
             }
+            success = 1;
         }
+        return success;
     }
 }

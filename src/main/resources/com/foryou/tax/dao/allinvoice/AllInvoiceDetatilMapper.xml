@@ -30,5 +30,11 @@
     <sql id="Base_Column_List">
         INVOICE_DETAIL_ID, INVOICE_ID, PRODUCT_ID, PRODUCT_NAME, SPEC, TAX_QUANTITY, UNIT, TAX_PRICE, TAX_NET_PRICE, TAX_TYPE, TAX_RATE, TAX_INCLUDED_FLAG, TOTAL_AMOUNT, TAX_AMOUNT, TAX_NET_AMOUNT, INVOICE_DETAIL_MEMO, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
     </sql>
+    <select id="getAllInvoiceDetailInfo" resultMap="BaseResultMap" parameterType="com.foryou.tax.pojo.allinvoice.AllInvoiceInfo">
+        select
+        <include refid="Base_Column_List" />
+        from ALL_INVOICE_DETAIL
+        where INVOICE_ID = #{invoiceId}
+    </select>
 
 </mapper>
