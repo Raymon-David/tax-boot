@@ -14,15 +14,18 @@ import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
 import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.allinvoice.AllInvoiceDetatilService;
+import com.foryou.tax.service.allinvoice.AllInvoiceInfoService;
 import com.foryou.tax.service.companies.FyCompaniesService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
 import com.foryou.tax.service.invoiceobject.InvoiceObjectInfoService;
+import com.foryou.tax.util.eleinvoice.EleInvoiceDownloadXmlUtil;
 import com.foryou.tax.util.eleinvoice.EleInvoiceSubmitXmlUtil;
 import com.foryou.tax.util.eleinvoice.GetMarginXmlUtil;
 import org.apache.logging.log4j.util.PropertiesUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
@@ -54,6 +57,9 @@ public class EleInvoiceProcess extends BaseProcess {
 
     @Autowired
     private AllInvoiceDetatilService allInvoiceDetatilService;
+
+    @Autowired
+    private AllInvoiceInfoService allInvoiceInfoService;
 
     public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, List<AllInvoiceInfo> allInvoiceDataList){
 
@@ -168,10 +174,18 @@ public class EleInvoiceProcess extends BaseProcess {
                             } else {
                                 /**
                                  * 更新电子发票状态，表示已经传入金税接口
-                                 * 金税接口状态（PENDING-暂挂 / TRANSFERRED-已传金税 / BACK-金税已回写）
+                                 *
+                                 * 电子发票状态 ELE_INVOICE_STATUS_CODE  ES2002  已传入
+                                 *
+                                 * 电子发票金税接口状态 INVOICE_INTERFACE_STATUS_CODE  EIS3002  已传金税
                                  */
-
-                                eleInvoiceInfoService.updateEleInvoiceInterfaceStatus(allInvoiceDataList.get(i).getInvoiceId());
+                                EleInvoiceInfo eleInvoiceInfo1 = new EleInvoiceInfo();
+                                eleInvoiceInfo1.setInvoiceId(allInvoiceDataList.get(i).getInvoiceId());
+                                eleInvoiceInfo1.setEleInvoiceStatusCode(StatusCodeEnum.ES_2002.getStatusCode());
+                                eleInvoiceInfo1.setEleInvoiceStatusName(StatusCodeEnum.ES_2002.getStatusName());
+                                eleInvoiceInfo1.setInvoiceInterfaceStatusCode(StatusCodeEnum.EIS_3002.getStatusCode());
+                                eleInvoiceInfo1.setInvoiceInterfaceStatusName(StatusCodeEnum.EIS_3002.getStatusName());
+                                eleInvoiceInfoService.updateEleInvoiceInterfaceStatus(eleInvoiceInfo1);
 
                                 //开票成功结束后，更新发票余量
                                 int num = acrEleNumber - allInvoiceDataList.size();
@@ -431,5 +445,17 @@ public class EleInvoiceProcess extends BaseProcess {
             success = 1;
         }
         return success;
+    }
+
+    public void eleInvoiceInfoDownload(HttpServletRequest request, HttpServletResponse response, List<AllInvoiceInfo> allInvoiceDataList) {
+
+        for (int i = 0; i < allInvoiceDataList.size(); i++){
+            /**
+             * 通过 invoiceid 获取单据号 invoicenum
+             */
+            String invoiceNum = allInvoiceInfoService.getInvoiceNum();
+            //获取下载电子发票报文
+            String xml = EleInvoiceDownloadXmlUtil.getXml(allInvoiceDataList.get(i), eleInvoiceInfoService);
+        }
     }
 }

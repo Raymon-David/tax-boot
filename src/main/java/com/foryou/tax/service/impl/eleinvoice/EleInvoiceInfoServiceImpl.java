@@ -56,4 +56,9 @@ public class EleInvoiceInfoServiceImpl implements EleInvoiceInfoService {
     public int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo) {
         return eleInvoiceInfoMapper.insertData(request, eleInvoiceInfo);
     }
+
+    @Override
+    public int updateEleInvoiceInterfaceStatus(EleInvoiceInfo eleInvoiceInfo1) {
+        return eleInvoiceInfoMapper.updateEleInvoiceInterfaceStatus(eleInvoiceInfo1);
+    }
 }

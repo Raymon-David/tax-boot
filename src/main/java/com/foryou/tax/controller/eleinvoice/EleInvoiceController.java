@@ -34,5 +34,15 @@ public class EleInvoiceController {
 
         eleInvoiceProcess.eleInvoiceInfoSubmit(request, response, allInvoiceDataList);
     }
+
+
+    /**
+     * 金税接口发票下载接口
+     */
+    @RequestMapping(value = "/eleInvoice/info/download")
+    public void eleInvoiceInfoDownload(HttpServletRequest request, HttpServletResponse response, @RequestBody List<AllInvoiceInfo> allInvoiceDataList){
+
+        eleInvoiceProcess.eleInvoiceInfoDownload(request, response, allInvoiceDataList);
+    }
 }
 

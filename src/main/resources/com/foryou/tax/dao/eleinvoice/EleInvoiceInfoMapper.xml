@@ -486,4 +486,187 @@
             </if>
         </trim>
     </insert>
+    <update id="updateEleInvoiceInterfaceStatus" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo">
+        update ELE_INVOICE_INFO
+        <set >
+            <if test="invoiceId != null" >
+                INVOICE_ID = #{invoiceId,jdbcType=INTEGER},
+            </if>
+            <if test="documentType != null" >
+                DOCUMENT_TYPE = #{documentType,jdbcType=VARCHAR},
+            </if>
+            <if test="documentCategory != null" >
+                DOCUMENT_CATEGORY = #{documentCategory,jdbcType=VARCHAR},
+            </if>
+            <if test="serialNum != null" >
+                SERIAL_NUM = #{serialNum,jdbcType=VARCHAR},
+            </if>
+            <if test="saleTax != null" >
+                SALE_TAX = #{saleTax,jdbcType=VARCHAR},
+            </if>
+            <if test="custName != null" >
+                CUST_NAME = #{custName,jdbcType=VARCHAR},
+            </if>
+            <if test="custTaxNo != null" >
+                CUST_TAX_NO = #{custTaxNo,jdbcType=VARCHAR},
+            </if>
+            <if test="custAddr != null" >
+                CUST_ADDR = #{custAddr,jdbcType=VARCHAR},
+            </if>
+            <if test="custTelephone != null" >
+                CUST_TELEPHONE = #{custTelephone,jdbcType=VARCHAR},
+            </if>
+            <if test="custPhone != null" >
+                CUST_PHONE = #{custPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="custEmail != null" >
+                CUST_EMAIL = #{custEmail,jdbcType=VARCHAR},
+            </if>
+            <if test="custBankAccount != null" >
+                CUST_BANK_ACCOUNT = #{custBankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="custType != null" >
+                CUST_TYPE = #{custType,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceMemo != null" >
+                ELE_INVOICE_MEMO = #{eleInvoiceMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceType != null" >
+                ELE_INVOICE_TYPE = #{eleInvoiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="cancelNum != null" >
+                CANCEL_NUM = #{cancelNum,jdbcType=VARCHAR},
+            </if>
+            <if test="billType != null" >
+                BILL_TYPE = #{billType,jdbcType=VARCHAR},
+            </if>
+            <if test="specialRedFlag != null" >
+                SPECIAL_RED_FLAG = #{specialRedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="operationCode != null" >
+                OPERATION_CODE = #{operationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="accountPayee != null" >
+                ACCOUNT_PAYEE = #{accountPayee,jdbcType=VARCHAR},
+            </if>
+            <if test="accountTime != null" >
+                ACCOUNT_TIME = #{accountTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issuer != null" >
+                ISSUER = #{issuer,jdbcType=INTEGER},
+            </if>
+            <if test="issuedTime != null" >
+                ISSUED_TIME = #{issuedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="reviewer != null" >
+                REVIEWER = #{reviewer,jdbcType=INTEGER},
+            </if>
+            <if test="reviewedTime != null" >
+                REVIEWED_TIME = #{reviewedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="formerInvoiceCode != null" >
+                FORMER_INVOICE_CODE = #{formerInvoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="formerInvoiceNum != null" >
+                FORMER_INVOICE_NUM = #{formerInvoiceNum,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceStatusCode != null" >
+                ELE_INVOICE_STATUS_CODE = #{eleInvoiceStatusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="eleInvoiceStatusName != null" >
+                ELE_INVOICE_STATUS_NAME = #{eleInvoiceStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="pdfUrl != null" >
+                PDF_URL = #{pdfUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceDate != null" >
+                INVOICE_DATE = #{invoiceDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceNumber != null" >
+                INVOICE_NUMBER = #{invoiceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCode != null" >
+                INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceStatusCode != null" >
+                INVOICE_INTERFACE_STATUS_CODE = #{invoiceInterfaceStatusCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceStatusName != null" >
+                INVOICE_INTERFACE_STATUS_NAME = #{invoiceInterfaceStatusName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceTaxCode != null" >
+                INVOICE_INTERFACE_TAX_CODE = #{invoiceInterfaceTaxCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceTaxMessage != null" >
+                INVOICE_INTERFACE_TAX_MESSAGE = #{invoiceInterfaceTaxMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCancelFlag != null" >
+                INVOICE_CANCEL_FLAG = #{invoiceCancelFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCancelDesc != null" >
+                INVOICE_CANCEL_DESC = #{invoiceCancelDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCancelDate != null" >
+                INVOICE_CANCEL_DATE = #{invoiceCancelDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                INVOICE_INVALID_FLAG = #{invoiceInvalidFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidDesc != null" >
+                INVOICE_INVALID_DESC = #{invoiceInvalidDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidCode != null" >
+                INVOICE_INVALID_CODE = #{invoiceInvalidCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidName != null" >
+                INVOICE_INVALID_NAME = #{invoiceInvalidName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceInvalidCode != null" >
+                INVOICE_INTERFACE_INVALID_CODE = #{invoiceInterfaceInvalidCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceInvalidMessage != null" >
+                INVOICE_INTERFACE_INVALID_MESSAGE = #{invoiceInterfaceInvalidMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidDate != null" >
+                INVOICE_INVALID_DATE = #{invoiceInvalidDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="invoiceReverseFlag != null" >
+                INVOICE_REVERSE_FLAG = #{invoiceReverseFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseDesc != null" >
+                INVOICE_REVERSE_DESC = #{invoiceReverseDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseCode != null" >
+                INVOICE_REVERSE_CODE = #{invoiceReverseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseName != null" >
+                INVOICE_REVERSE_NAME = #{invoiceReverseName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceReverseCode != null" >
+                INVOICE_INTERFACE_REVERSE_CODE = #{invoiceInterfaceReverseCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInterfaceReverseMessage != null" >
+                INVOICE_INTERFACE_REVERSE_MESSAGE = #{invoiceInterfaceReverseMessage,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceRedNoticeNum != null" >
+                INVOICE_RED_NOTICE_NUM = #{invoiceRedNoticeNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceReverseDate != null" >
+                INVOICE_REVERSE_DATE = #{invoiceReverseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY = #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY = #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where INVOICE_ID = #{invoiceId,jdbcType=INTEGER}
+    </update>
 </mapper>

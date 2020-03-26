@@ -32,4 +32,6 @@ public interface EleInvoiceInfoMapper{
     String getSerialNum2(FyCompanies fyCompanies);
 
     int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo);
+
+    int updateEleInvoiceInterfaceStatus(EleInvoiceInfo eleInvoiceInfo1);
 }

@@ -25,4 +25,6 @@ public interface EleInvoiceInfoService {
     String getSerialNum(FyCompanies fyCompanies);
 
     int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo1);
+
+    int updateEleInvoiceInterfaceStatus(EleInvoiceInfo eleInvoiceInfo1);
 }

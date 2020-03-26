@@ -27,10 +27,14 @@ import java.util.Properties;
  */
 public class EleInvoiceSubmitXmlUtil {
 
-    private static String returnNode = "return";   //return节点
-    private static String msgCodeNode = "msgCode"; //msgCode节点
-    private static String msgNode = "msg";          //msg节点
-    private static String code = "0000";            //返回结果 0000 成功
+    //return节点
+    private static String returnNode = "return";
+    //msgCode节点
+    private static String msgCodeNode = "msgCode";
+    //msg节点
+    private static String msgNode = "msg";
+    //返回结果 0000 成功
+    private static String code = "0000";
 
     private static  String nodeName = "";
     private static  String returnStr = "";
