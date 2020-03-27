@@ -17,6 +17,7 @@ import org.apache.logging.log4j.util.PropertiesUtil;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 
@@ -80,7 +81,6 @@ public class EleInvoiceSubmitXmlUtil {
         //购方税号
         stringBuffer.append("<custTaxNo>");
         if("".equals(eleInvoiceData.getCustTaxNo()) || eleInvoiceData.getCustTaxNo() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCustTaxNo());
         }
@@ -88,7 +88,6 @@ public class EleInvoiceSubmitXmlUtil {
         //购方地址
         stringBuffer.append("<custAddr>");
         if("".equals(eleInvoiceData.getCustAddr()) || eleInvoiceData.getCustAddr() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCustAddr());
         }
@@ -96,7 +95,6 @@ public class EleInvoiceSubmitXmlUtil {
         //购货方手机号
         stringBuffer.append("<custTelephone>");
         if("".equals(eleInvoiceData.getCustTelephone()) || eleInvoiceData.getCustTelephone() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCustTelephone());
         }
@@ -104,7 +102,6 @@ public class EleInvoiceSubmitXmlUtil {
         //购方固定电话
         stringBuffer.append("<custPhone>");
         if("".equals(eleInvoiceData.getCustPhone()) || eleInvoiceData.getCustPhone() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCustPhone());
         }
@@ -112,7 +109,6 @@ public class EleInvoiceSubmitXmlUtil {
         //购方邮箱
         stringBuffer.append("<custEmail>");
         if("".equals(eleInvoiceData.getCustEmail()) || eleInvoiceData.getCustEmail() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCustEmail());
         }
@@ -120,7 +116,6 @@ public class EleInvoiceSubmitXmlUtil {
         //开户行+账号
         stringBuffer.append("<custBankAccount>");
         if("".equals(eleInvoiceData.getCustBankAccount()) || eleInvoiceData.getCustBankAccount() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCustBankAccount());
         }
@@ -132,7 +127,6 @@ public class EleInvoiceSubmitXmlUtil {
         //备注
         stringBuffer.append("<invoMemo>");
         if("".equals(eleInvoiceData.getEleInvoiceMemo()) || eleInvoiceData.getEleInvoiceMemo() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getEleInvoiceMemo());
         }
@@ -152,7 +146,6 @@ public class EleInvoiceSubmitXmlUtil {
         //退货单号
         stringBuffer.append("<thdh>");
         if("".equals(eleInvoiceData.getCancelNum()) || eleInvoiceData.getCancelNum() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getCancelNum());
         }
@@ -176,7 +169,6 @@ public class EleInvoiceSubmitXmlUtil {
         //收款员
         stringBuffer.append("<sky>");
         if("".equals(eleInvoiceData.getAccountPayee()) || eleInvoiceData.getAccountPayee() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getAccountPayee());
         }
@@ -184,7 +176,6 @@ public class EleInvoiceSubmitXmlUtil {
         //复核人
         stringBuffer.append("<fhr>");
         if("".equals(eleInvoiceData.getReviewer()) || eleInvoiceData.getReviewer() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getReviewer());
         }
@@ -192,7 +183,6 @@ public class EleInvoiceSubmitXmlUtil {
         //原发票代码
         stringBuffer.append("<yfpdm>");
         if("".equals(eleInvoiceData.getFormerInvoiceCode()) || eleInvoiceData.getFormerInvoiceCode() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getFormerInvoiceCode());
         }
@@ -200,7 +190,6 @@ public class EleInvoiceSubmitXmlUtil {
         //原发票号码
         stringBuffer.append("<yfphm>");
         if("".equals(eleInvoiceData.getFormerInvoiceNum()) || eleInvoiceData.getFormerInvoiceNum() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getFormerInvoiceNum());
         }
@@ -208,7 +197,6 @@ public class EleInvoiceSubmitXmlUtil {
         //冲红原因
         stringBuffer.append("<chyy>");
         if("".equals(eleInvoiceData.getInvoiceReverseDesc()) || eleInvoiceData.getInvoiceReverseDesc() == null){
-            stringBuffer.append("");
         }else{
             stringBuffer.append(eleInvoiceData.getInvoiceReverseDesc());
         }
@@ -254,7 +242,6 @@ public class EleInvoiceSubmitXmlUtil {
             //规格型号
             stringBuffer.append("<spec>");
             if("".equals(eleInvoiceDetail.getSpec()) || eleInvoiceDetail.getSpec() == null){
-                stringBuffer.append("");
             }else{
                 stringBuffer.append(eleInvoiceDetail.getSpec());
             }
@@ -286,7 +273,6 @@ public class EleInvoiceSubmitXmlUtil {
             //享受税收优惠 政策内容
             stringBuffer.append("<yhzcnr>");
             if("".equals(eleInvoiceDetail.getYhzcnr()) || eleInvoiceDetail.getYhzcnr() == null){
-                stringBuffer.append("");
             }else{
                 stringBuffer.append(eleInvoiceDetail.getYhzcnr());
             }
@@ -294,7 +280,6 @@ public class EleInvoiceSubmitXmlUtil {
             //零税率标识  空表示非0税率
             stringBuffer.append("<lslbs>");
             if("".equals(eleInvoiceDetail.getLslbs()) || eleInvoiceDetail.getLslbs() == null){
-                stringBuffer.append("");
             }else{
                 stringBuffer.append(eleInvoiceDetail.getLslbs());
             }
@@ -302,7 +287,6 @@ public class EleInvoiceSubmitXmlUtil {
             //自行编码
             stringBuffer.append("<zxbm>");
             if("".equals(eleInvoiceDetail.getZxbm()) || eleInvoiceDetail.getZxbm() == null){
-                stringBuffer.append("");
             }else{
                 stringBuffer.append(eleInvoiceDetail.getZxbm());
             }
@@ -310,7 +294,6 @@ public class EleInvoiceSubmitXmlUtil {
             //扣除额
             stringBuffer.append("<kce>");
             if("".equals(eleInvoiceDetail.getKce()) || eleInvoiceDetail.getKce() == null){
-                stringBuffer.append("");
             }else{
                 stringBuffer.append(eleInvoiceDetail.getKce());
             }
@@ -365,7 +348,7 @@ public class EleInvoiceSubmitXmlUtil {
                 }
                 byte[] strByte = bos.toByteArray();
                 //解析返回的数据
-                String responseString = new String(strByte,0,strByte.length,"utf-8");
+                String responseString = new String(strByte,0,strByte.length, StandardCharsets.UTF_8);
                 GetMarginXmlUtil.readInputStream(responseString);
                 if(code.equals(msgCode)){
                     jsonObject.put("flag", "true");

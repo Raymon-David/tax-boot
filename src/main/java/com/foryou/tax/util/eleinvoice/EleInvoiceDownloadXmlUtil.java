@@ -23,6 +23,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 import static com.foryou.tax.util.eleinvoice.GetMarginXmlUtil.readInputStream;
@@ -127,7 +128,7 @@ public class EleInvoiceDownloadXmlUtil {
                 }
                 byte[] strByte = bos.toByteArray();
                 //解析返回的数据
-                String responseString = new String(strByte,0,strByte.length,"utf-8");
+                String responseString = new String(strByte,0,strByte.length, StandardCharsets.UTF_8);
                 jsonObject.put("XmlReturn",  responseString);
                 readInputStream(responseString);
                 if(code.equals(msgCode)){

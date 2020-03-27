@@ -14,6 +14,7 @@ import org.dom4j.Element;
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Properties;
 
@@ -87,7 +88,7 @@ public class GetMarginXmlUtil {
      * @return
      */
     public static JSONObject postData(String xml)  {
-        String  eleWsdlUrl = "";
+        String eleWsdlUrl = null;
         try {
             Properties properties = new Properties();
             InputStream is = PropertiesUtil.class.getClassLoader().getResourceAsStream("config.properties");
@@ -116,7 +117,7 @@ public class GetMarginXmlUtil {
                 }
                 byte[] strByte = bos.toByteArray();
                 //解析返回的数据
-                String responseString = new String(strByte,0,strByte.length,"utf-8");
+                String responseString = new String(strByte,0,strByte.length, StandardCharsets.UTF_8);
                 readInputStream(responseString);
                 if(code.equals(returnCode)){
                     jsonObject.put("flag", "true");
