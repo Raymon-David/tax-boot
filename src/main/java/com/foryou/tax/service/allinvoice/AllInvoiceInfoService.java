@@ -1,5 +1,7 @@
 package com.foryou.tax.service.allinvoice;
 
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
+
 /**
  * <p>
  * 发票总表 服务类
@@ -10,4 +12,5 @@ package com.foryou.tax.service.allinvoice;
  */
 public interface AllInvoiceInfoService{
 
+    AllInvoiceInfo getInvoiceNum(AllInvoiceInfo allInvoiceInfo);
 }

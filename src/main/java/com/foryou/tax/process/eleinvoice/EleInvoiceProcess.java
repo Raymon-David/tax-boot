@@ -15,10 +15,13 @@ import com.foryou.tax.pojo.invoiceobject.InvoiceObjectInfo;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.allinvoice.AllInvoiceDetatilService;
 import com.foryou.tax.service.allinvoice.AllInvoiceInfoService;
+import com.foryou.tax.service.attachment.FyAttachmentDetailService;
+import com.foryou.tax.service.attachment.FyAttachmentInfoService;
 import com.foryou.tax.service.companies.FyCompaniesService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceDetailService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
 import com.foryou.tax.service.invoiceobject.InvoiceObjectInfoService;
+import com.foryou.tax.util.LoggerUtils;
 import com.foryou.tax.util.eleinvoice.EleInvoiceDownloadXmlUtil;
 import com.foryou.tax.util.eleinvoice.EleInvoiceSubmitXmlUtil;
 import com.foryou.tax.util.eleinvoice.GetMarginXmlUtil;
@@ -60,6 +63,12 @@ public class EleInvoiceProcess extends BaseProcess {
 
     @Autowired
     private AllInvoiceInfoService allInvoiceInfoService;
+
+    @Autowired
+    private FyAttachmentInfoService fyAttachmentInfoService;
+
+    @Autowired
+    private FyAttachmentDetailService fyAttachmentDetailService;
 
     public void eleInvoiceInfoSubmit(HttpServletRequest request, HttpServletResponse response, List<AllInvoiceInfo> allInvoiceDataList){
 
@@ -453,9 +462,30 @@ public class EleInvoiceProcess extends BaseProcess {
             /**
              * 通过 invoiceid 获取单据号 invoicenum
              */
-            String invoiceNum = allInvoiceInfoService.getInvoiceNum();
+            AllInvoiceInfo allInvoiceInfo = allInvoiceInfoService.getInvoiceNum(allInvoiceDataList.get(i));
+            String invoiceNum = allInvoiceInfo.getInvoiceNum();
+            LoggerUtils.debug(getClass(), "下载的单据号是：" + invoiceNum);
             //获取下载电子发票报文
             String xml = EleInvoiceDownloadXmlUtil.getXml(allInvoiceDataList.get(i), eleInvoiceInfoService);
+            LoggerUtils.debug(getClass(), "下载的XML是：" + xml);
+            JSONObject jsonObject = EleInvoiceDownloadXmlUtil.postData(xml, request, eleInvoiceInfoService, fyAttachmentInfoService, fyAttachmentDetailService);
+
+            ErrorBean errorBean = new ErrorBean();
+            ErrorInfo errorInfo = new ErrorInfo();
+            ErrorDesc errorDesc = new ErrorDesc();
+
+            if ("false".equals(jsonObject.getString("flag"))) {
+                LoggerUtils.error(getClass(), "下载的单据号是：" + invoiceNum + "电子发票下载失败，失败原因：" + jsonObject.getString("errorMessage"));
+
+                errorDesc.setMessage(jsonObject.getString("errorMessage"));
+                errorDesc.setCode("false");
+                errorInfo.setErrDesc(errorDesc);
+                errorInfo.setType("error");
+                errorBean.setError(errorInfo);
+                writeClientJson(response, errorBean, null);
+            }else {
+                LoggerUtils.debug(getClass(), "下载的单据号是：" + invoiceNum + "电子发票下载成功");
+            }
         }
     }
 }

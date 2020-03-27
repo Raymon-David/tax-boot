@@ -1,9 +1,15 @@
 package com.foryou.tax.util.eleinvoice;
 
 import com.alibaba.fastjson.JSONObject;
+import com.foryou.tax.api.constant.StatusCodeEnum;
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
+import com.foryou.tax.pojo.attachment.FyAttachmentDetail;
+import com.foryou.tax.pojo.attachment.FyAttachmentInfo;
 import com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo;
+import com.foryou.tax.service.attachment.FyAttachmentDetailService;
+import com.foryou.tax.service.attachment.FyAttachmentInfoService;
 import com.foryou.tax.service.eleinvoice.EleInvoiceInfoService;
+import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpStatus;
@@ -11,6 +17,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.logging.log4j.util.PropertiesUtil;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -89,7 +96,7 @@ public class EleInvoiceDownloadXmlUtil {
 
 
     //调用接口
-    public static JSONObject post(String xml, IRequest iRequest, AcrEleInvoiceHdMapper acrEleInvoiceHdMapper, IHlsFndAtmAttachmentMultiService iHlsFndAtmAttachmentMultiService, IHlsFndAtmAttachmentService iHlsFndAtmAttachmentService, HlsFndAtmAttachmentMultiMapper atmAttachmentMultiMapper)  {
+    public static JSONObject postData(String xml, HttpServletRequest request, EleInvoiceInfoService eleInvoiceInfoService, FyAttachmentInfoService fyAttachmentInfoService, FyAttachmentDetailService fyAttachmentDetailService)  {
         String  acrWsdlUrl = "";
         String  pdfAddress = "";
         try {
@@ -129,33 +136,46 @@ public class EleInvoiceDownloadXmlUtil {
                     //下载到服务器磁盘之后，更新发票信息到主表，然后把服务器上面的附件关联上主表
                     //第一步，更新信息回主表
                     LoggerUtils.debug(EleInvoiceDownloadXmlUtil.class, pdfUrl);
-                    acrEleInvoiceHdMapper.updateAceEleHdInfo(swno,fpdm,fphm,pdfUrl,kprq);
+                    EleInvoiceInfo eleInvoiceInfo = new EleInvoiceInfo();
+                    eleInvoiceInfo.setSerialNum(swno);
+                    eleInvoiceInfo.setInvoiceCode(fpdm);
+                    eleInvoiceInfo.setInvoiceNumber(fphm);
+                    eleInvoiceInfo.setIssuedTime(DateUtil.stringToDate_Time(kprq));
+                    eleInvoiceInfo.setPdfUrl(pdfUrl);
+                    eleInvoiceInfo.setEleInvoiceStatusCode(StatusCodeEnum.ES_2003.getStatusCode());
+                    eleInvoiceInfo.setEleInvoiceStatusName(StatusCodeEnum.ES_2003.getStatusName());
+                    eleInvoiceInfo.setInvoiceInterfaceStatusCode(StatusCodeEnum.EIS_3003.getStatusCode());
+                    eleInvoiceInfo.setInvoiceInterfaceStatusName(StatusCodeEnum.EIS_3003.getStatusName());
+                    eleInvoiceInfoService.updateEleInvoiceInfo(eleInvoiceInfo);
                     //第二步，把附件关联上电子发票主表
-                    HlsFndAtmAttachmentMulti hlsFndAtmAttachmentMulti = new HlsFndAtmAttachmentMulti();
+                    FyAttachmentInfo fyAttachmentInfo = new FyAttachmentInfo();
                     //先找到swno对应的 电子发票头表ID
-                    Long eleInvoiceHdId = acrEleInvoiceHdMapper.getEleInvoiceHdId(swno);
-                    hlsFndAtmAttachmentMulti.setTableName("ACR_ELE_INVOICE_HD");
-                    hlsFndAtmAttachmentMulti.setTablePkValue(eleInvoiceHdId);
-                    hlsFndAtmAttachmentMulti = iHlsFndAtmAttachmentMultiService.insertSelective(iRequest,hlsFndAtmAttachmentMulti);
+                    EleInvoiceInfo eleInvoiceInfo1 = eleInvoiceInfoService.selectBySerialNum(eleInvoiceInfo);
+                    fyAttachmentInfo.setTableName("ELE_INVOICE_INFO");
+                    fyAttachmentInfo.setTablePkValue(Math.toIntExact(eleInvoiceInfo1.getEleInvoiceId()));
+                    fyAttachmentInfoService.insertSelective(request,fyAttachmentInfo);
 
-                    HlsFndAtmAttachment hlsFndAtmAttachment = new HlsFndAtmAttachment();
-                    hlsFndAtmAttachment.setSourceTypeCode("fnd_atm_attachment_multi");
-                    hlsFndAtmAttachment.setSourcePkValue(String.valueOf(hlsFndAtmAttachmentMulti.getRecordId()));
-                    hlsFndAtmAttachment.setFileTypeCode("pdf");
-                    hlsFndAtmAttachment.setMimeType("application/pdf");
-                    hlsFndAtmAttachment.setFileName(swno + ".pdf");
+                    FyAttachmentInfo info = fyAttachmentInfoService.selectByTablePkValue(fyAttachmentInfo);
+
+                    FyAttachmentDetail fyAttachmentDetail = new FyAttachmentDetail();
+                    fyAttachmentDetail.setSourceTypeCode("fy_attachment_info");
+                    fyAttachmentDetail.setSourcePkValue(info.getRecordId());
+                    fyAttachmentDetail.setFileTypeCode("pdf");
+                    fyAttachmentDetail.setMimeType("application/pdf");
+                    fyAttachmentDetail.setAttachmentName(swno + ".pdf");
                     Long fileSize = 0L;
                     File file = new File(pdfAddress + swno + ".pdf");
                     if (file.exists() && file.isFile()) {
                         fileSize = file.length();
                     }
-                    hlsFndAtmAttachment.setFileSize(fileSize);
-                    hlsFndAtmAttachment.setFilePath(pdfAddress + swno + ".pdf");
-                    hlsFndAtmAttachment.setInterfaceFlag("Y");
-                    hlsFndAtmAttachment = iHlsFndAtmAttachmentService.insertSelective(iRequest,hlsFndAtmAttachment);
+                    fyAttachmentDetail.setAttachmentSize(Math.toIntExact(fileSize));
+                    fyAttachmentDetail.setAttachmentPath(pdfAddress + swno + ".pdf");
+                    fyAttachmentDetailService.insertSelective(request,fyAttachmentDetail);
 
-                    hlsFndAtmAttachmentMulti.setAttachmentId(hlsFndAtmAttachment.getAttachmentId());
-                    atmAttachmentMultiMapper.updateAttachmentMulti(hlsFndAtmAttachmentMulti);
+                    FyAttachmentDetail detail = fyAttachmentDetailService.selectBySourcePkValue(fyAttachmentDetail);
+
+                    fyAttachmentInfo.setAttachmentId(detail.getAttachmentId());
+                    fyAttachmentInfoService.updateByPrimaryKeySelective(fyAttachmentInfo);
 
                     jsonObject.put("flag", "true");
                 }else{
@@ -219,6 +239,5 @@ public class EleInvoiceDownloadXmlUtil {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

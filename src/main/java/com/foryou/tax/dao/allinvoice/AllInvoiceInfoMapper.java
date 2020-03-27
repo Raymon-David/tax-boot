@@ -1,5 +1,6 @@
 package com.foryou.tax.dao.allinvoice;
 
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -15,4 +16,5 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface AllInvoiceInfoMapper {
 
+    AllInvoiceInfo getInvoiceNum(AllInvoiceInfo allInvoiceInfo);
 }

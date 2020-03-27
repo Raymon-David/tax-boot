@@ -34,4 +34,8 @@ public interface EleInvoiceInfoMapper{
     int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo);
 
     int updateEleInvoiceInterfaceStatus(EleInvoiceInfo eleInvoiceInfo1);
+
+    int updateEleInvoiceInfo(EleInvoiceInfo eleInvoiceInfo);
+
+    EleInvoiceInfo selectBySerialNum(EleInvoiceInfo eleInvoiceInfo);
 }

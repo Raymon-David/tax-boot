@@ -27,4 +27,8 @@ public interface EleInvoiceInfoService {
     int insertData(HttpServletRequest request, EleInvoiceInfo eleInvoiceInfo1);
 
     int updateEleInvoiceInterfaceStatus(EleInvoiceInfo eleInvoiceInfo1);
+
+    int updateEleInvoiceInfo(EleInvoiceInfo eleInvoiceInfo);
+
+    EleInvoiceInfo selectBySerialNum(EleInvoiceInfo eleInvoiceInfo);
 }

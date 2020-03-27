@@ -61,4 +61,14 @@ public class EleInvoiceInfoServiceImpl implements EleInvoiceInfoService {
     public int updateEleInvoiceInterfaceStatus(EleInvoiceInfo eleInvoiceInfo1) {
         return eleInvoiceInfoMapper.updateEleInvoiceInterfaceStatus(eleInvoiceInfo1);
     }
+
+    @Override
+    public int updateEleInvoiceInfo(EleInvoiceInfo eleInvoiceInfo) {
+        return eleInvoiceInfoMapper.updateEleInvoiceInfo(eleInvoiceInfo);
+    }
+
+    @Override
+    public EleInvoiceInfo selectBySerialNum(EleInvoiceInfo eleInvoiceInfo) {
+        return eleInvoiceInfoMapper.selectBySerialNum(eleInvoiceInfo);
+    }
 }

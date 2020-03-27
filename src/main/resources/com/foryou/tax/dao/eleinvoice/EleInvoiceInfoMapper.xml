@@ -669,4 +669,24 @@
         </set>
         where INVOICE_ID = #{invoiceId,jdbcType=INTEGER}
     </update>
+    <update id="updateEleInvoiceInfo" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo">
+        update ELE_INVOICE_INFO
+        set INVOICE_CODE = #{invoiceCode,jdbcType=VARCHAR},
+        INVOICE_NUMBER = #{invoiceNumber,jdbcType=VARCHAR},
+        ISSUED_TIME = #{issuedTime,jdbcType=TIMESTAMP},
+        PDF_URL = #{pdfUrl,jdbcType=VARCHAR},
+        ELE_INVOICE_STATUS_CODE = #{eleInvoiceStatusCode,jdbcType=VARCHAR},
+        ELE_INVOICE_STATUS_NAME  = #{eleInvoiceStatusName,jdbcType=VARCHAR},
+        INVOICE_INTERFACE_STATUS_CODE = #{invoiceInterfaceStatusCode,jdbcType=VARCHAR},
+        INVOICE_INTERFACE_STATUS_NAME  = #{invoiceInterfaceStatusName,jdbcType=VARCHAR},
+        UPDATED_BY = #{updatedBy,jdbcType=INTEGER},
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
+        where SERIAL_NUM = #{serialNum,jdbcType=VARCHAR}
+    </update>
+    <select id="selectBySerialNum" resultMap="BaseResultMap" parameterType="com.foryou.tax.pojo.eleinvoice.EleInvoiceInfo">
+        select
+        <include refid="Base_Column_List" />
+        from ELE_INVOICE_INFO
+        where SERIAL_NUM = #{serialNum,jdbcType=VARCHAR}
+    </select>
 </mapper>

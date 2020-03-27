@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.attachment.FyAttachmentDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.attachment.FyAttachmentDetail">
+        <id column="ATTACHMENT_ID" property="attachmentId" />
+        <result column="SOURCE_TYPE_CODE" property="sourceTypeCode" />
+        <result column="SOURCE_PK_VALUE" property="sourcePkValue" />
+        <result column="FILE_TYPE_CODE" property="fileTypeCode" />
+        <result column="MIME_TYPE" property="mimeType" />
+        <result column="ATTACHMENT_NAME" property="attachmentName" />
+        <result column="ATTACHMENT_SIZE" property="attachmentSize" />
+        <result column="ATTACHMENT_PATH" property="attachmentPath" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        ATTACHMENT_ID, SOURCE_TYPE_CODE, SOURCE_PK_VALUE, FILE_TYPE_CODE, MIME_TYPE, ATTACHMENT_NAME, ATTACHMENT_SIZE, ATTACHMENT_PATH, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from FY_ATTACHMENT_DETAIL
+        where ATTACHMENT_ID = #{attachmentId,jdbcType=INTEGER}
+    </select>
+    <insert id="insertSelective" parameterType="com.foryou.tax.pojo.attachment.FyAttachmentDetail" >
+        insert into FY_ATTACHMENT_DETAIL
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="attachmentId != null" >
+                ATTACHMENT_ID,
+            </if>
+            <if test="sourceTypeCode != null" >
+                SOURCE_TYPE_CODE,
+            </if>
+            <if test="sourcePkValue != null" >
+                SOURCE_PK_VALUE,
+            </if>
+            <if test="fileTypeCode != null" >
+                FILE_TYPE_CODE,
+            </if>
+            <if test="mimeType != null" >
+                MIME_TYPE,
+            </if>
+            <if test="attachmentName != null" >
+                ATTACHMENT_NAME,
+            </if>
+            <if test="attachmentSize != null" >
+                ATTACHMENT_SIZE,
+            </if>
+            <if test="attachmentPath != null" >
+                ATTACHMENT_PATH,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="attachmentId != null" >
+                #{attachmentId,jdbcType=INTEGER},
+            </if>
+            <if test="sourceTypeCode != null" >
+                #{sourceTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sourcePkValue != null" >
+                #{sourcePkValue,jdbcType=INTEGER},
+            </if>
+            <if test="fileTypeCode != null" >
+                #{fileTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="mimeType != null" >
+                #{mimeType,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName != null" >
+                #{attachmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentSize != null" >
+                #{attachmentSize,jdbcType=INTEGER},
+            </if>
+            <if test="attachmentPath != null" >
+                #{attachmentPath,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.foryou.tax.pojo.attachment.FyAttachmentDetail" >
+        update FY_ATTACHMENT_DETAIL
+        <set >
+            <if test="sourceTypeCode != null" >
+                SOURCE_TYPE_CODE = #{sourceTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="sourcePkValue != null" >
+                SOURCE_PK_VALUE = #{sourcePkValue,jdbcType=INTEGER},
+            </if>
+            <if test="fileTypeCode != null" >
+                FILE_TYPE_CODE = #{fileTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="mimeType != null" >
+                MIME_TYPE = #{mimeType,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentName != null" >
+                ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+            </if>
+            <if test="attachmentSize != null" >
+                ATTACHMENT_SIZE = #{attachmentSize,jdbcType=INTEGER},
+            </if>
+            <if test="attachmentPath != null" >
+                ATTACHMENT_PATH = #{attachmentPath,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY = #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY = #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ATTACHMENT_ID = #{attachmentId,jdbcType=INTEGER}
+    </update>
+    <select id="selectBySourcePkValue" resultMap="BaseResultMap" parameterType="com.foryou.tax.pojo.attachment.FyAttachmentDetail">
+        select
+        <include refid="Base_Column_List" />
+        from FY_ATTACHMENT_DETAIL
+        where SOURCE_PK_VALUE = #{sourcePkValue,jdbcType=INTEGER}
+    </select>
+
+</mapper>
