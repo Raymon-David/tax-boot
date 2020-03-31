@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.classificationcode.InvoiceTaxClassificationCodeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.classificationcode.InvoiceTaxClassificationCode">
+        <id column="INVOICE_TAX_CLASSIFICATION_ID" property="invoiceTaxClassificationId" />
+        <result column="TAX_CLASSIFICATION_CODE" property="taxClassificationCode" />
+        <result column="GOODS_CODE" property="goodsCode" />
+        <result column="GOODS_NAME" property="goodsName" />
+        <result column="GOODS_DESC" property="goodsDesc" />
+        <result column="PRODUCT_CODE" property="productCode" />
+        <result column="PRODUCT_NAME" property="productName" />
+        <result column="CASHFLOW_ITEM_CODE" property="cashflowItemCode" />
+        <result column="CASHFLOW_ITEM_NAME" property="cashflowItemName" />
+        <result column="GOODS_VERSION" property="goodsVersion" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        INVOICE_TAX_CLASSIFICATION_ID, TAX_CLASSIFICATION_CODE, GOODS_CODE, GOODS_NAME, GOODS_DESC, PRODUCT_CODE, PRODUCT_NAME, CASHFLOW_ITEM_CODE, CASHFLOW_ITEM_NAME, GOODS_VERSION, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.classificationcode.InvoiceTaxClassificationCode" >
+        insert into INVOICE_TAX_CLASSIFICATION_CODE
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="invoiceTaxClassificationId != null" >
+                INVOICE_TAX_CLASSIFICATION_ID,
+            </if>
+            <if test="taxClassificationCode != null" >
+                TAX_CLASSIFICATION_CODE,
+            </if>
+            <if test="goodsCode != null" >
+                GOODS_CODE,
+            </if>
+            <if test="goodsName != null" >
+                GOODS_NAME,
+            </if>
+            <if test="goodsDesc != null" >
+                GOODS_DESC,
+            </if>
+            <if test="productCode != null" >
+                PRODUCT_CODE,
+            </if>
+            <if test="productName != null" >
+                PRODUCT_NAME,
+            </if>
+            <if test="cashflowItemCode != null" >
+                CASHFLOW_ITEM_CODE,
+            </if>
+            <if test="cashflowItemName != null" >
+                CASHFLOW_ITEM_NAME,
+            </if>
+            <if test="goodsVersion != null" >
+                GOODS_VERSION,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="invoiceTaxClassificationId != null" >
+                #{invoiceTaxClassificationId,jdbcType=INTEGER},
+            </if>
+            <if test="taxClassificationCode != null" >
+                #{taxClassificationCode,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsCode != null" >
+                #{goodsCode,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsName != null" >
+                #{goodsName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsDesc != null" >
+                #{goodsDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="productCode != null" >
+                #{productCode,jdbcType=VARCHAR},
+            </if>
+            <if test="productName != null" >
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="cashflowItemCode != null" >
+                #{cashflowItemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="cashflowItemName != null" >
+                #{cashflowItemName,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsVersion != null" >
+                #{goodsVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectByTaxClassificationCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from INVOICE_TAX_CLASSIFICATION_CODE
+        where TAX_CLASSIFICATION_CODE = #{taxClassificationCode}
+    </select>
+
+</mapper>

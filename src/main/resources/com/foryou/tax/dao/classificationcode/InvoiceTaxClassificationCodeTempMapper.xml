@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.classificationcode.InvoiceTaxClassificationCodeTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.classificationcode.InvoiceTaxClassificationCodeTemp">
+        <id column="CLASS_ID" property="classId" />
+        <result column="CONTRACT_TYPE" property="contractType" />
+        <result column="CONTRACT_TYPE_N" property="contractTypeN" />
+        <result column="DIVISION" property="division" />
+        <result column="DIVISION_N" property="divisionN" />
+        <result column="CF_ITEM" property="cfItem" />
+        <result column="CF_ITEM_N" property="cfItemN" />
+        <result column="CF_TYPE" property="cfType" />
+        <result column="CF_TYPE_N" property="cfTypeN" />
+        <result column="TAX_CLASS_NUMB" property="taxClassNum" />
+        <result column="GOODS_VERSION" property="goodsVersion" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        CLASS_ID, CONTRACT_TYPE, CONTRACT_TYPE_N, DIVISION, DIVISION_N, CF_ITEM, CF_ITEM_N, CF_TYPE, CF_TYPE_N, TAX_CLASS_NUMB, GOODS_VERSION, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        from INVOICE_TAX_CLASSIFICATION_CODE_TEMP
+        where CLASS_ID = #{classId,jdbcType=INTEGER}
+    </select>
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.classificationcode.InvoiceTaxClassificationCodeTemp">
+        insert into INVOICE_TAX_CLASSIFICATION_CODE_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="classId != null" >
+                CLASS_ID,
+            </if>
+            <if test="contractType != null" >
+                CONTRACT_TYPE,
+            </if>
+            <if test="contractTypeN != null" >
+                CONTRACT_TYPE_N,
+            </if>
+            <if test="division != null" >
+                DIVISION,
+            </if>
+            <if test="divisionN != null" >
+                DIVISION_N,
+            </if>
+            <if test="cfItem != null" >
+                CF_ITEM,
+            </if>
+            <if test="cfItemN != null" >
+                CF_ITEM_N,
+            </if>
+            <if test="cfType != null" >
+                CF_TYPE,
+            </if>
+            <if test="cfTypeN != null" >
+                CF_TYPE_N,
+            </if>
+            <if test="taxClassNumb != null" >
+                TAX_CLASS_NUMB,
+            </if>
+            <if test="goodsVersion != null" >
+                GOODS_VERSION,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="classId != null" >
+                #{classId,jdbcType=INTEGER},
+            </if>
+            <if test="contractType != null" >
+                #{contractType,jdbcType=VARCHAR},
+            </if>
+            <if test="contractTypeN != null" >
+                #{contractTypeN,jdbcType=VARCHAR},
+            </if>
+            <if test="division != null" >
+                #{division,jdbcType=VARCHAR},
+            </if>
+            <if test="divisionN != null" >
+                #{divisionN,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItem != null" >
+                #{cfItem,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItemN != null" >
+                #{cfItemN,jdbcType=VARCHAR},
+            </if>
+            <if test="cfType != null" >
+                #{cfType,jdbcType=VARCHAR},
+            </if>
+            <if test="cfTypeN != null" >
+                #{cfTypeN,jdbcType=VARCHAR},
+            </if>
+            <if test="taxClassNumb != null" >
+                #{taxClassNumb,jdbcType=VARCHAR},
+            </if>
+            <if test="goodsVersion != null" >
+                #{goodsVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <select id="selectData" resultMap="BaseResultMap" resultType="list">
+        select
+        <include refid="Base_Column_List" />
+        from INVOICE_TAX_CLASSIFICATION_CODE_TEMP
+    </select>
+
+</mapper>
