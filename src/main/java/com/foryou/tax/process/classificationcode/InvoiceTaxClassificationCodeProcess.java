@@ -3,11 +3,13 @@ package com.foryou.tax.process.classificationcode;
 import com.foryou.tax.api.constant.StatusCodeEnum;
 import com.foryou.tax.pojo.classificationcode.InvoiceTaxClassificationCode;
 import com.foryou.tax.pojo.classificationcode.InvoiceTaxClassificationCodeTemp;
+import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.classificationcode.InvoiceTaxClassificationCodeService;
 import com.foryou.tax.service.classificationcode.InvoiceTaxClassificationCodeTempService;
 import com.foryou.tax.util.JDBCUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,7 +21,8 @@ import java.util.Map;
  * @date ：Created in 2020/3/31
  * @description: 税收分类编码process
  */
-public class InvoiceTaxClassificationCodeProcess {
+@Service
+public class InvoiceTaxClassificationCodeProcess extends BaseProcess {
 
     @Autowired
     private InvoiceTaxClassificationCodeService invoiceTaxClassificationCodeService;
@@ -65,7 +68,7 @@ public class InvoiceTaxClassificationCodeProcess {
 
         for (int i = 0; i < mapList.size(); i++) {
             InvoiceTaxClassificationCodeTemp invoiceTaxClassificationCodeTemp = new InvoiceTaxClassificationCodeTemp();
-            invoiceTaxClassificationCodeTemp.setClassId(Integer.valueOf(mapList.get(i).get("class_id")));
+            invoiceTaxClassificationCodeTemp.setClassId(Integer.valueOf(String.valueOf(mapList.get(i).get("class_id"))));
             invoiceTaxClassificationCodeTemp.setContractType(mapList.get(i).get("contract_type"));
             invoiceTaxClassificationCodeTemp.setContractTypeN(mapList.get(i).get("contract_type_n"));
             invoiceTaxClassificationCodeTemp.setDivision(mapList.get(i).get("division"));
