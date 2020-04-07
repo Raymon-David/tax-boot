@@ -13,7 +13,7 @@
         <result column="CF_ITEM_N" property="cfItemN" />
         <result column="CF_TYPE" property="cfType" />
         <result column="CF_TYPE_N" property="cfTypeN" />
-        <result column="TAX_CLASS_NUMB" property="taxClassNum" />
+        <result column="TAX_CLASS_NUM" property="taxClassNum" />
         <result column="GOODS_VERSION" property="goodsVersion" />
         <result column="CREATED_BY" property="createdBy" />
         <result column="CREATE_TIME" property="createTime" />
@@ -23,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        CLASS_ID, CONTRACT_TYPE, CONTRACT_TYPE_N, DIVISION, DIVISION_N, CF_ITEM, CF_ITEM_N, CF_TYPE, CF_TYPE_N, TAX_CLASS_NUMB, GOODS_VERSION, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+        CLASS_ID, CONTRACT_TYPE, CONTRACT_TYPE_N, DIVISION, DIVISION_N, CF_ITEM, CF_ITEM_N, CF_TYPE, CF_TYPE_N, TAX_CLASS_NUM, GOODS_VERSION, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
         select
@@ -61,8 +61,8 @@
             <if test="cfTypeN != null" >
                 CF_TYPE_N,
             </if>
-            <if test="taxClassNumb != null" >
-                TAX_CLASS_NUMB,
+            <if test="taxClassNum != null" >
+                TAX_CLASS_NUM,
             </if>
             <if test="goodsVersion != null" >
                 GOODS_VERSION,
@@ -108,8 +108,8 @@
             <if test="cfTypeN != null" >
                 #{cfTypeN,jdbcType=VARCHAR},
             </if>
-            <if test="taxClassNumb != null" >
-                #{taxClassNumb,jdbcType=VARCHAR},
+            <if test="taxClassNum != null" >
+                #{taxClassNum,jdbcType=VARCHAR},
             </if>
             <if test="goodsVersion != null" >
                 #{goodsVersion,jdbcType=VARCHAR},

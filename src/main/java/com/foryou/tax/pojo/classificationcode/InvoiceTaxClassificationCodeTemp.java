@@ -53,7 +53,7 @@ public class InvoiceTaxClassificationCodeTemp implements Serializable {
     /**
      * 税收分类编码
      */
-    @TableField("TAX_CLASS_NUMB")
+    @TableField("TAX_CLASS_NUM")
     private String taxClassNum;
     /**
      * 版本
@@ -208,7 +208,7 @@ public class InvoiceTaxClassificationCodeTemp implements Serializable {
         ", cfItemN=" + cfItemN +
         ", cfType=" + cfType +
         ", cfTypeN=" + cfTypeN +
-        ", taxClassNumb=" + taxClassNum +
+        ", taxClassNum=" + taxClassNum +
         ", goodsVersion=" + goodsVersion +
         ", createdBy=" + createdBy +
         ", createTime=" + createTime +

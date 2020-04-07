@@ -73,9 +73,9 @@ public class InvoiceTaxClassificationCodeProcess extends BaseProcess {
             invoiceTaxClassificationCodeTemp.setContractTypeN(mapList.get(i).get("contract_type_n"));
             invoiceTaxClassificationCodeTemp.setDivision(mapList.get(i).get("division"));
             invoiceTaxClassificationCodeTemp.setDivisionN(mapList.get(i).get("division_n"));
-            invoiceTaxClassificationCodeTemp.setCfItem(mapList.get(i).get("cf_item"));
+            invoiceTaxClassificationCodeTemp.setCfItem(String.valueOf(mapList.get(i).get("cf_item")));
             invoiceTaxClassificationCodeTemp.setCfItemN(mapList.get(i).get("cf_item_n"));
-            invoiceTaxClassificationCodeTemp.setCfType(mapList.get(i).get("cf_type"));
+            invoiceTaxClassificationCodeTemp.setCfType(String.valueOf(mapList.get(i).get("cf_type")));
             invoiceTaxClassificationCodeTemp.setCfTypeN(mapList.get(i).get("cf_type_n"));
             invoiceTaxClassificationCodeTemp.setTaxClassNum(mapList.get(i).get("tax_class_num"));
             invoiceTaxClassificationCodeTemp.setGoodsVersion(mapList.get(i).get("goods_version"));
@@ -87,9 +87,9 @@ public class InvoiceTaxClassificationCodeProcess extends BaseProcess {
         List<InvoiceTaxClassificationCodeTemp> invoiceTaxClassificationCodeTemps = invoiceTaxClassificationCodeTempService.selectData();
         for (int i = 0; i < invoiceTaxClassificationCodeTemps.size(); i++) {
             String taxClassCode = invoiceTaxClassificationCodeTemps.get(i).getTaxClassNum();
-            InvoiceTaxClassificationCode taxClassificationCode = invoiceTaxClassificationCodeService.selectByTaxClassificationCode(taxClassCode);
+//            InvoiceTaxClassificationCode taxClassificationCode = invoiceTaxClassificationCodeService.selectByTaxClassificationCode(taxClassCode);
 
-            if (taxClassificationCode == null) {
+//            if (taxClassificationCode == null) {
                 InvoiceTaxClassificationCode invoiceTaxClassificationCode = new InvoiceTaxClassificationCode();
                 invoiceTaxClassificationCode.setTaxClassificationCode(taxClassCode);
 
@@ -129,7 +129,7 @@ public class InvoiceTaxClassificationCodeProcess extends BaseProcess {
 
                 invoiceTaxClassificationCodeService.insertData(invoiceTaxClassificationCode);
             }
-        }
+//        }
 
     }
 }
