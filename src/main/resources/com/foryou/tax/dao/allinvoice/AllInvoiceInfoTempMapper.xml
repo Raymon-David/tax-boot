@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.allinvoice.AllInvoiceInfoTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp">
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="PROJECT_ID" property="projectId" />
+        <result column="PROJECT_NUMBER" property="projectNumber" />
+        <result column="PROJECT_NAME" property="projectName" />
+        <result column="CONTRACT_ID" property="contractId" />
+        <result column="CONTRACT_NUMBER" property="contractNumber" />
+        <result column="CONTRACT_NAME" property="contractName" />
+        <result column="INCEPTION_OF_LEASE" property="inceptionOfLease" />
+        <result column="CONTRACT_STATUS" property="contractStatus" />
+        <result column="CONTRACT_STATUS_DESC" property="contractStatusDesc" />
+        <result column="BILLING_METHOD" property="billingMethod" />
+        <result column="BILLING_METHOD_DESC" property="billingMethodDesc" />
+        <result column="BILLING_OBJECT_ID" property="billingObjectId" />
+        <result column="BILLING_OBJECT_CODE" property="billingObjectCode" />
+        <result column="BILLING_OBJECT_NAME" property="billingObjectName" />
+        <result column="OBJECT_TAXPAYER_TYPE" property="objectTaxpayerType" />
+        <result column="OBJECT_TAXPAYER_TYPE_DESC" property="objectTaxpayerTypeDesc" />
+        <result column="OBJECT_TAX_REGISTRY_NUM" property="objectTaxRegistryNum" />
+        <result column="BILL_OBJECT_BP_CLASS" property="billObjectBpClass" />
+        <result column="BILL_OBJECT_BP_CLASS_DESC" property="billObjectBpClassDesc" />
+        <result column="TAX_TYPE_VAT" property="taxTypeVat" />
+        <result column="DESCRIPTION" property="description" />
+        <result column="INVOICE_TITLE" property="invoiceTitle" />
+        <result column="INVOICE_BP_ADDRESS_PHONE_NUM" property="invoiceBpAddressPhoneNum" />
+        <result column="INVOICE_BP_BANK_ACCOUNT" property="invoiceBpBankAccount" />
+        <result column="TAX_REGISTRY_NUM" property="taxRegistryNum" />
+        <result column="PRJ_SEARCH_TERM_1" property="prjSearchTerm1" />
+        <result column="PRJ_SEARCH_TERM_2" property="prjSearchTerm2" />
+        <result column="CON_SEARCH_TERM_1" property="conSearchTerm1" />
+        <result column="CON_SEARCH_TERM_2" property="conSearchTerm2" />
+        <result column="DOCUMENT_TYPE" property="documentType" />
+        <result column="BP_NAME" property="bpName" />
+        <result column="CASHFLOW_ID" property="cashflowId" />
+        <result column="CF_ITEM" property="cfItem" />
+        <result column="CF_ITEM_DESC" property="cfItemDesc" />
+        <result column="TIMES" property="times" />
+        <result column="LAST_RECEIVED_DATE" property="lastReceivedDate" />
+        <result column="DUE_DATE" property="dueDate" />
+        <result column="DUE_AMOUNT" property="dueAmount" />
+        <result column="PRINCIPAL" property="principal" />
+        <result column="INTEREST" property="interest" />
+        <result column="RECEIVED_AMOUNT" property="receivedAmount" />
+        <result column="RECEIVED_PRINCIPAL" property="receivedPrincipal" />
+        <result column="RECEIVED_INTEREST" property="receivedInterest" />
+        <result column="NOTRECEIVED_AMOUNT" property="notreceivedAmount" />
+        <result column="NOTRECEIVED_PRINCIPAL" property="notreceivedPrincipal" />
+        <result column="NOTRECEIVED_INTEREST" property="notreceivedInterest" />
+        <result column="BILLING_AMOUNT" property="billingAmount" />
+        <result column="BILLING_PRINCIPAL" property="billingPrincipal" />
+        <result column="BILLING_INTEREST" property="billingInterest" />
+        <result column="NOTBILLING_AMOUNT" property="notbillingAmount" />
+        <result column="NOTBILLING_PRINCIPAL" property="notbillingPrincipal" />
+        <result column="NOTBILLING_INTEREST" property="notbillingInterest" />
+        <result column="VAT_DUE_AMOUNT" property="vatDueAmount" />
+        <result column="VAT_PRINCIPAL" property="vatPrincipal" />
+        <result column="VAT_INTEREST" property="vatInterest" />
+        <result column="NET_DUE_AMOUNT" property="netDueAmount" />
+        <result column="NET_PRINCIPAL" property="netPrincipal" />
+        <result column="NET_INTEREST" property="netInterest" />
+        <result column="CURRENCY" property="currency" />
+        <result column="CURRENCY_DESC" property="currencyDesc" />
+        <result column="EXCHANGE_RATE" property="exchangeRate" />
+        <result column="EXCHANGE_RATE_TYPE" property="exchangeRateType" />
+        <result column="EXCHANGE_RATE_TYPE_DESC" property="exchangeRateTypeDesc" />
+        <result column="EXCHANGE_RATE_QUOTATION" property="exchangeRateQuotation" />
+        <result column="EXCHANGE_RATE_QUOTATION_DESC" property="exchangeRateQuotationDesc" />
+        <result column="LEASE_CHANNEL_DESC" property="leaseChannelDesc" />
+        <result column="BUSINESS_TYPE" property="businessType" />
+        <result column="BUSINESS_TYPE_DESC" property="businessTypeDesc" />
+        <result column="DIVISION" property="division" />
+        <result column="DIVISION_DESC" property="divisionDesc" />
+        <result column="BILLING_FREQUENCY" property="billingFrequency" />
+        <result column="BILLING_FREQUENCY_N" property="billingFrequencyN" />
+        <result column="BILLING_WAY" property="billingWay" />
+        <result column="BILLING_WAY_N" property="billingWayN" />
+        <result column="NEED_BILLING_AMOUNT" property="needBillingAmount" />
+        <result column="INV_BILLING_OBJECT_NAME" property="invBillingObjectName" />
+        <result column="SMALL_SCALE_TAXPAYER" property="smallScaleTaxpayer" />
+        <result column="INVOICE_INFO_CONFIRM" property="invoiceInfoConfirm" />
+        <result column="INVOICE_INFO_CONFIRM_DESC" property="invoiceInfoConfirmDesc" />
+        <result column="LAST_WRITE_OFF_DATE" property="lastWriteOffDate" />
+        <result column="EXPEDITED_FLAG" property="expeditedFlag" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        COMPANY_ID, PROJECT_ID, PROJECT_NUMBER, PROJECT_NAME, CONTRACT_ID, CONTRACT_NUMBER, CONTRACT_NAME, INCEPTION_OF_LEASE, CONTRACT_STATUS, CONTRACT_STATUS_DESC, BILLING_METHOD, BILLING_METHOD_DESC, BILLING_OBJECT_ID, BILLING_OBJECT_CODE, BILLING_OBJECT_NAME, OBJECT_TAXPAYER_TYPE, OBJECT_TAXPAYER_TYPE_DESC, OBJECT_TAX_REGISTRY_NUM, BILL_OBJECT_BP_CLASS, BILL_OBJECT_BP_CLASS_DESC, TAX_TYPE_VAT, DESCRIPTION, INVOICE_TITLE, INVOICE_BP_ADDRESS_PHONE_NUM, INVOICE_BP_BANK_ACCOUNT, TAX_REGISTRY_NUM, PRJ_SEARCH_TERM_1, PRJ_SEARCH_TERM_2, CON_SEARCH_TERM_1, CON_SEARCH_TERM_2, DOCUMENT_TYPE, BP_NAME, CASHFLOW_ID, CF_ITEM, CF_ITEM_DESC, TIMES, LAST_RECEIVED_DATE, DUE_DATE, DUE_AMOUNT, PRINCIPAL, INTEREST, RECEIVED_AMOUNT, RECEIVED_PRINCIPAL, RECEIVED_INTEREST, NOTRECEIVED_AMOUNT, NOTRECEIVED_PRINCIPAL, NOTRECEIVED_INTEREST, BILLING_AMOUNT, BILLING_PRINCIPAL, BILLING_INTEREST, NOTBILLING_AMOUNT, NOTBILLING_PRINCIPAL, NOTBILLING_INTEREST, VAT_DUE_AMOUNT, VAT_PRINCIPAL, VAT_INTEREST, NET_DUE_AMOUNT, NET_PRINCIPAL, NET_INTEREST, CURRENCY, CURRENCY_DESC, EXCHANGE_RATE, EXCHANGE_RATE_TYPE, EXCHANGE_RATE_TYPE_DESC, EXCHANGE_RATE_QUOTATION, EXCHANGE_RATE_QUOTATION_DESC, LEASE_CHANNEL_DESC, BUSINESS_TYPE, BUSINESS_TYPE_DESC, DIVISION, DIVISION_DESC, BILLING_FREQUENCY, BILLING_FREQUENCY_N, BILLING_WAY, BILLING_WAY_N, NEED_BILLING_AMOUNT, INV_BILLING_OBJECT_NAME, SMALL_SCALE_TAXPAYER, INVOICE_INFO_CONFIRM, INVOICE_INFO_CONFIRM_DESC, LAST_WRITE_OFF_DATE, EXPEDITED_FLAG, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp">
+        insert into ALL_INVOICE_INFO_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="companyId != null" >
+                COMPANY_ID,
+            </if>
+            <if test="projectId != null" >
+                PROJECT_ID,
+            </if>
+            <if test="projectNumber != null" >
+                PROJECT_NUMBER,
+            </if>
+            <if test="projectName != null" >
+                PROJECT_NAME,
+            </if>
+            <if test="contractId != null" >
+                CONTRACT_ID,
+            </if>
+            <if test="contractNumber != null" >
+                CONTRACT_NUMBER,
+            </if>
+            <if test="contractName != null" >
+                CONTRACT_NAME,
+            </if>
+            <if test="inceptionOfLease != null" >
+                INCEPTION_OF_LEASE,
+            </if>
+            <if test="contractStatus != null" >
+                CONTRACT_STATUS,
+            </if>
+            <if test="contractStatusDesc != null" >
+                CONTRACT_STATUS_DESC,
+            </if>
+            <if test="billingMethod != null" >
+                BILLING_METHOD,
+            </if>
+            <if test="billingMethodDesc != null" >
+                BILLING_METHOD_DESC,
+            </if>
+            <if test="billingObjectId != null" >
+                BILLING_OBJECT_ID,
+            </if>
+            <if test="billingObjectCode != null" >
+                BILLING_OBJECT_CODE,
+            </if>
+            <if test="billingObjectName != null" >
+                BILLING_OBJECT_NAME,
+            </if>
+            <if test="objectTaxpayerType != null" >
+                OBJECT_TAXPAYER_TYPE,
+            </if>
+            <if test="objectTaxpayerTypeDesc != null" >
+                OBJECT_TAXPAYER_TYPE_DESC,
+            </if>
+            <if test="objectTaxRegistryNum != null" >
+                OBJECT_TAX_REGISTRY_NUM,
+            </if>
+            <if test="billObjectBpClass != null" >
+                BILL_OBJECT_BP_CLASS,
+            </if>
+            <if test="billObjectBpClassDesc != null" >
+                BILL_OBJECT_BP_CLASS_DESC,
+            </if>
+            <if test="taxTypeVat != null" >
+                TAX_TYPE_VAT,
+            </if>
+            <if test="description != null" >
+                DESCRIPTION,
+            </if>
+            <if test="invoiceTitle != null" >
+                INVOICE_TITLE,
+            </if>
+            <if test="invoiceBpAddressPhoneNum != null" >
+                INVOICE_BP_ADDRESS_PHONE_NUM,
+            </if>
+            <if test="invoiceBpBankAccount != null" >
+                INVOICE_BP_BANK_ACCOUNT,
+            </if>
+            <if test="taxRegistryNum != null" >
+                TAX_REGISTRY_NUM,
+            </if>
+            <if test="prjSearchTerm1 != null" >
+                PRJ_SEARCH_TERM_1,
+            </if>
+            <if test="prjSearchTerm2 != null" >
+                PRJ_SEARCH_TERM_2,
+            </if>
+            <if test="conSearchTerm1 != null" >
+                CON_SEARCH_TERM_1,
+            </if>
+            <if test="conSearchTerm2 != null" >
+                CON_SEARCH_TERM_2,
+            </if>
+            <if test="documentType != null" >
+                DOCUMENT_TYPE,
+            </if>
+            <if test="bpName != null" >
+                BP_NAME,
+            </if>
+            <if test="cashflowId != null" >
+                CASHFLOW_ID,
+            </if>
+            <if test="cfItem != null" >
+                CF_ITEM,
+            </if>
+            <if test="cfItemDesc != null" >
+                CF_ITEM_DESC,
+            </if>
+            <if test="times != null" >
+                TIMES,
+            </if>
+            <if test="lastReceivedDate != null" >
+                LAST_RECEIVED_DATE,
+            </if>
+            <if test="dueDate != null" >
+                DUE_DATE,
+            </if>
+            <if test="dueAmount != null" >
+                DUE_AMOUNT,
+            </if>
+            <if test="principal != null" >
+                PRINCIPAL,
+            </if>
+            <if test="interest != null" >
+                INTEREST,
+            </if>
+            <if test="receivedAmount != null" >
+                RECEIVED_AMOUNT,
+            </if>
+            <if test="receivedPrincipal != null" >
+                RECEIVED_PRINCIPAL,
+            </if>
+            <if test="receivedInterest != null" >
+                RECEIVED_INTEREST,
+            </if>
+            <if test="notreceivedAmount != null" >
+                NOTRECEIVED_AMOUNT,
+            </if>
+            <if test="notreceivedPrincipal != null" >
+                NOTRECEIVED_PRINCIPAL,
+            </if>
+            <if test="notreceivedInterest != null" >
+                NOTRECEIVED_INTEREST,
+            </if>
+            <if test="billingAmount != null" >
+                BILLING_AMOUNT,
+            </if>
+            <if test="billingPrincipal != null" >
+                BILLING_PRINCIPAL,
+            </if>
+            <if test="billingInterest != null" >
+                BILLING_INTEREST,
+            </if>
+            <if test="notbillingAmount != null" >
+                NOTBILLING_AMOUNT,
+            </if>
+            <if test="notbillingPrincipal != null" >
+                NOTBILLING_PRINCIPAL,
+            </if>
+            <if test="notbillingInterest != null" >
+                NOTBILLING_INTEREST,
+            </if>
+            <if test="vatDueAmount != null" >
+                VAT_DUE_AMOUNT,
+            </if>
+            <if test="vatPrincipal != null" >
+                VAT_PRINCIPAL,
+            </if>
+            <if test="vatInterest != null" >
+                VAT_INTEREST,
+            </if>
+            <if test="netDueAmount != null" >
+                NET_DUE_AMOUNT,
+            </if>
+            <if test="netPrincipal != null" >
+                NET_PRINCIPAL,
+            </if>
+            <if test="netInterest != null" >
+                NET_INTEREST,
+            </if>
+            <if test="currency != null" >
+                CURRENCY,
+            </if>
+            <if test="currencyDesc != null" >
+                CURRENCY_DESC,
+            </if>
+            <if test="exchangeRate != null" >
+                EXCHANGE_RATE,
+            </if>
+            <if test="exchangeRateType != null" >
+                EXCHANGE_RATE_TYPE,
+            </if>
+            <if test="exchangeRateTypeDesc != null" >
+                EXCHANGE_RATE_TYPE_DESC,
+            </if>
+            <if test="exchangeRateQuotation != null" >
+                EXCHANGE_RATE_QUOTATION,
+            </if>
+            <if test="exchangeRateQuotationDesc != null" >
+                EXCHANGE_RATE_QUOTATION_DESC,
+            </if>
+            <if test="leaseChannelDesc != null" >
+                LEASE_CHANNEL_DESC,
+            </if>
+            <if test="businessType != null" >
+                BUSINESS_TYPE,
+            </if>
+            <if test="businessTypeDesc != null" >
+                BUSINESS_TYPE_DESC,
+            </if>
+            <if test="division != null" >
+                DIVISION,
+            </if>
+            <if test="divisionDesc != null" >
+                DIVISION_DESC,
+            </if>
+            <if test="billingFrequency != null" >
+                BILLING_FREQUENCY,
+            </if>
+            <if test="billingFrequencyN != null" >
+                BILLING_FREQUENCY_N,
+            </if>
+            <if test="billingWay != null" >
+                BILLING_WAY,
+            </if>
+            <if test="billingWayN != null" >
+                BILLING_WAY_N,
+            </if>
+            <if test="needBillingAmount != null" >
+                NEED_BILLING_AMOUNT,
+            </if>
+            <if test="invBillingObjectName != null" >
+                INV_BILLING_OBJECT_NAME,
+            </if>
+            <if test="smallScaleTaxpayer != null" >
+                SMALL_SCALE_TAXPAYER,
+            </if>
+            <if test="invoiceInfoConfirm != null" >
+                INVOICE_INFO_CONFIRM,
+            </if>
+            <if test="invoiceInfoConfirmDesc != null" >
+                INVOICE_INFO_CONFIRM_DESC,
+            </if>
+            <if test="lastWriteOffDate != null" >
+                LAST_WRITE_OFF_DATE,
+            </if>
+            <if test="expeditedFlag != null" >
+                EXPEDITED_FLAG,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="companyId != null" >
+                #{companyId,jdbcType=VARCHAR},
+            </if>
+            <if test="projectId != null" >
+                #{projectId,jdbcType=VARCHAR},
+            </if>
+            <if test="projectNumber != null" >
+                #{projectNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="projectName != null" >
+                #{projectName,jdbcType=VARCHAR},
+            </if>
+            <if test="contractId != null" >
+                #{contractId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractNumber != null" >
+                #{contractNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="contractName != null" >
+                #{contractName,jdbcType=VARCHAR},
+            </if>
+            <if test="inceptionOfLease != null" >
+                #{inceptionOfLease,jdbcType=TIMESTAMP},
+            </if>
+            <if test="contractStatus != null" >
+                #{contractStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="contractStatusDesc != null" >
+                #{contractStatusDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="billingMethod != null" >
+                #{billingMethod,jdbcType=VARCHAR},
+            </if>
+            <if test="billingMethodDesc != null" >
+                #{billingMethodDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="billingObjectId != null" >
+                #{billingObjectId,jdbcType=VARCHAR},
+            </if>
+            <if test="billingObjectCode != null" >
+                #{billingObjectCode,jdbcType=VARCHAR},
+            </if>
+            <if test="billingObjectName != null" >
+                #{billingObjectName,jdbcType=VARCHAR},
+            </if>
+            <if test="objectTaxpayerType != null" >
+                #{objectTaxpayerType,jdbcType=VARCHAR},
+            </if>
+            <if test="objectTaxpayerTypeDesc != null" >
+                #{objectTaxpayerTypeDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="objectTaxRegistryNum != null" >
+                #{objectTaxRegistryNum,jdbcType=VARCHAR},
+            </if>
+            <if test="billObjectBpClass != null" >
+                #{billObjectBpClass,jdbcType=VARCHAR},
+            </if>
+            <if test="billObjectBpClassDesc != null" >
+                #{billObjectBpClassDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="taxTypeVat != null" >
+                #{taxTypeVat,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceTitle != null" >
+                #{invoiceTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBpAddressPhoneNum != null" >
+                #{invoiceBpAddressPhoneNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceBpBankAccount != null" >
+                #{invoiceBpBankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="taxRegistryNum != null" >
+                #{taxRegistryNum,jdbcType=VARCHAR},
+            </if>
+            <if test="prjSearchTerm1 != null" >
+                #{prjSearchTerm1,jdbcType=VARCHAR},
+            </if>
+            <if test="prjSearchTerm2 != null" >
+                #{prjSearchTerm2,jdbcType=VARCHAR},
+            </if>
+            <if test="conSearchTerm1 != null" >
+                #{conSearchTerm1,jdbcType=VARCHAR},
+            </if>
+            <if test="conSearchTerm2 != null" >
+                #{conSearchTerm2,jdbcType=VARCHAR},
+            </if>
+            <if test="documentType != null" >
+                #{documentType,jdbcType=VARCHAR},
+            </if>
+            <if test="bpName != null" >
+                #{bpName,jdbcType=VARCHAR},
+            </if>
+            <if test="cashflowId != null" >
+                #{cashflowId,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItem != null" >
+                #{cfItem,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItemDesc != null" >
+                #{cfItemDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="times != null" >
+                #{times,jdbcType=VARCHAR},
+            </if>
+            <if test="lastReceivedDate != null" >
+                #{lastReceivedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dueDate != null" >
+                #{dueDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="dueAmount != null" >
+                #{dueAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="principal != null" >
+                #{principal,jdbcType=DECIMAL},
+            </if>
+            <if test="interest != null" >
+                #{interest,jdbcType=DECIMAL},
+            </if>
+            <if test="receivedAmount != null" >
+                #{receivedAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="receivedPrincipal != null" >
+                #{receivedPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="receivedInterest != null" >
+                #{receivedInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="notreceivedAmount != null" >
+                #{notreceivedAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="notreceivedPrincipal != null" >
+                #{notreceivedPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="notreceivedInterest != null" >
+                #{notreceivedInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="billingAmount != null" >
+                #{billingAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="billingPrincipal != null" >
+                #{billingPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="billingInterest != null" >
+                #{billingInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="notbillingAmount != null" >
+                #{notbillingAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="notbillingPrincipal != null" >
+                #{notbillingPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="notbillingInterest != null" >
+                #{notbillingInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="vatDueAmount != null" >
+                #{vatDueAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="vatPrincipal != null" >
+                #{vatPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="vatInterest != null" >
+                #{vatInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="netDueAmount != null" >
+                #{netDueAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="netPrincipal != null" >
+                #{netPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="netInterest != null" >
+                #{netInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="currency != null" >
+                #{currency,jdbcType=VARCHAR},
+            </if>
+            <if test="currencyDesc != null" >
+                #{currencyDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeRate != null" >
+                #{exchangeRate,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeRateType != null" >
+                #{exchangeRateType,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeRateTypeDesc != null" >
+                #{exchangeRateTypeDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeRateQuotation != null" >
+                #{exchangeRateQuotation,jdbcType=VARCHAR},
+            </if>
+            <if test="exchangeRateQuotationDesc != null" >
+                #{exchangeRateQuotationDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="leaseChannelDesc != null" >
+                #{leaseChannelDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="businessType != null" >
+                #{businessType,jdbcType=VARCHAR},
+            </if>
+            <if test="businessTypeDesc != null" >
+                #{businessTypeDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="division != null" >
+                #{division,jdbcType=VARCHAR},
+            </if>
+            <if test="divisionDesc != null" >
+                #{divisionDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="billingFrequency != null" >
+                #{billingFrequency,jdbcType=VARCHAR},
+            </if>
+            <if test="billingFrequencyN != null" >
+                #{billingFrequencyN,jdbcType=VARCHAR},
+            </if>
+            <if test="billingWay != null" >
+                #{billingWay,jdbcType=VARCHAR},
+            </if>
+            <if test="billingWayN != null" >
+                #{billingWayN,jdbcType=VARCHAR},
+            </if>
+            <if test="needBillingAmount != null" >
+                #{needBillingAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="invBillingObjectName != null" >
+                #{invBillingObjectName,jdbcType=VARCHAR},
+            </if>
+            <if test="smallScaleTaxpayer != null" >
+                #{smallScaleTaxpayer,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInfoConfirm != null" >
+                #{invoiceInfoConfirm,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInfoConfirmDesc != null" >
+                #{invoiceInfoConfirmDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="lastWriteOffDate != null" >
+                #{lastWriteOffDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="expeditedFlag != null" >
+                #{expeditedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
