@@ -1,5 +1,8 @@
 logging:
   file: server.log
+  maxHistory: 90
+  charset: UTF-8
+  file.max-size: 2048MB
 
 spring:
   redis:
