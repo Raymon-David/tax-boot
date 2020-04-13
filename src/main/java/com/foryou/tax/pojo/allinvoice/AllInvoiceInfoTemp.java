@@ -12,7 +12,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author raymon
- * @since 2020-04-08
+ * @since 2020-04-10
  */
 @TableName("ALL_INVOICE_INFO_TEMP")
 public class AllInvoiceInfoTemp implements Serializable {
@@ -49,6 +49,8 @@ public class AllInvoiceInfoTemp implements Serializable {
     private String billingObjectCode;
     @TableField("BILLING_OBJECT_NAME")
     private String billingObjectName;
+    @TableField("BILLING_OBJECT_ID_CARD")
+    private String billingObjectIdCard;
     @TableField("OBJECT_TAXPAYER_TYPE")
     private String objectTaxpayerType;
     @TableField("OBJECT_TAXPAYER_TYPE_DESC")
@@ -317,6 +319,14 @@ public class AllInvoiceInfoTemp implements Serializable {
 
     public void setBillingObjectName(String billingObjectName) {
         this.billingObjectName = billingObjectName;
+    }
+
+    public String getBillingObjectIdCard() {
+        return billingObjectIdCard;
+    }
+
+    public void setBillingObjectIdCard(String billingObjectIdCard) {
+        this.billingObjectIdCard = billingObjectIdCard;
     }
 
     public String getObjectTaxpayerType() {
@@ -890,92 +900,93 @@ public class AllInvoiceInfoTemp implements Serializable {
     @Override
     public String toString() {
         return "AllInvoiceInfoTemp{" +
-        ", companyId=" + companyId +
-        ", projectId=" + projectId +
-        ", projectNumber=" + projectNumber +
-        ", projectName=" + projectName +
-        ", contractId=" + contractId +
-        ", contractNumber=" + contractNumber +
-        ", contractName=" + contractName +
-        ", inceptionOfLease=" + inceptionOfLease +
-        ", contractStatus=" + contractStatus +
-        ", contractStatusDesc=" + contractStatusDesc +
-        ", billingMethod=" + billingMethod +
-        ", billingMethodDesc=" + billingMethodDesc +
-        ", billingObjectId=" + billingObjectId +
-        ", billingObjectCode=" + billingObjectCode +
-        ", billingObjectName=" + billingObjectName +
-        ", objectTaxpayerType=" + objectTaxpayerType +
-        ", objectTaxpayerTypeDesc=" + objectTaxpayerTypeDesc +
-        ", objectTaxRegistryNum=" + objectTaxRegistryNum +
-        ", billObjectBpClass=" + billObjectBpClass +
-        ", billObjectBpClassDesc=" + billObjectBpClassDesc +
-        ", taxTypeVat=" + taxTypeVat +
-        ", description=" + description +
-        ", invoiceTitle=" + invoiceTitle +
-        ", invoiceBpAddressPhoneNum=" + invoiceBpAddressPhoneNum +
-        ", invoiceBpBankAccount=" + invoiceBpBankAccount +
-        ", taxRegistryNum=" + taxRegistryNum +
-        ", prjSearchTerm1=" + prjSearchTerm1 +
-        ", prjSearchTerm2=" + prjSearchTerm2 +
-        ", conSearchTerm1=" + conSearchTerm1 +
-        ", conSearchTerm2=" + conSearchTerm2 +
-        ", documentType=" + documentType +
-        ", bpName=" + bpName +
-        ", cashflowId=" + cashflowId +
-        ", cfItem=" + cfItem +
-        ", cfItemDesc=" + cfItemDesc +
-        ", times=" + times +
-        ", lastReceivedDate=" + lastReceivedDate +
-        ", dueDate=" + dueDate +
-        ", dueAmount=" + dueAmount +
-        ", principal=" + principal +
-        ", interest=" + interest +
-        ", receivedAmount=" + receivedAmount +
-        ", receivedPrincipal=" + receivedPrincipal +
-        ", receivedInterest=" + receivedInterest +
-        ", notreceivedAmount=" + notreceivedAmount +
-        ", notreceivedPrincipal=" + notreceivedPrincipal +
-        ", notreceivedInterest=" + notreceivedInterest +
-        ", billingAmount=" + billingAmount +
-        ", billingPrincipal=" + billingPrincipal +
-        ", billingInterest=" + billingInterest +
-        ", notbillingAmount=" + notbillingAmount +
-        ", notbillingPrincipal=" + notbillingPrincipal +
-        ", notbillingInterest=" + notbillingInterest +
-        ", vatDueAmount=" + vatDueAmount +
-        ", vatPrincipal=" + vatPrincipal +
-        ", vatInterest=" + vatInterest +
-        ", netDueAmount=" + netDueAmount +
-        ", netPrincipal=" + netPrincipal +
-        ", netInterest=" + netInterest +
-        ", currency=" + currency +
-        ", currencyDesc=" + currencyDesc +
-        ", exchangeRate=" + exchangeRate +
-        ", exchangeRateType=" + exchangeRateType +
-        ", exchangeRateTypeDesc=" + exchangeRateTypeDesc +
-        ", exchangeRateQuotation=" + exchangeRateQuotation +
-        ", exchangeRateQuotationDesc=" + exchangeRateQuotationDesc +
-        ", leaseChannelDesc=" + leaseChannelDesc +
-        ", businessType=" + businessType +
-        ", businessTypeDesc=" + businessTypeDesc +
-        ", division=" + division +
-        ", divisionDesc=" + divisionDesc +
-        ", billingFrequency=" + billingFrequency +
-        ", billingFrequencyN=" + billingFrequencyN +
-        ", billingWay=" + billingWay +
-        ", billingWayN=" + billingWayN +
-        ", needBillingAmount=" + needBillingAmount +
-        ", invBillingObjectName=" + invBillingObjectName +
-        ", smallScaleTaxpayer=" + smallScaleTaxpayer +
-        ", invoiceInfoConfirm=" + invoiceInfoConfirm +
-        ", invoiceInfoConfirmDesc=" + invoiceInfoConfirmDesc +
-        ", lastWriteOffDate=" + lastWriteOffDate +
-        ", expeditedFlag=" + expeditedFlag +
-        ", createdBy=" + createdBy +
-        ", createTime=" + createTime +
-        ", updatedBy=" + updatedBy +
-        ", updateTime=" + updateTime +
-        "}";
+                ", companyId=" + companyId +
+                ", projectId=" + projectId +
+                ", projectNumber=" + projectNumber +
+                ", projectName=" + projectName +
+                ", contractId=" + contractId +
+                ", contractNumber=" + contractNumber +
+                ", contractName=" + contractName +
+                ", inceptionOfLease=" + inceptionOfLease +
+                ", contractStatus=" + contractStatus +
+                ", contractStatusDesc=" + contractStatusDesc +
+                ", billingMethod=" + billingMethod +
+                ", billingMethodDesc=" + billingMethodDesc +
+                ", billingObjectId=" + billingObjectId +
+                ", billingObjectCode=" + billingObjectCode +
+                ", billingObjectName=" + billingObjectName +
+                ", billingObjectIdCard=" + billingObjectIdCard +
+                ", objectTaxpayerType=" + objectTaxpayerType +
+                ", objectTaxpayerTypeDesc=" + objectTaxpayerTypeDesc +
+                ", objectTaxRegistryNum=" + objectTaxRegistryNum +
+                ", billObjectBpClass=" + billObjectBpClass +
+                ", billObjectBpClassDesc=" + billObjectBpClassDesc +
+                ", taxTypeVat=" + taxTypeVat +
+                ", description=" + description +
+                ", invoiceTitle=" + invoiceTitle +
+                ", invoiceBpAddressPhoneNum=" + invoiceBpAddressPhoneNum +
+                ", invoiceBpBankAccount=" + invoiceBpBankAccount +
+                ", taxRegistryNum=" + taxRegistryNum +
+                ", prjSearchTerm1=" + prjSearchTerm1 +
+                ", prjSearchTerm2=" + prjSearchTerm2 +
+                ", conSearchTerm1=" + conSearchTerm1 +
+                ", conSearchTerm2=" + conSearchTerm2 +
+                ", documentType=" + documentType +
+                ", bpName=" + bpName +
+                ", cashflowId=" + cashflowId +
+                ", cfItem=" + cfItem +
+                ", cfItemDesc=" + cfItemDesc +
+                ", times=" + times +
+                ", lastReceivedDate=" + lastReceivedDate +
+                ", dueDate=" + dueDate +
+                ", dueAmount=" + dueAmount +
+                ", principal=" + principal +
+                ", interest=" + interest +
+                ", receivedAmount=" + receivedAmount +
+                ", receivedPrincipal=" + receivedPrincipal +
+                ", receivedInterest=" + receivedInterest +
+                ", notreceivedAmount=" + notreceivedAmount +
+                ", notreceivedPrincipal=" + notreceivedPrincipal +
+                ", notreceivedInterest=" + notreceivedInterest +
+                ", billingAmount=" + billingAmount +
+                ", billingPrincipal=" + billingPrincipal +
+                ", billingInterest=" + billingInterest +
+                ", notbillingAmount=" + notbillingAmount +
+                ", notbillingPrincipal=" + notbillingPrincipal +
+                ", notbillingInterest=" + notbillingInterest +
+                ", vatDueAmount=" + vatDueAmount +
+                ", vatPrincipal=" + vatPrincipal +
+                ", vatInterest=" + vatInterest +
+                ", netDueAmount=" + netDueAmount +
+                ", netPrincipal=" + netPrincipal +
+                ", netInterest=" + netInterest +
+                ", currency=" + currency +
+                ", currencyDesc=" + currencyDesc +
+                ", exchangeRate=" + exchangeRate +
+                ", exchangeRateType=" + exchangeRateType +
+                ", exchangeRateTypeDesc=" + exchangeRateTypeDesc +
+                ", exchangeRateQuotation=" + exchangeRateQuotation +
+                ", exchangeRateQuotationDesc=" + exchangeRateQuotationDesc +
+                ", leaseChannelDesc=" + leaseChannelDesc +
+                ", businessType=" + businessType +
+                ", businessTypeDesc=" + businessTypeDesc +
+                ", division=" + division +
+                ", divisionDesc=" + divisionDesc +
+                ", billingFrequency=" + billingFrequency +
+                ", billingFrequencyN=" + billingFrequencyN +
+                ", billingWay=" + billingWay +
+                ", billingWayN=" + billingWayN +
+                ", needBillingAmount=" + needBillingAmount +
+                ", invBillingObjectName=" + invBillingObjectName +
+                ", smallScaleTaxpayer=" + smallScaleTaxpayer +
+                ", invoiceInfoConfirm=" + invoiceInfoConfirm +
+                ", invoiceInfoConfirmDesc=" + invoiceInfoConfirmDesc +
+                ", lastWriteOffDate=" + lastWriteOffDate +
+                ", expeditedFlag=" + expeditedFlag +
+                ", createdBy=" + createdBy +
+                ", createTime=" + createTime +
+                ", updatedBy=" + updatedBy +
+                ", updateTime=" + updateTime +
+                "}";
     }
 }

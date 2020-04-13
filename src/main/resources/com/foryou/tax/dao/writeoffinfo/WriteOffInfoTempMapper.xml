@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.writeoffinfo.WriteOffInfoTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp">
+        <result column="WRITE_OFF_ID" property="writeOffId" />
+        <result column="CONTRACT_NUMBER" property="contractNumber" />
+        <result column="CONTRACT_STATUS_DESC" property="contractStatusDesc" />
+        <result column="BP_ID_TENANT" property="bpIdTenant" />
+        <result column="BP_NAME" property="bpName" />
+        <result column="CF_ITEM" property="cfItem" />
+        <result column="CF_ITEM_N" property="cfItemN" />
+        <result column="WRITE_OFF_DUE_AMOUNT" property="writeOffDueAmount" />
+        <result column="WRITE_OFF_PRINCIPAL" property="writeOffPrincipal" />
+        <result column="WRITE_OFF_INTEREST" property="writeOffInterest" />
+        <result column="DUE_DATE_C" property="dueDateC" />
+        <result column="TIMES" property="times" />
+        <result column="LEASE_TIMES" property="leaseTimes" />
+        <result column="TRANSACTION_DATE_C" property="transactionDateC" />
+        <result column="WRITE_OFF_DATE_C" property="writeOffDateC" />
+        <result column="JOURNAL_DATE_C" property="journalDateC" />
+        <result column="BANK_BRANCH_NAME" property="bankBranchName" />
+        <result column="TRANSACTION_NUM" property="transactionNum" />
+        <result column="BP_BANK_ACCOUNT_NAME" property="bpBankAccountName" />
+        <result column="TRANSACTION_TYPE" property="transactionType" />
+        <result column="TRANSACTION_TYPE_N" property="transactionTypeN" />
+        <result column="RECEIPT_TYPE" property="receiptType" />
+        <result column="RECEIPT_TYPE_N" property="receiptTypeN" />
+        <result column="WRITE_OFF_TYPE" property="writeOffType" />
+        <result column="WRITE_OFF_TYPE_N" property="writeOffTypeN" />
+        <result column="WRITE_OFF_CLASSIFICATION" property="writeOffClassification" />
+        <result column="WRITE_OFF_CLASSIFICATION_N" property="writeOffClassificationN" />
+        <result column="COLLECTION_CLASSES" property="collectionClasses" />
+        <result column="COLLECTION_CLASSES_N" property="collectionClassesN" />
+        <result column="REVERSED_FLAG" property="reversedFlag" />
+        <result column="REVERSED_FLAG_N" property="reversedFlagN" />
+        <result column="REVERSED_DATE" property="reversedDate" />
+        <result column="DESCRIPTION" property="description" />
+        <result column="BP_ID_AGENT_LEVEL1" property="bpIdAgentLevel1" />
+        <result column="BP_ID_AGENT_LEVEL1_N" property="bpIdAgentLevel1N" />
+        <result column="WRITE_OFF_DES" property="writeOffDes" />
+        <result column="JOURNAL_NUM" property="journalNum" />
+        <result column="SAP_BELNR" property="sapBelnr" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATED_BY_N" property="createdByN" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        WRITE_OFF_ID, CONTRACT_NUMBER, CONTRACT_STATUS_DESC, BP_ID_TENANT, BP_NAME, CF_ITEM, CF_ITEM_N, WRITE_OFF_DUE_AMOUNT, WRITE_OFF_PRINCIPAL, WRITE_OFF_INTEREST, DUE_DATE_C, TIMES, LEASE_TIMES, TRANSACTION_DATE_C, WRITE_OFF_DATE_C, JOURNAL_DATE_C, BANK_BRANCH_NAME, TRANSACTION_NUM, BP_BANK_ACCOUNT_NAME, TRANSACTION_TYPE, TRANSACTION_TYPE_N, RECEIPT_TYPE, RECEIPT_TYPE_N, WRITE_OFF_TYPE, WRITE_OFF_TYPE_N, WRITE_OFF_CLASSIFICATION, WRITE_OFF_CLASSIFICATION_N, COLLECTION_CLASSES, COLLECTION_CLASSES_N, REVERSED_FLAG, REVERSED_FLAG_N, REVERSED_DATE, DESCRIPTION, BP_ID_AGENT_LEVEL1, BP_ID_AGENT_LEVEL1_N, WRITE_OFF_DES, JOURNAL_NUM, SAP_BELNR, CREATED_BY, CREATED_BY_N, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp">
+        insert into WRITE_OFF_INFO_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="writeOffId != null" >
+                WRITE_OFF_ID,
+            </if>
+            <if test="contractNumber != null" >
+                CONTRACT_NUMBER,
+            </if>
+            <if test="contractStatusDesc != null" >
+                CONTRACT_STATUS_DESC,
+            </if>
+            <if test="bpIdTenant != null" >
+                BP_ID_TENANT,
+            </if>
+            <if test="bpName != null" >
+                BP_NAME,
+            </if>
+            <if test="cfItem != null" >
+                CF_ITEM,
+            </if>
+            <if test="cfItemN != null" >
+                CF_ITEM_N,
+            </if>
+            <if test="writeOffDueAmount != null" >
+                WRITE_OFF_DUE_AMOUNT,
+            </if>
+            <if test="writeOffPrincipal != null" >
+                WRITE_OFF_PRINCIPAL,
+            </if>
+            <if test="writeOffInterest != null" >
+                WRITE_OFF_INTEREST,
+            </if>
+            <if test="dueDateC != null" >
+                DUE_DATE_C,
+            </if>
+            <if test="times != null" >
+                TIMES,
+            </if>
+            <if test="leaseTimes != null" >
+                LEASE_TIMES,
+            </if>
+            <if test="transactionDateC != null" >
+                TRANSACTION_DATE_C,
+            </if>
+            <if test="writeOffDateC != null" >
+                WRITE_OFF_DATE_C,
+            </if>
+            <if test="journalDateC != null" >
+                JOURNAL_DATE_C,
+            </if>
+            <if test="bankBranchName != null" >
+                BANK_BRANCH_NAME,
+            </if>
+            <if test="transactionNum != null" >
+                TRANSACTION_NUM,
+            </if>
+            <if test="bpBankAccountName != null" >
+                BP_BANK_ACCOUNT_NAME,
+            </if>
+            <if test="transactionType != null" >
+                TRANSACTION_TYPE,
+            </if>
+            <if test="transactionTypeN != null" >
+                TRANSACTION_TYPE_N,
+            </if>
+            <if test="receiptType != null" >
+                RECEIPT_TYPE,
+            </if>
+            <if test="receiptTypeN != null" >
+                RECEIPT_TYPE_N,
+            </if>
+            <if test="writeOffType != null" >
+                WRITE_OFF_TYPE,
+            </if>
+            <if test="writeOffTypeN != null" >
+                WRITE_OFF_TYPE_N,
+            </if>
+            <if test="writeOffClassification != null" >
+                WRITE_OFF_CLASSIFICATION,
+            </if>
+            <if test="writeOffClassificationN != null" >
+                WRITE_OFF_CLASSIFICATION_N,
+            </if>
+            <if test="collectionClasses != null" >
+                COLLECTION_CLASSES,
+            </if>
+            <if test="collectionClassesN != null" >
+                COLLECTION_CLASSES_N,
+            </if>
+            <if test="reversedFlag != null" >
+                REVERSED_FLAG,
+            </if>
+            <if test="reversedFlagN != null" >
+                REVERSED_FLAG_N,
+            </if>
+            <if test="reversedDate != null" >
+                REVERSED_DATE,
+            </if>
+            <if test="description != null" >
+                DESCRIPTION,
+            </if>
+            <if test="bpIdAgentLevel1 != null" >
+                BP_ID_AGENT_LEVEL1,
+            </if>
+            <if test="bpIdAgentLevel1N != null" >
+                BP_ID_AGENT_LEVEL1_N,
+            </if>
+            <if test="writeOffDes != null" >
+                WRITE_OFF_DES,
+            </if>
+            <if test="journalNum != null" >
+                JOURNAL_NUM,
+            </if>
+            <if test="sapBelnr != null" >
+                SAP_BELNR,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createdByN != null" >
+                CREATED_BY_N,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="writeOffId != null" >
+                #{writeOffId,jdbcType=VARCHAR},
+            </if>
+            <if test="contractNumber != null" >
+                #{contractNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="contractStatusDesc != null" >
+                #{contractStatusDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="bpIdTenant != null" >
+                #{bpIdTenant,jdbcType=VARCHAR},
+            </if>
+            <if test="bpName != null" >
+                #{bpName,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItem != null" >
+                #{cfItem,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItemN != null" >
+                #{cfItemN,jdbcType=VARCHAR},
+            </if>
+            <if test="writeOffDueAmount != null" >
+                #{writeOffDueAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="writeOffPrincipal != null" >
+                #{writeOffPrincipal,jdbcType=DECIMAL},
+            </if>
+            <if test="writeOffInterest != null" >
+                #{writeOffInterest,jdbcType=DECIMAL},
+            </if>
+            <if test="dueDateC != null" >
+                #{dueDateC,jdbcType=TIMESTAMP},
+            </if>
+            <if test="times != null" >
+                #{times,jdbcType=VARCHAR},
+            </if>
+            <if test="leaseTimes != null" >
+                #{leaseTimes,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionDateC != null" >
+                #{transactionDateC,jdbcType=TIMESTAMP},
+            </if>
+            <if test="writeOffDateC != null" >
+                #{writeOffDateC,jdbcType=TIMESTAMP},
+            </if>
+            <if test="journalDateC != null" >
+                #{journalDateC,jdbcType=TIMESTAMP},
+            </if>
+            <if test="bankBranchName != null" >
+                #{bankBranchName,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionNum != null" >
+                #{transactionNum,jdbcType=VARCHAR},
+            </if>
+            <if test="bpBankAccountName != null" >
+                #{bpBankAccountName,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionType != null" >
+                #{transactionType,jdbcType=VARCHAR},
+            </if>
+            <if test="transactionTypeN != null" >
+                #{transactionTypeN,jdbcType=VARCHAR},
+            </if>
+            <if test="receiptType != null" >
+                #{receiptType,jdbcType=VARCHAR},
+            </if>
+            <if test="receiptTypeN != null" >
+                #{receiptTypeN,jdbcType=VARCHAR},
+            </if>
+            <if test="writeOffType != null" >
+                #{writeOffType,jdbcType=VARCHAR},
+            </if>
+            <if test="writeOffTypeN != null" >
+                #{writeOffTypeN,jdbcType=VARCHAR},
+            </if>
+            <if test="writeOffClassification != null" >
+                #{writeOffClassification,jdbcType=VARCHAR},
+            </if>
+            <if test="writeOffClassificationN != null" >
+                #{writeOffClassificationN,jdbcType=VARCHAR},
+            </if>
+            <if test="collectionClasses != null" >
+                #{collectionClasses,jdbcType=VARCHAR},
+            </if>
+            <if test="collectionClassesN != null" >
+                #{collectionClassesN,jdbcType=VARCHAR},
+            </if>
+            <if test="reversedFlag != null" >
+                #{reversedFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="reversedFlagN != null" >
+                #{reversedFlagN,jdbcType=VARCHAR},
+            </if>
+            <if test="reversedDate != null" >
+                #{reversedDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null" >
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="bpIdAgentLevel1 != null" >
+                #{bpIdAgentLevel1,jdbcType=VARCHAR},
+            </if>
+            <if test="bpIdAgentLevel1N != null" >
+                #{bpIdAgentLevel1N,jdbcType=VARCHAR},
+            </if>
+            <if test="writeOffDes != null" >
+                #{writeOffDes,jdbcType=VARCHAR},
+            </if>
+            <if test="journalNum != null" >
+                #{journalNum,jdbcType=VARCHAR},
+            </if>
+            <if test="sapBelnr != null" >
+                #{sapBelnr,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createdByN != null" >
+                #{createdByN,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

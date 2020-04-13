@@ -1,23 +1,18 @@
 package com.foryou.tax.process.allinvoice;
 
 import cn.hutool.core.convert.Convert;
-import com.fasterxml.jackson.datatype.jsr310.DecimalUtils;
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.allinvoice.AllInvoiceInfoTempService;
-import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.JDBCUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.nio.cs.ext.MacArabic;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * @author ：Raymon
@@ -229,6 +224,7 @@ public class AllInvoiceProcess extends BaseProcess {
                 "                 (T2.RECEIVED_AMOUNT - NVL (T2.BILLING_AMOUNT, 0)))\n" +
                 "            NEED_BILL_AMOUNT,\n" +
                 "         T1.INV_BILLING_OBJECT_NAME,\n" +
+                "         T1.ID_CARD_NO AS BILLING_OBJECT_ID_CARD,\n" +
                 "         --t1.small_scale_taxpayer,\n" +
                 "         (SELECT T.TAXPAYER_TYPE\n" +
                 "            FROM HLS_BP_MASTER_TAXPAYER_TYPE T\n" +
@@ -274,12 +270,20 @@ public class AllInvoiceProcess extends BaseProcess {
                 "         AND T2.NOTRECEIVED_AMOUNT >= 0\n" +
                 "         AND T2.NOTRECEIVED_AMOUNT <= 0\n" +
                 "         AND T2.NOTBILLING_AMOUNT >= 0.1\n" +
+                "         AND TO_CHAR(SYSDATE, 'yyyy/mm/dd') <= \n" +
+                "              TO_CHAR((SELECT MAX (A.JOURNAL_DATE)\n" +
+                "            FROM CSH_WRITE_OFF A\n" +
+                "           WHERE     A.CF_ITEM = T2.CF_ITEM\n" +
+                "                 AND A.TIMES = T2.TIMES\n" +
+                "                 AND A.CONTRACT_ID = T2.CONTRACT_ID\n" +
+                "                 AND REVERSED_FLAG = 'N') + 3, 'yyyy/mm/dd')"+
                 "ORDER BY T2.EXPEDITED_FLAG,\n" +
                 "         T1.CONTRACT_ID,\n" +
                 "         T2.TIMES,\n" +
                 "         T2.DUE_DATE,\n" +
                 "         T2.CF_ITEM";
 
+        LoggerUtils.debug(getClass(), "AllInvoiceInfoTemp sql is: " + sql);
         List<Map<String, String>> mapList = JDBCUtil.selectData(sql);
 
         for (int i = 0; i < mapList.size(); i++) {
@@ -299,6 +303,7 @@ public class AllInvoiceProcess extends BaseProcess {
             allInvoiceInfoTemp.setBillingObjectId(Convert.toStr(mapList.get(i).get("billing_object_id")));
             allInvoiceInfoTemp.setBillingObjectCode(mapList.get(i).get("billing_object_code"));
             allInvoiceInfoTemp.setBillingObjectName(mapList.get(i).get("billing_object_name"));
+            allInvoiceInfoTemp.setBillingObjectIdCard(Convert.toStr(mapList.get(i).get("billing_object_id_card")));
             allInvoiceInfoTemp.setObjectTaxpayerType(mapList.get(i).get("object_taxpayer_type"));
             allInvoiceInfoTemp.setObjectTaxpayerTypeDesc(mapList.get(i).get("object_taxpayer_type_desc"));
             allInvoiceInfoTemp.setObjectTaxRegistryNum(mapList.get(i).get("object_tax_registry_num"));
