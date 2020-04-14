@@ -60,7 +60,7 @@ public class LoginController {
 
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
     public String index() {
-        return "pages/user/index";
+        return "pages/tax/advanced_form_components";
     }
 
     @RequestMapping(value = "/test", method = {RequestMethod.GET})
