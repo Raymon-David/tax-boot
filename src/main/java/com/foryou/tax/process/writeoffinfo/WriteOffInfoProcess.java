@@ -67,7 +67,8 @@ public class WriteOffInfoProcess {
                 "  SAP_BELNR,\n" +
                 "  CREATED_BY,\n" +
                 "  CREATED_BY_N\n" +
-                "FROM WRITE_OFF_QUERY_V";
+                "FROM WRITE_OFF_QUERY_V\n" +
+                "WHERE WRITE_OFF_DATE_C between to_char(sysdate - 7, 'yyyy-mm-dd') and to_char(sysdate, 'yyyy-mm-dd')";
 
         LoggerUtils.debug(getClass(), "WriteOffInfoTemp sql is: " + sql);
         List<Map<String, String>> mapList = JDBCUtil.selectData(sql);

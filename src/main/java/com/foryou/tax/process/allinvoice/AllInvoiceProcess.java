@@ -276,7 +276,7 @@ public class AllInvoiceProcess extends BaseProcess {
                 "           WHERE     A.CF_ITEM = T2.CF_ITEM\n" +
                 "                 AND A.TIMES = T2.TIMES\n" +
                 "                 AND A.CONTRACT_ID = T2.CONTRACT_ID\n" +
-                "                 AND REVERSED_FLAG = 'N') + 3, 'yyyy/mm/dd')"+
+                "                 AND REVERSED_FLAG = 'N') + 7, 'yyyy/mm/dd')"+
                 "ORDER BY T2.EXPEDITED_FLAG,\n" +
                 "         T1.CONTRACT_ID,\n" +
                 "         T2.TIMES,\n" +
