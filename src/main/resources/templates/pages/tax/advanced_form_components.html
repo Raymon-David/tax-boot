@@ -418,25 +418,24 @@
           <div class="form-panel">
             <form action="#" class="form-horizontal style-form">
               <div class="form-group">
-                <label class="control-label col-md-3">Default</label>
-                <div class="col-md-4">
-                  <input type="file" class="default" />
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Without input</label>
+                <label class="control-label col-md-3">Input</label>
                 <div class="controls col-md-9">
-                  <div class="fileupload fileupload-new" data-provides="fileupload">
+                  <form name="upload" id="importForm"
+                        action=window.rootPath+"/register/importFile"
+                        enctype="multipart/form-data" method="post">
+                    <div class="fileupload fileupload-new" data-provides="fileupload">
                       <span class="btn btn-theme02 btn-file">
                         <span class="fileupload-new"><i class="fa fa-paperclip"></i> Select file</span>
                       <span class="fileupload-exists"><i class="fa fa-undo"></i> Change</span>
-                      <input type="file" class="default" />
+                      <input name="uploadFile" id="uploadFile" type="file" class="default" />
                       </span>
-                    <input class="yellow" onclick="saveClick()" style="margin-left:50px;margin-top:10px;width:60px;" type="submit"
-                           value="导入"/>
+                      <input class="yellow" onclick="saveClick()" style="margin-left:50px;margin-top:10px;width:60px;" type="submit"
+                             value="导入"/>
+
                     <span class="fileupload-preview" style="margin-left:5px;"></span>
                     <a href="advanced_form_components.html#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
-                  </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </form>
@@ -454,12 +453,6 @@
   <!--footer start-->
   <footer class="site-footer">
     <div class="text-center">
-      <p>
-        &copy; Copyrights <strong>Dashio</strong>. All Rights Reserved
-      </p>
-      <div class="credits">
-        More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a>
-      </div>
       <a href="advanced_form_components.html#" class="go-top">
         <i class="fa fa-angle-up"></i>
       </a>
@@ -484,7 +477,26 @@
 <script type="text/javascript" src="/static/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="/static/lib/bootstrap-daterangepicker/moment.min.js"></script>
 <script type="text/javascript" src="/static/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 <script src="/static/lib/advanced-form-components.js"></script>
+<script type="text/javascript">
+  window.rootPath=[[${rootPath}]];
+  function saveClick() {
+    if (document.getElementById('uploadFile').value) {
+      var fileName = document.getElementById('uploadFile').value;
+      var fileType = fileName.substr(fileName.lastIndexOf("."));
+      if (fileType != '.xls' && fileType != '.xlsx') {
+        Leaf.showMessage('${l:HLS.PROMPT}', '请选择正确的导入文件!');
+      } else {
+        $('#importForm').ajaxForm(function(data){
+          alert(data.message);
+          backView();
+        });
+      }
+    }
+  };
+</script>
 
 </body>
 

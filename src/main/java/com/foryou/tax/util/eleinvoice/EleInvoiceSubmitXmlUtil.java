@@ -324,7 +324,7 @@ public class EleInvoiceSubmitXmlUtil {
         try {
             Properties properties = new Properties();
             InputStream is = PropertiesUtil.class.getClassLoader()
-                    .getResourceAsStream("config.properties");
+                    .getResourceAsStream("application.properties");
             properties.load(is);
             acrWsdlUrl = properties.getProperty("eleinvoice.webservice.url");
         }catch (Exception e){
