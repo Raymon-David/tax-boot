@@ -60,11 +60,16 @@ public class LoginController {
 
     @RequestMapping(value = "/index", method = {RequestMethod.GET})
     public String index() {
-        return "pages/tax/advanced_form_components";
+        return "tax/advanced_form_components";
     }
 
-    @RequestMapping(value = "/test", method = {RequestMethod.GET})
+    @RequestMapping(value = "/dashboard", method = {RequestMethod.GET})
     public String test() {
-        return "pages/user/index";
+        return "user/index";
+    }
+
+    @RequestMapping(value = "/ad", method = {RequestMethod.GET})
+    public String ad() {
+        return "tax/advanced_form";
     }
 }

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Dashboard">
+  <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+  <title>Dashio - Bootstrap Admin Template</title>
+
+  <!-- Favicons -->
+  <link href="/static/img/favicon.png" rel="icon">
+  <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Bootstrap core CSS -->
+  <link href="/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!--external css-->
+  <link href="/static/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-datepicker/css/datepicker.css" />
+  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-daterangepicker/daterangepicker.css" />
+  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-timepicker/compiled/timepicker.css" />
+  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-datetimepicker/datertimepicker.css" />
+  <!-- Custom styles for this template -->
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="/static/css/style-responsive.css" rel="stylesheet">
+
+  
+</head>
+
+<body>
+  <form name="upload" id="importForm"
+        action="/eleInvoice/importFile"
+        enctype="multipart/form-data" method="post">
+    <label style="margin-left:10px;margin-top:10px;"><![CDATA[请选择文件:]]></label>
+    <input name="uploadFile" id="uploadFile" style="margin-bottom:4px;width:160px;height:22px;" type="file"/>
+    <input onclick="saveClick()" style="margin-left:50px;margin-top:10px;width:60px;" type="submit"
+           value="导入"/>
+  </form>
+  <!-- js placed at the end of the document so the pages load faster -->
+  <script src="/static/lib/jquery/jquery.min.js"></script>
+  <script src="/static/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="/static/lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="/static/lib/jquery.scrollTo.min.js"></script>
+  <script src="/static/lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--common script for all pages-->
+  <script src="/static/lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script src="/static/lib/jquery-ui-1.9.2.custom.min.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-fileupload/bootstrap-fileupload.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-daterangepicker/date.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-daterangepicker/moment.min.js"></script>
+  <script type="text/javascript" src="/static/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+  <script src="/static/lib/advanced-form-components.js"></script>
+
+  <script type="text/javascript"><![CDATA[
+  function saveClick() {
+    alert();
+    if (document.getElementById('uploadFile').value) {
+      var fileName = document.getElementById('uploadFile').value;
+      var fileType = fileName.substr(fileName.lastIndexOf("."));
+      if (fileType != '.xls' && fileType != '.xlsx') {
+        Leaf.showMessage('${l:HLS.PROMPT}', '请选择正确的导入文件!');
+      } else {
+        $('#importForm').ajaxForm(function(data){
+          alert(data.message);
+        });
+      }
+    }
+  };
+  ]]></script>
+</body>
+
+</html>
