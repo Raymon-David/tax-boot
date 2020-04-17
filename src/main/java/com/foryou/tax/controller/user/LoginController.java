@@ -68,8 +68,8 @@ public class LoginController {
         return "user/index";
     }
 
-    @RequestMapping(value = "/ad", method = {RequestMethod.GET})
+    @RequestMapping(value = "/upload", method = {RequestMethod.GET})
     public String ad() {
-        return "tax/advanced_form";
+        return "user/file_upload";
     }
 }

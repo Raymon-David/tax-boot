@@ -1,7 +1,11 @@
 package com.foryou.tax.api.excel;
 import org.apache.poi.ss.usermodel.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -104,5 +108,21 @@ public class ImportExcel {
                 break;
         }
         return obj;
+    }
+
+    /**
+     *
+     * @param multipart
+     * @throws IllegalStateException
+     * @throws IOException
+     *   MultipartFile 转 File
+     */
+    public static File multipartToFile(MultipartFile multipart) throws IllegalStateException, IOException {
+        File convFile = new File(multipart.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(multipart.getBytes());
+        fos.close();
+        return convFile;
     }
 }

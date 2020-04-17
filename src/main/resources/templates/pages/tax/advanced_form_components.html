@@ -7,29 +7,40 @@
   <meta name="description" content="">
   <meta name="author" content="Dashboard">
   <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
-  <title>Dashio - Bootstrap Admin Template</title>
+  <title>Invoice</title>
 
   <!-- Favicons -->
   <link href="/static/img/favicon.png" rel="icon">
   <link href="/static/img/apple-touch-icon.png" rel="apple-touch-icon">
 
+  <!-- Custom styles for this template -->
+  <link href="/static/css/style.css" rel="stylesheet">
+  <link href="/static/css/style-responsive.css" rel="stylesheet">
   <!-- Bootstrap core CSS -->
   <link href="/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <!--external css-->
   <link href="/static/lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
-  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-fileupload/bootstrap-fileupload.css" />
-  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-datepicker/css/datepicker.css" />
-  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-daterangepicker/daterangepicker.css" />
-  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-timepicker/compiled/timepicker.css" />
-  <link rel="stylesheet" type="text/css" href="/static/lib/bootstrap-datetimepicker/datertimepicker.css" />
   <!-- Custom styles for this template -->
   <link href="/static/css/style.css" rel="stylesheet">
   <link href="/static/css/style-responsive.css" rel="stylesheet">
+  <!-- blueimp Gallery styles -->
+  <link rel="stylesheet" href="http://blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
+  <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
+  <link rel="stylesheet" href="/static/lib/file-uploader/css/jquery.fileupload.css">
+  <link rel="stylesheet" href="/static/lib/file-uploader/css/jquery.fileupload-ui.css">
+  <!-- CSS adjustments for browsers with JavaScript disabled -->
+  <noscript>
+    <link rel="stylesheet" href="/static/lib/file-uploader/css/jquery.fileupload-noscript.css">
+  </noscript>
+  <noscript>
+    <link rel="stylesheet" href="/static/lib/file-uploader/css/jquery.fileupload-ui-noscript.css">
+  </noscript>
+
 
 
 </head>
 
-<sc>
+<body>
 <section id="container">
   <!-- **********************************************************************************************************************************************************
       TOP BAR CONTENT & NOTIFICATIONS
@@ -112,168 +123,36 @@
   <!--main content start-->
   <section id="main-content">
     <section class="wrapper">
-      <h3><i class="fa fa-angle-right"></i> Advanced Form Components</h3>
-      <div class="row mt">
-        <!--  DATE PICKERS -->
-        <div class="col-lg-12">
-          <div class="form-panel">
-            <form class="form-horizontal style-form">
-              <div class="form-group">
-                <label class="control-label col-md-3">Default Datepicker</label>
-                <div class="col-md-3 col-xs-11">
-                  <input class="form-control form-control-inline input-medium default-date-picker" size="16" type="text" value="">
-                  <span class="help-block">Select date</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Start with years viewMode</label>
-                <div class="col-md-3 col-xs-11">
-                  <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="01-01-2014" class="input-append date dpYears">
-                    <input type="text" readonly="" value="01-01-2014" size="16" class="form-control">
-                    <span class="input-group-btn add-on">
-                        <button class="btn btn-theme" type="button"><i class="fa fa-calendar"></i></button>
-                        </span>
-                  </div>
-                  <span class="help-block">Select date</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Months Only</label>
-                <div class="col-md-3 col-xs-11">
-                  <div data-date-minviewmode="months" data-date-viewmode="years" data-date-format="mm/yyyy" data-date="01/2014" class="input-append date dpMonths">
-                    <input type="text" readonly="" value="01/2014" size="16" class="form-control">
-                    <span class="input-group-btn add-on">
-                        <button class="btn btn-theme" type="button"><i class="fa fa-calendar"></i></button>
-                        </span>
-                  </div>
-                  <span class="help-block">Select month only</span>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Date Range</label>
-                <div class="col-md-4">
-                  <div class="input-group input-large" data-date="01/01/2014" data-date-format="mm/dd/yyyy">
-                    <input type="text" class="form-control dpd1" name="from">
-                    <span class="input-group-addon">To</span>
-                    <input type="text" class="form-control dpd2" name="to">
-                  </div>
-                  <span class="help-block">Select date range</span>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- /form-panel -->
-        </div>
-        <!-- /col-lg-12 -->
-      </div>
-      <!-- /row -->
-      <!-- DATE TIME PICKERS -->
-      <div class="row mt">
-        <div class="col-lg-12">
-          <div class="form-panel">
-            <form class="form-horizontal  style-form">
-              <div class="form-group">
-                <label class="control-label col-md-3">Default input Datetimepicker</label>
-                <div class="col-md-4">
-                  <input size="16" type="text" value="2014-01-01 10:00" readonly class="form_datetime form-control">
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3"> Component Datetimepicker</label>
-                <div class="col-md-4">
-                  <div class="input-group date form_datetime-component">
-                    <input type="text" class="form-control" readonly="" size="16">
-                    <span class="input-group-btn">
-                        <button type="button" class="btn btn-theme date-set"><i class="fa fa-calendar"></i></button>
-                        </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Advance Datetimepicker</label>
-                <div class="col-md-4">
-                  <div data-date="2014-02-01T10:05:00Z" class="input-group date form_datetime-adv">
-                    <input type="text" class="form-control" readonly="" size="16">
-                    <div class="input-group-btn">
-                      <button type="button" class="btn btn-theme02 date-reset"><i class="fa fa-times"></i></button>
-                      <button type="button" class="btn btn-theme date-set"><i class="fa fa-calendar"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">Meridian Format</label>
-                <div class="col-md-4">
-                  <div data-date="2014-01-18T15:00:00Z" class="input-group date form_datetime-meridian">
-                    <input type="text" class="form-control" readonly="" size="16">
-                    <div class="input-group-btn">
-                      <button type="button" class="btn btn-theme02 date-reset"><i class="fa fa-times"></i></button>
-                      <button type="button" class="btn btn-theme date-set"><i class="fa fa-calendar"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- /form-panel -->
-        </div>
-        <!-- /col-lg-12 -->
-      </div>
-      <!-- row -->
-      <!--  TIME PICKERS -->
-      <div class="row mt">
-        <div class="col-lg-12">
-          <div class="form-panel">
-            <form class="form-horizontal  style-form">
-              <div class="form-group">
-                <label class="control-label col-md-3">Default Timepicker</label>
-                <div class="col-md-4">
-                  <div class="input-group bootstrap-timepicker">
-                    <input type="text" class="form-control timepicker-default">
-                    <span class="input-group-btn">
-                        <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
-                        </span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <label class="control-label col-md-3">24hr Timepicker</label>
-                <div class="col-md-4">
-                  <div class="input-group bootstrap-timepicker">
-                    <input type="text" class="form-control timepicker-24">
-                    <span class="input-group-btn">
-                        <button class="btn btn-theme04" type="button"><i class="fa fa-clock-o"></i></button>
-                        </span>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </div>
-          <!-- /form-panel -->
-        </div>
-        <!-- /col-lg-12 -->
-      </div>
-      <!-- row -->
+      <h3><i class="fa fa-angle-right"></i> Invoice </h3>
       <!--ADVANCED FILE INPUT-->
       <div class="row mt">
         <div class="col-lg-12">
-          <div class="form-panel">
+
             <form class="form-horizontal style-form">
 
               <div class="form-group">
                 <label class="control-label col-md-3">纸质发票明细</label>
                 <div class="controls col-md-9">
 
-                  <form id="paperFileupload" action="/paperInvoice/importFile" method="POST" enctype="multipart/form-data">
+                  <form id="paperFileupload" enctype="multipart/form-data" method="post">
                     <div class="row fileupload-buttonbar">
                       <div class="col-lg-8">
                         <!-- The fileinput-button span is used to style the file input field as button -->
                         <span class="btn btn-success fileinput-button">
                           <i class="glyphicon glyphicon-plus"></i>
                           <span>Add files...</span>
-                          <input type="file" name="paperUploadFile" id="paperUploadFile">
-                          <input type="submit" value="Start upload" class="btn btn-theme start" onclick="savePaperClick()"/>
+                          <input name="paperFile" id="paperFile" type="file"/>
                         </span>
+                        <button class="btn btn-theme start" onclick="savePaperClick()">
+                          <i class="glyphicon glyphicon-upload"></i>
+                          <span>Start upload</span>
+                        </button>
+                        <button type="reset" class="btn btn-theme02 cancel">
+                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <span>Cancel upload</span>
+                        </button>
+                        <!-- The global file processing state -->
+                        <span class="fileupload-process"></span>
                       </div>
                     </div>
                   </form>
@@ -281,9 +160,9 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group last">
                 <label class="control-label col-md-3">电子发票明细</label>
-                <div class="controls col-md-9">
+                <div class="col-md-9">
 
                   <form id="eleFileupload" enctype="multipart/form-data">
                     <div class="row fileupload-buttonbar">
@@ -298,6 +177,10 @@
                           <i class="glyphicon glyphicon-upload"></i>
                           <span>Start upload</span>
                         </button>
+                        <button type="reset" class="btn btn-theme02 cancel">
+                          <i class="glyphicon glyphicon-ban-circle"></i>
+                          <span>Cancel upload</span>
+                        </button>
                         <!-- The global file processing state -->
                         <span class="fileupload-process"></span>
                       </div>
@@ -308,7 +191,7 @@
               </div>
 
             </form>
-          </div>
+
           <!-- /form-panel -->
         </div>
         <!-- /col-lg-12 -->
@@ -319,15 +202,6 @@
   </section>
   <!-- /MAIN CONTENT -->
   <!--main content end-->
-  <!--footer start-->
-  <footer class="site-footer">
-    <div class="text-center">
-      <a href="advanced_form_components.html#" class="go-top">
-        <i class="fa fa-angle-up"></i>
-      </a>
-    </div>
-  </footer>
-  <!--footer end-->
 </section>
 <!-- js placed at the end of the document so the pages load faster -->
 <!--<script src="/static/lib/jquery/jquery.min.js"></script>-->
@@ -347,67 +221,44 @@
 <script type="text/javascript" src="/static/lib/bootstrap-daterangepicker/moment.min.js"></script>
 <script type="text/javascript" src="/static/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
 <script src="/static/lib/advanced-form-components.js"></script>
-  <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
-<!--<script type="text/javascript" src="/static/js/jquery.form.js"></script>-->
-<!--<script th:inline="javascript">-->
-<!--  /*<![CDATA[*/-->
-<!--  window.rootPath=[[${rootPath}]];-->
-<!--  function savePaperClick() {-->
-<!--    var fileName = $("#paperUploadFile").val();-->
-<!--    debugger;-->
-<!--    if (fileName.length != 0) {-->
-<!--      var fileType = fileName.substr(fileName.lastIndexOf("."));-->
-<!--      if (fileType != '.xls' && fileType != '.xlsx') {-->
-<!--        alert('请选择正确的导入文件!');-->
-<!--      } else {-->
-<!--        $('#paperFileupload').ajaxForm(function(data){-->
-<!--          alert(data.message);-->
-<!--        });-->
-<!--        // $('#paperFileupload').ajaxSubmit({-->
-<!--        //   type: 'POST', // HTTP请求方式-->
-<!--        //   url: '/paperInvoice/importFile', // 请求的URL地址-->
-<!--        //   dataType: 'text', // 服务器返回数据转换成的类型-->
-<!--        //   success: function (data) {-->
-<!--        //     alert(data);-->
-<!--        //   },-->
-<!--        //   error: function (data) {-->
-<!--        //     alert('oh,似乎出现点问题了！');-->
-<!--        //   }-->
-<!--        // });-->
-<!--      }-->
-<!--    }else{-->
-<!--      alert('请先选择上传文件！');-->
-<!--    }-->
-<!--  }-->
+<script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
 
-<!--  function saveEleClick(){-->
-<!--    var fileName = $("#eleUploadFile").val();-->
-<!--    var fd = new FormData($("#eleFileupload")[0]);-->
-<!--    if (fileName.length != 0) {-->
-<!--      var fileType = fileName.substr(fileName.lastIndexOf("."));-->
-<!--      if (fileType != '.xls' && fileType != '.xlsx') {-->
-<!--        alert('请选择正确的导入文件!');-->
-<!--      } else {-->
-<!--        $.ajax({-->
-<!--          type: 'POST', // HTTP请求方式-->
-<!--          url: '/eleInvoice/importFile', // 请求的URL地址-->
-<!--          dataType: 'text', // 服务器返回数据转换成的类型-->
-<!--          data: fd,-->
-<!--          success: function (data) {-->
-<!--            alert(data);-->
-<!--          },-->
-<!--          error: function (data) {-->
-<!--            alert('oh,似乎出现点问题了！');-->
-<!--          }-->
-<!--        });-->
-<!--      }-->
-<!--    }else{-->
-<!--      alert('请先选择上传文件！');-->
-<!--    }-->
-<!--  }-->
-<!--  /*]]>*/-->
-<!--</script>-->
   <script>
+
+    function savePaperClick(){
+      debugger;
+      var fileName = $("#paperFile").val();
+      var fd = new FormData($("#paperFileupload")[0]);
+      if (fileName.length != 0) {
+        var fileType = fileName.substr(fileName.lastIndexOf("."));
+        if (fileType != '.xls' && fileType != '.xlsx') {
+          alert('请选择正确的导入文件!');
+        } else {
+          $.ajax({
+            type: 'POST', // HTTP请求方式
+            enctype: 'multipart/form-data; charset=utf-8',
+            url: '/paperInvoice/importFile', // 请求的URL地址
+            dataType: 'text', // 服务器返回数据转换成的类型
+            data: fd,
+            processData: false, //prevent jQuery from automatically transforming the data into a query string
+            contentType: false,
+            cache: false,
+            timeout: 600000,
+            success: function (data) {
+              alert(data);
+              backView();
+            },
+            error: function (data) {
+              alert('oh,似乎出现点问题了！');
+              backView();
+            }
+          });
+        }
+      }else{
+        alert('请先选择上传文件！');
+      }
+    }
+
     function saveEleClick(){
       var fileName = $("#eleUploadFile").val();
       var fd = new FormData($("#eleFileupload")[0]);
@@ -428,15 +279,21 @@
             timeout: 600000,
             success: function (data) {
               alert(data);
+              backView();
             },
             error: function (data) {
               alert('oh,似乎出现点问题了！');
+              backView();
             }
           });
         }
       }else{
         alert('请先选择上传文件！');
       }
+    }
+
+    function backView() {
+      location.href = '/index';
     }
   </script>
 </body>
