@@ -58,9 +58,9 @@ public class LoginController {
         return "pages/user/login";
     }
 
-    @RequestMapping(value = "/index", method = {RequestMethod.GET})
+    @RequestMapping(value = "/weeklyIndex", method = {RequestMethod.GET})
     public String index() {
-        return "tax/advanced_form_components";
+        return "tax/weekly_index";
     }
 
     @RequestMapping(value = "/dashboard", method = {RequestMethod.GET})
