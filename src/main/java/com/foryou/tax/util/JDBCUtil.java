@@ -21,7 +21,12 @@ public class JDBCUtil {
     private static String USERNAMR = "ds_prod";
     private static String PASSWORD = "ds_prod";
     private static String DRVIER = "oracle.jdbc.driver.OracleDriver";
+    /**
+     * server
+     * private static String URL = "jdbc:oracle:thin:@10.40.128.199:1521/ZLPROD";
+     */
     private static String URL = "jdbc:oracle:thin:@10.40.128.56:6001/ZLPROD";
+
 
     /**
      * 创建一个数据库连接
