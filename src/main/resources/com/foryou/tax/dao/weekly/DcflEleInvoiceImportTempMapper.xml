@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.weekly.DcflEleInvoiceImportTempMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp">
+        <id column="SERIAL_NUM" property="serialNum" />
+        <result column="BILL_TYPE" property="billType" />
+        <result column="INVOICE_TYPE" property="invoiceType" />
+        <result column="INVOICE_CODE" property="invoiceCode" />
+        <result column="INVOICE_NUMBER" property="invoiceNumber" />
+        <result column="BILL_MACHINE_NUM" property="billMachineNum" />
+        <result column="INVOICE_TITLE" property="invoiceTitle" />
+        <result column="TAX_REGISTRY_NUM" property="taxRegistryNum" />
+        <result column="INVOICE_OBJECT_ADDRESS_PHONE" property="invoiceObjectAddressPhone" />
+        <result column="INVOICE_OBJECT_BANK_ACCOUNT" property="invoiceObjectBankAccount" />
+        <result column="ISSUED_TIME" property="issuedTime" />
+        <result column="ISSUED_MONTH" property="issuedMonth" />
+        <result column="TOTAL_AMOUNT" property="totalAmount" />
+        <result column="TAX_NET_AMOUNT" property="taxNetAmount" />
+        <result column="TAX_RATE" property="taxRate" />
+        <result column="TAX_AMOUNT" property="taxAmount" />
+        <result column="PRODUCT_NAME" property="productName" />
+        <result column="INVOICE_MEMO" property="invoiceMemo" />
+        <result column="ISSUER" property="issuer" />
+        <result column="ACCOUNT_PAYEE" property="accountPayee" />
+        <result column="REVIEWER" property="reviewer" />
+        <result column="INVOICE_INVALID_FLAG" property="invoiceInvalidFlag" />
+        <result column="CREATED_BY" property="createdBy" />
+        <result column="CREATE_TIME" property="createTime" />
+        <result column="UPDATED_BY" property="updatedBy" />
+        <result column="UPDATE_TIME" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        SERIAL_NUM, BILL_TYPE, INVOICE_TYPE, INVOICE_CODE, INVOICE_NUMBER, BILL_MACHINE_NUM, INVOICE_TITLE, TAX_REGISTRY_NUM, INVOICE_OBJECT_ADDRESS_PHONE, INVOICE_OBJECT_BANK_ACCOUNT, ISSUED_TIME, ISSUED_MONTH, TOTAL_AMOUNT, TAX_NET_AMOUNT, TAX_RATE, TAX_AMOUNT, PRODUCT_NAME, INVOICE_MEMO, ISSUER, ACCOUNT_PAYEE, REVIEWER, INVOICE_INVALID_FLAG, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+    </sql>
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp">
+        insert into DCFL_ELE_INVOICE_IMPORT_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="serialNum != null" >
+                SERIAL_NUM,
+            </if>
+            <if test="billType != null" >
+                BILL_TYPE,
+            </if>
+            <if test="invoiceType != null" >
+                INVOICE_TYPE,
+            </if>
+            <if test="invoiceCode != null" >
+                INVOICE_CODE,
+            </if>
+            <if test="invoiceNumber != null" >
+                INVOICE_NUMBER,
+            </if>
+            <if test="billMachineNum != null" >
+                BILL_MACHINE_NUM,
+            </if>
+            <if test="invoiceTitle != null" >
+                INVOICE_TITLE,
+            </if>
+            <if test="taxRegistryNum != null" >
+                TAX_REGISTRY_NUM,
+            </if>
+            <if test="invoiceObjectAddressPhone != null" >
+                INVOICE_OBJECT_ADDRESS_PHONE,
+            </if>
+            <if test="invoiceObjectBankAccount != null" >
+                INVOICE_OBJECT_BANK_ACCOUNT,
+            </if>
+            <if test="issuedTime != null" >
+                ISSUED_TIME,
+            </if>
+            <if test="issuedMonth != null" >
+                ISSUED_MONTH,
+            </if>
+            <if test="totalAmount != null" >
+                TOTAL_AMOUNT,
+            </if>
+            <if test="taxNetAmount != null" >
+                TAX_NET_AMOUNT,
+            </if>
+            <if test="taxRate != null" >
+                TAX_RATE,
+            </if>
+            <if test="taxAmount != null" >
+                TAX_AMOUNT,
+            </if>
+            <if test="productName != null" >
+                PRODUCT_NAME,
+            </if>
+            <if test="invoiceMemo != null" >
+                INVOICE_MEMO,
+            </if>
+            <if test="issuer != null" >
+                ISSUER,
+            </if>
+            <if test="accountPayee != null" >
+                ACCOUNT_PAYEE,
+            </if>
+            <if test="reviewer != null" >
+                REVIEWER,
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                INVOICE_INVALID_FLAG,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="serialNum != null" >
+                #{serialNum,jdbcType=VARCHAR},
+            </if>
+            <if test="billType != null" >
+                #{billType,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceType != null" >
+                #{invoiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCode != null" >
+                #{invoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceNumber != null" >
+                #{invoiceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="billMachineNum != null" >
+                #{billMachineNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceTitle != null" >
+                #{invoiceTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="taxRegistryNum != null" >
+                #{taxRegistryNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceObjectAddressPhone != null" >
+                #{invoiceObjectAddressPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceObjectBankAccount != null" >
+                #{invoiceObjectBankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="issuedTime != null" >
+                #{issuedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="issuedMonth != null" >
+                #{issuedMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null" >
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="taxNetAmount != null" >
+                #{taxNetAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null" >
+                #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="taxAmount != null" >
+                #{taxAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="productName != null" >
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceMemo != null" >
+                #{invoiceMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="issuer != null" >
+                #{issuer,jdbcType=VARCHAR},
+            </if>
+            <if test="accountPayee != null" >
+                #{accountPayee,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewer != null" >
+                #{reviewer,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                #{invoiceInvalidFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
