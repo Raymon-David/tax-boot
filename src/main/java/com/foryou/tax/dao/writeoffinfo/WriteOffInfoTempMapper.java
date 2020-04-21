@@ -1,7 +1,6 @@
 package com.foryou.tax.dao.writeoffinfo;
 
 import com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -18,4 +17,6 @@ import org.springframework.stereotype.Component;
 public interface WriteOffInfoTempMapper{
 
     int insertData(WriteOffInfoTemp writeOffInfoTemp);
+
+    void backUpData(String dt);
 }

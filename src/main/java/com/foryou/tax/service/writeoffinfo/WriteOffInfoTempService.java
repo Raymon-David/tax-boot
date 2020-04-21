@@ -1,7 +1,6 @@
 package com.foryou.tax.service.writeoffinfo;
 
 import com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp;
-import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
@@ -14,4 +13,6 @@ import com.baomidou.mybatisplus.service.IService;
 public interface WriteOffInfoTempService{
 
     int insertData(WriteOffInfoTemp writeOffInfoTemp);
+
+    void backUpData(String dt);
 }

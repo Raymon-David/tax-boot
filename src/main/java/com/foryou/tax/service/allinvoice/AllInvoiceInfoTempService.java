@@ -1,7 +1,6 @@
 package com.foryou.tax.service.allinvoice;
 
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
-import com.baomidou.mybatisplus.service.IService;
 
 /**
  * <p>
@@ -14,4 +13,6 @@ import com.baomidou.mybatisplus.service.IService;
 public interface AllInvoiceInfoTempService {
 
     void insertData(AllInvoiceInfoTemp allInvoiceInfoTemp);
+
+    void backUpData(String dt);
 }

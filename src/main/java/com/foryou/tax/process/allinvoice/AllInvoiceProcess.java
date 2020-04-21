@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.allinvoice.AllInvoiceInfoTempService;
+import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.JDBCUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -284,6 +286,9 @@ public class AllInvoiceProcess extends BaseProcess {
                 "         T2.CF_ITEM";
 
         LoggerUtils.debug(getClass(), "AllInvoiceInfoTemp sql is: " + sql);
+
+        String dt = DateUtil.format(new Date());
+        allInvoiceInfoTempService.backUpData(dt);
         List<Map<String, String>> mapList = JDBCUtil.selectData(sql);
 
         for (int i = 0; i < mapList.size(); i++) {

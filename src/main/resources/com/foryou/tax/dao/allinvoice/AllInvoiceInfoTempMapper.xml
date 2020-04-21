@@ -630,5 +630,12 @@
         <include refid="Base_Column_List" />
         from ALL_INVOICE_INFO_TEMP
     </select>
+    <select id="backUpData" parameterType="java.lang.String">
+        create table WRITE_OFF_INFO_TEMP_#{dt}
+        as
+        select *
+        from WRITE_OFF_INFO_TEMP
+        where 1 = 1
+    </select>
 
 </mapper>

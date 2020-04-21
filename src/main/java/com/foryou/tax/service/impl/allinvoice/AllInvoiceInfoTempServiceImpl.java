@@ -1,9 +1,8 @@
 package com.foryou.tax.service.impl.allinvoice;
 
-import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
 import com.foryou.tax.dao.allinvoice.AllInvoiceInfoTempMapper;
+import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
 import com.foryou.tax.service.allinvoice.AllInvoiceInfoTempService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,5 +23,10 @@ public class AllInvoiceInfoTempServiceImpl implements AllInvoiceInfoTempService 
     @Override
     public void insertData(AllInvoiceInfoTemp allInvoiceInfoTemp) {
         allInvoiceInfoTempMapper.insertData(allInvoiceInfoTemp);
+    }
+
+    @Override
+    public void backUpData(String dt) {
+        allInvoiceInfoTempMapper.backUpData(dt);
     }
 }

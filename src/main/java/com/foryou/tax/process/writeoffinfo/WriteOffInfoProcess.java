@@ -3,6 +3,7 @@ package com.foryou.tax.process.writeoffinfo;
 import cn.hutool.core.convert.Convert;
 import com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp;
 import com.foryou.tax.service.writeoffinfo.WriteOffInfoTempService;
+import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.JDBCUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -71,6 +73,9 @@ public class WriteOffInfoProcess {
                 "WHERE WRITE_OFF_DATE_C between to_char(sysdate - 7, 'yyyy-mm-dd') and to_char(sysdate, 'yyyy-mm-dd')";
 
         LoggerUtils.debug(getClass(), "WriteOffInfoTemp sql is: " + sql);
+
+        String dt = DateUtil.format(new Date());
+        writeOffInfoTempService.backUpData(dt);
         List<Map<String, String>> mapList = JDBCUtil.selectData(sql);
 
         for (int i = 0; i < mapList.size(); i++) {
