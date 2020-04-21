@@ -28,10 +28,7 @@ public class JDBCUtil {
     private static String URL = "jdbc:oracle:thin:@10.40.128.56:6001/ZLPROD";
 
 
-    /**
-     * 创建一个数据库连接
-     */
-    static Connection connection = null;
+
     /**
      * 创建预编译语句对象，一般都是用这个而不用Statement
      */
@@ -46,19 +43,19 @@ public class JDBCUtil {
      *
      */
     public static Connection getConnection() {
-        if (connection == null) {
-            synchronized (JDBCUtil.class) {
-                if (connection == null) {
-                    try {
-                        Class.forName(DRVIER);
-                        connection = DriverManager.getConnection(URL, USERNAMR, PASSWORD);
-                        System.out.println("成功连接数据库");
-                    } catch (ClassNotFoundException e) {
-                        throw new RuntimeException("class not find !", e);
-                    } catch (SQLException e) {
-                        throw new RuntimeException("get connection error!", e);
-                    }
-                }
+        /**
+         * 创建一个数据库连接
+         */
+        Connection connection = null;
+        synchronized (JDBCUtil.class) {
+            try {
+                Class.forName(DRVIER);
+                connection = DriverManager.getConnection(URL, USERNAMR, PASSWORD);
+                System.out.println("成功连接数据库");
+            } catch (ClassNotFoundException e) {
+                throw new RuntimeException("class not find !", e);
+            } catch (SQLException e) {
+                throw new RuntimeException("get connection error!", e);
             }
         }
         return connection;
@@ -67,7 +64,7 @@ public class JDBCUtil {
     /**
      * 释放资源
      */
-    public static void ReleaseResource() {
+    public static void ReleaseResource(Connection connection) {
         if (rs != null) {
             try {
                 rs.close();
@@ -96,7 +93,7 @@ public class JDBCUtil {
      * 向数据库中查询数据
      */
     public static List<Map<String, String>> selectData(String sql) {
-        connection = getConnection();
+        Connection connection = getConnection();
         List records = new ArrayList();
 
         try {
@@ -119,7 +116,7 @@ public class JDBCUtil {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            ReleaseResource();
+            ReleaseResource(connection);
             return records;
         }
     }
