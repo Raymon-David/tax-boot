@@ -44,7 +44,7 @@ public class QuartzConfig {
 
         return TriggerBuilder.newTrigger().forJob(invoiceQuartz())
                 .withIdentity("invoiceTask")
-                .withSchedule(cronSchedule("0 0 12？* WED"))
+                .withSchedule(cronSchedule("0 0 12 ? * WED"))
                 .build();
     }
 }
