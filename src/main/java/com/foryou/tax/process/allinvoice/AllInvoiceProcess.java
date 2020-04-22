@@ -286,8 +286,8 @@ public class AllInvoiceProcess extends BaseProcess {
     public void dcflCreateInvoiceImport(HttpServletRequest request, HttpServletResponse response) {
 
         LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 备份开始");
-        String dt = DateUtil.parseDate(new Date());
-        allInvoiceInfoTempService.backUpData(dt);
+        String newTableName = "ALL_INVOICE_INFO_TEMP_" + DateUtil.parseDate(new Date());
+        allInvoiceInfoTempService.backUpData(newTableName);
         LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 备份结束");
 
         LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 删除开始");

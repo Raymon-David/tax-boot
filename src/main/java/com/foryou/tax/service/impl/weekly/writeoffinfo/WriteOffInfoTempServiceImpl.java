@@ -3,6 +3,7 @@ package com.foryou.tax.service.impl.weekly.writeoffinfo;
 import com.foryou.tax.dao.weekly.writeoffinfo.WriteOffInfoTempMapper;
 import com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp;
 import com.foryou.tax.service.weekly.writeoffinfo.WriteOffInfoTempService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,8 @@ public class WriteOffInfoTempServiceImpl implements WriteOffInfoTempService {
     }
 
     @Override
-    public void backUpData(String dt) {
-        writeOffInfoTempMapper.backUpData(dt);
+    public int backUpData(@Param("newTableName") String newTableName) {
+        return writeOffInfoTempMapper.backUpData(newTableName);
     }
 
     @Override

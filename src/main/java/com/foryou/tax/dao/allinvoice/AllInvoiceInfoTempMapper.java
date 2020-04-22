@@ -2,6 +2,7 @@ package com.foryou.tax.dao.allinvoice;
 
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +19,7 @@ public interface AllInvoiceInfoTempMapper{
 
     int insertData(AllInvoiceInfoTemp allInvoiceInfoTemp);
 
-    void backUpData(String dt);
+    int backUpData(@Param("newTableName") String newTableName);
 
     int deleteData();
 }

@@ -1,6 +1,7 @@
 package com.foryou.tax.service.allinvoice;
 
 import com.foryou.tax.pojo.allinvoice.AllInvoiceInfoTemp;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -14,7 +15,7 @@ public interface AllInvoiceInfoTempService {
 
     void insertData(AllInvoiceInfoTemp allInvoiceInfoTemp);
 
-    void backUpData(String dt);
+    int backUpData(@Param("newTableName") String newTableName);
 
     int deleteData();
 }

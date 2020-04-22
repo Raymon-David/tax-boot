@@ -2,6 +2,7 @@ package com.foryou.tax.dao.weekly.writeoffinfo;
 
 import com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +19,7 @@ public interface WriteOffInfoTempMapper{
 
     int insertData(WriteOffInfoTemp writeOffInfoTemp);
 
-    void backUpData(String dt);
+    int backUpData(@Param("newTableName") String newTableName);
 
     int deleteData();
 }

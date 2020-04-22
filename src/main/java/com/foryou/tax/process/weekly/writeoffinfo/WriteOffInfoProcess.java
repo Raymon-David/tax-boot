@@ -73,8 +73,8 @@ public class WriteOffInfoProcess {
     public void writeOffInfoImport(HttpServletRequest request, HttpServletResponse response) {
 
         LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 备份开始");
-        String dt = DateUtil.parseDate(new Date());
-        writeOffInfoTempService.backUpData(dt);
+        String newTableName = "WRITE_OFF_INFO_TEMP_" + DateUtil.parseDate(new Date());
+        writeOffInfoTempService.backUpData(newTableName);
         LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 备份结束");
 
         LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 删除开始");

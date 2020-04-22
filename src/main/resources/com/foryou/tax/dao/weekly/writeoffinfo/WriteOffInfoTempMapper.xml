@@ -318,13 +318,13 @@
             </if>
         </trim>
     </insert>
-    <select id="backUpData" parameterType="java.lang.String">
-        create table WRITE_OFF_INFO_TEMP_#{dt}
+    <update id="backUpData">
+        create table ${newTableName}
         as
         select *
         from WRITE_OFF_INFO_TEMP
         where 1 = 1
-    </select>
+    </update>
     <delete id="deleteData">
         delete from WRITE_OFF_INFO_TEMP
     </delete>

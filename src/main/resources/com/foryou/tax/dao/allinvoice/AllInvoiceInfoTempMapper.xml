@@ -630,13 +630,13 @@
         <include refid="Base_Column_List" />
         from ALL_INVOICE_INFO_TEMP
     </select>
-    <select id="backUpData" parameterType="java.lang.String">
-        create table ALL_INVOICE_INFO_TEMP_#{dt}
+    <update id="backUpData">
+        create table ${newTableName}
         as
         select *
         from ALL_INVOICE_INFO_TEMP
         where 1 = 1
-    </select>
+    </update>
     <delete id="deleteData">
         delete from ALL_INVOICE_INFO_TEMP
     </delete>
