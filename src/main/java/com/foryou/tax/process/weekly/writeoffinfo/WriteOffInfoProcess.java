@@ -1,8 +1,8 @@
-package com.foryou.tax.process.writeoffinfo;
+package com.foryou.tax.process.weekly.writeoffinfo;
 
 import cn.hutool.core.convert.Convert;
-import com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp;
-import com.foryou.tax.service.writeoffinfo.WriteOffInfoTempService;
+import com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp;
+import com.foryou.tax.service.weekly.writeoffinfo.WriteOffInfoTempService;
 import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.JDBCUtil;
 import com.foryou.tax.util.LoggerUtils;
@@ -26,56 +26,64 @@ public class WriteOffInfoProcess {
     @Autowired
     WriteOffInfoTempService writeOffInfoTempService;
 
+    String sql = "SELECT  \n" +
+            "  WRITE_OFF_ID,\n" +
+            "  CONTRACT_NUMBER,\n" +
+            "  CONTRACT_STATUS_DESC,\n" +
+            "  BP_ID_TENANT,\n" +
+            "  BP_NAME,\n" +
+            "  CF_ITEM,\n" +
+            "  CF_ITEM_N,\n" +
+            "  WRITE_OFF_DUE_AMOUNT,\n" +
+            "  WRITE_OFF_PRINCIPAL,\n" +
+            "  WRITE_OFF_INTEREST,\n" +
+            "  DUE_DATE_C,\n" +
+            "  TIMES,\n" +
+            "  LEASE_TIMES,\n" +
+            "  TRANSACTION_DATE_C,\n" +
+            "  WRITE_OFF_DATE_C,\n" +
+            "  JOURNAL_DATE_C,\n" +
+            "  BANK_BRANCH_NAME,\n" +
+            "  TRANSACTION_NUM,\n" +
+            "  BP_BANK_ACCOUNT_NAME,\n" +
+            "  TRANSACTION_TYPE,\n" +
+            "  TRANSACTION_TYPE_N,\n" +
+            "  RECEIPT_TYPE,\n" +
+            "  RECEIPT_TYPE_N,\n" +
+            "  WRITE_OFF_TYPE,\n" +
+            "  WRITE_OFF_TYPE_N,\n" +
+            "  WRITE_OFF_CLASSIFICATION,\n" +
+            "  WRITE_OFF_CLASSIFICATION_N,\n" +
+            "  COLLECTION_CLASSES,\n" +
+            "  COLLECTION_CLASSES_N,\n" +
+            "  REVERSED_FLAG,\n" +
+            "  REVERSED_FLAG_N,\n" +
+            "  REVERSED_DATE,\n" +
+            "  DESCRIPTION,\n" +
+            "  BP_ID_AGENT_LEVEL1,\n" +
+            "  BP_ID_AGENT_LEVEL1_N,\n" +
+            "  WRITE_OFF_DES,\n" +
+            "  JOURNAL_NUM,\n" +
+            "  SAP_BELNR,\n" +
+            "  CREATED_BY,\n" +
+            "  CREATED_BY_N\n" +
+            "FROM WRITE_OFF_QUERY_V\n" +
+            "WHERE WRITE_OFF_DATE_C between to_char(sysdate - 7, 'yyyy-mm-dd') and to_char(sysdate, 'yyyy-mm-dd')";
+
     public void writeOffInfoImport(HttpServletRequest request, HttpServletResponse response) {
 
-        String sql = "SELECT  \n" +
-                "  WRITE_OFF_ID,\n" +
-                "  CONTRACT_NUMBER,\n" +
-                "  CONTRACT_STATUS_DESC,\n" +
-                "  BP_ID_TENANT,\n" +
-                "  BP_NAME,\n" +
-                "  CF_ITEM,\n" +
-                "  CF_ITEM_N,\n" +
-                "  WRITE_OFF_DUE_AMOUNT,\n" +
-                "  WRITE_OFF_PRINCIPAL,\n" +
-                "  WRITE_OFF_INTEREST,\n" +
-                "  DUE_DATE_C,\n" +
-                "  TIMES,\n" +
-                "  LEASE_TIMES,\n" +
-                "  TRANSACTION_DATE_C,\n" +
-                "  WRITE_OFF_DATE_C,\n" +
-                "  JOURNAL_DATE_C,\n" +
-                "  BANK_BRANCH_NAME,\n" +
-                "  TRANSACTION_NUM,\n" +
-                "  BP_BANK_ACCOUNT_NAME,\n" +
-                "  TRANSACTION_TYPE,\n" +
-                "  TRANSACTION_TYPE_N,\n" +
-                "  RECEIPT_TYPE,\n" +
-                "  RECEIPT_TYPE_N,\n" +
-                "  WRITE_OFF_TYPE,\n" +
-                "  WRITE_OFF_TYPE_N,\n" +
-                "  WRITE_OFF_CLASSIFICATION,\n" +
-                "  WRITE_OFF_CLASSIFICATION_N,\n" +
-                "  COLLECTION_CLASSES,\n" +
-                "  COLLECTION_CLASSES_N,\n" +
-                "  REVERSED_FLAG,\n" +
-                "  REVERSED_FLAG_N,\n" +
-                "  REVERSED_DATE,\n" +
-                "  DESCRIPTION,\n" +
-                "  BP_ID_AGENT_LEVEL1,\n" +
-                "  BP_ID_AGENT_LEVEL1_N,\n" +
-                "  WRITE_OFF_DES,\n" +
-                "  JOURNAL_NUM,\n" +
-                "  SAP_BELNR,\n" +
-                "  CREATED_BY,\n" +
-                "  CREATED_BY_N\n" +
-                "FROM WRITE_OFF_QUERY_V\n" +
-                "WHERE WRITE_OFF_DATE_C between to_char(sysdate - 7, 'yyyy-mm-dd') and to_char(sysdate, 'yyyy-mm-dd')";
+        LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 备份开始");
+        String dt = DateUtil.format(new Date());
+        writeOffInfoTempService.backUpData(dt);
+        LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 备份结束");
+
+        LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 删除开始");
+        writeOffInfoTempService.deleteData();
+        LoggerUtils.debug(getClass(), "WRITE_OFF_INFO_TEMP 删除结束");
 
         LoggerUtils.debug(getClass(), "WriteOffInfoTemp sql is: " + sql);
 
-        String dt = DateUtil.format(new Date());
-        writeOffInfoTempService.backUpData(dt);
+
         List<Map<String, String>> mapList = JDBCUtil.selectData(sql);
 
         for (int i = 0; i < mapList.size(); i++) {

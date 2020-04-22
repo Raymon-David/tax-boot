@@ -1,7 +1,7 @@
 package com.foryou.tax.api.quartz;
 
 import com.foryou.tax.process.allinvoice.AllInvoiceProcess;
-import com.foryou.tax.process.writeoffinfo.WriteOffInfoProcess;
+import com.foryou.tax.process.weekly.writeoffinfo.WriteOffInfoProcess;
 import com.foryou.tax.util.LoggerUtils;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -32,8 +32,15 @@ public class InvoiceTask extends QuartzJobBean {
         HttpServletResponse response = null;
 
         LoggerUtils.debug(getClass(), "InvoiceTask start");
-        allInvoiceProcess.allInvoiceImport(request, response);
+
+        LoggerUtils.debug(getClass(), "发票创建导入 开始");
+        allInvoiceProcess.dcflCreateInvoiceImport(request, response);
+        LoggerUtils.debug(getClass(), "发票创建导入 结束");
+
+        LoggerUtils.debug(getClass(), "现金事务查询 开始");
         writeOffInfoProcess.writeOffInfoImport(request, response);
+        LoggerUtils.debug(getClass(), "现金事务查询 结束");
+
         LoggerUtils.debug(getClass(), "InvoiceTask end");
     }
 

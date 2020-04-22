@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.foryou.tax.dao.writeoffinfo.WriteOffInfoTempMapper">
+<mapper namespace="com.foryou.tax.dao.weekly.writeoffinfo.WriteOffInfoTempMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp">
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp">
         <result column="WRITE_OFF_ID" property="writeOffId" />
         <result column="CONTRACT_NUMBER" property="contractNumber" />
         <result column="CONTRACT_STATUS_DESC" property="contractStatusDesc" />
@@ -53,7 +53,7 @@
     <sql id="Base_Column_List">
         WRITE_OFF_ID, CONTRACT_NUMBER, CONTRACT_STATUS_DESC, BP_ID_TENANT, BP_NAME, CF_ITEM, CF_ITEM_N, WRITE_OFF_DUE_AMOUNT, WRITE_OFF_PRINCIPAL, WRITE_OFF_INTEREST, DUE_DATE_C, TIMES, LEASE_TIMES, TRANSACTION_DATE_C, WRITE_OFF_DATE_C, JOURNAL_DATE_C, BANK_BRANCH_NAME, TRANSACTION_NUM, BP_BANK_ACCOUNT_NAME, TRANSACTION_TYPE, TRANSACTION_TYPE_N, RECEIPT_TYPE, RECEIPT_TYPE_N, WRITE_OFF_TYPE, WRITE_OFF_TYPE_N, WRITE_OFF_CLASSIFICATION, WRITE_OFF_CLASSIFICATION_N, COLLECTION_CLASSES, COLLECTION_CLASSES_N, REVERSED_FLAG, REVERSED_FLAG_N, REVERSED_DATE, DESCRIPTION, BP_ID_AGENT_LEVEL1, BP_ID_AGENT_LEVEL1_N, WRITE_OFF_DES, JOURNAL_NUM, SAP_BELNR, CREATED_BY, CREATED_BY_N, CREATE_TIME, UPDATED_BY, UPDATE_TIME
     </sql>
-    <insert id="insertData" parameterType="com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp">
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp">
         insert into WRITE_OFF_INFO_TEMP
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="writeOffId != null" >
@@ -319,11 +319,14 @@
         </trim>
     </insert>
     <select id="backUpData" parameterType="java.lang.String">
-        create table ALL_INVOICE_INFO_TEMP_#{dt}
+        create table WRITE_OFF_INFO_TEMP_#{dt}
         as
         select *
-        from ALL_INVOICE_INFO_TEMP
+        from WRITE_OFF_INFO_TEMP
         where 1 = 1
     </select>
+    <delete id="deleteData">
+        delete from WRITE_OFF_INFO_TEMP
+    </delete>
 
 </mapper>

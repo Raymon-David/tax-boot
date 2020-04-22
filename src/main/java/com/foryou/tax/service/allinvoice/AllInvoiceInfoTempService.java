@@ -15,4 +15,6 @@ public interface AllInvoiceInfoTempService {
     void insertData(AllInvoiceInfoTemp allInvoiceInfoTemp);
 
     void backUpData(String dt);
+
+    int deleteData();
 }

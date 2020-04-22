@@ -1,11 +1,10 @@
-package com.foryou.tax.controller.writeoffinfo;
+package com.foryou.tax.controller.weekly.writeoffinfo;
 
 
-import com.foryou.tax.process.writeoffinfo.WriteOffInfoProcess;
+import com.foryou.tax.process.weekly.writeoffinfo.WriteOffInfoProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;

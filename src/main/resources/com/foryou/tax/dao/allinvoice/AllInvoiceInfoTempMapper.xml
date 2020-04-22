@@ -631,11 +631,14 @@
         from ALL_INVOICE_INFO_TEMP
     </select>
     <select id="backUpData" parameterType="java.lang.String">
-        create table WRITE_OFF_INFO_TEMP_#{dt}
+        create table ALL_INVOICE_INFO_TEMP_#{dt}
         as
         select *
-        from WRITE_OFF_INFO_TEMP
+        from ALL_INVOICE_INFO_TEMP
         where 1 = 1
     </select>
+    <delete id="deleteData">
+        delete from ALL_INVOICE_INFO_TEMP
+    </delete>
 
 </mapper>

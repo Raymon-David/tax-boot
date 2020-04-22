@@ -1,4 +1,4 @@
-package com.foryou.tax.pojo.writeoffinfo;
+package com.foryou.tax.pojo.weekly.writeoffinfo;
 
 import java.math.BigDecimal;
 import java.util.Date;

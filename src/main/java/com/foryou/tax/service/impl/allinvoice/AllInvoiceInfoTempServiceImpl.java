@@ -29,4 +29,9 @@ public class AllInvoiceInfoTempServiceImpl implements AllInvoiceInfoTempService 
     public void backUpData(String dt) {
         allInvoiceInfoTempMapper.backUpData(dt);
     }
+
+    @Override
+    public int deleteData() {
+        return allInvoiceInfoTempMapper.deleteData();
+    }
 }

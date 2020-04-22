@@ -19,4 +19,6 @@ public interface AllInvoiceInfoTempMapper{
     int insertData(AllInvoiceInfoTemp allInvoiceInfoTemp);
 
     void backUpData(String dt);
+
+    int deleteData();
 }

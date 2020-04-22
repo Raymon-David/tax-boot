@@ -1,6 +1,6 @@
-package com.foryou.tax.service.writeoffinfo;
+package com.foryou.tax.service.weekly.writeoffinfo;
 
-import com.foryou.tax.pojo.writeoffinfo.WriteOffInfoTemp;
+import com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp;
 
 /**
  * <p>
@@ -15,4 +15,6 @@ public interface WriteOffInfoTempService{
     int insertData(WriteOffInfoTemp writeOffInfoTemp);
 
     void backUpData(String dt);
+
+    int deleteData();
 }
