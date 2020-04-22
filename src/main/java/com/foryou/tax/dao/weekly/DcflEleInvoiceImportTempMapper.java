@@ -1,6 +1,7 @@
 package com.foryou.tax.dao.weekly;
 
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
+import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
@@ -16,5 +17,7 @@ import org.springframework.stereotype.Component;
 @Mapper
 public interface DcflEleInvoiceImportTempMapper {
 
-    int insertData(DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp);
+    int insertEleData(DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp);
+
+    int insetPaperData(DcflPaperInvoiceImportTemp dcflPaperInvoiceImportTemp);
 }

@@ -36,7 +36,7 @@
     <sql id="Base_Column_List">
         SERIAL_NUM, BILL_TYPE, INVOICE_TYPE, INVOICE_CODE, INVOICE_NUMBER, BILL_MACHINE_NUM, INVOICE_TITLE, TAX_REGISTRY_NUM, INVOICE_OBJECT_ADDRESS_PHONE, INVOICE_OBJECT_BANK_ACCOUNT, ISSUED_TIME, ISSUED_MONTH, TOTAL_AMOUNT, TAX_NET_AMOUNT, TAX_RATE, TAX_AMOUNT, PRODUCT_NAME, INVOICE_MEMO, ISSUER, ACCOUNT_PAYEE, REVIEWER, INVOICE_INVALID_FLAG, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
     </sql>
-    <insert id="insertData" parameterType="com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp">
+    <insert id="insertEleData" parameterType="com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp">
         insert into DCFL_ELE_INVOICE_IMPORT_TEMP
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="serialNum != null" >
@@ -184,6 +184,199 @@
             </if>
             <if test="invoiceInvalidFlag != null" >
                 #{invoiceInvalidFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="createdBy != null" >
+                #{createdBy,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedBy != null" >
+                #{updatedBy,jdbcType=INTEGER},
+            </if>
+            <if test="updateTime != null" >
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <insert id="insetPaperData" parameterType="com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp">
+        insert into DCFL_PAPER_INVOICE_IMPORT_TEMP
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="billType != null" >
+                BILL_TYPE,
+            </if>
+            <if test="invoiceCode != null" >
+                INVOICE_CODE,
+            </if>
+            <if test="invoiceNumber != null" >
+                INVOICE_NUMBER,
+            </if>
+            <if test="billMachineNum != null" >
+                BILL_MACHINE_NUM,
+            </if>
+            <if test="invoiceTitle != null" >
+                INVOICE_TITLE,
+            </if>
+            <if test="taxRegistryNum != null" >
+                TAX_REGISTRY_NUM,
+            </if>
+            <if test="invoiceObjectAddressPhone != null" >
+                INVOICE_OBJECT_ADDRESS_PHONE,
+            </if>
+            <if test="invoiceObjectBankAccount != null" >
+                INVOICE_OBJECT_BANK_ACCOUNT,
+            </if>
+            <if test="issuedTime != null" >
+                ISSUED_TIME,
+            </if>
+            <if test="submitType != null" >
+                SUBMIT_TYPE,
+            </if>
+            <if test="submitLog != null" >
+                SUBMIT_LOG,
+            </if>
+            <if test="issuedMonth != null" >
+                ISSUED_MONTH,
+            </if>
+            <if test="totalAmount != null" >
+                TOTAL_AMOUNT,
+            </if>
+            <if test="taxRate != null" >
+                TAX_RATE,
+            </if>
+            <if test="taxAmount != null" >
+                TAX_AMOUNT,
+            </if>
+            <if test="productName != null" >
+                PRODUCT_NAME,
+            </if>
+            <if test="productTaxItem != null" >
+                PRODUCT_TAX_ITEM,
+            </if>
+            <if test="invoiceMemo != null" >
+                INVOICE_MEMO,
+            </if>
+            <if test="issuer != null" >
+                ISSUER,
+            </if>
+            <if test="accountPayee != null" >
+                ACCOUNT_PAYEE,
+            </if>
+            <if test="printType != null" >
+                PRINT_TYPE,
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                INVOICE_INVALID_FLAG,
+            </if>
+            <if test="listType != null" >
+                LIST_TYPE,
+            </if>
+            <if test="repareType != null" >
+                REPARE_TYPE,
+            </if>
+            <if test="reviewer != null" >
+                REVIEWER,
+            </if>
+            <if test="saleDepartment != null" >
+                SALE_DEPARTMENT,
+            </if>
+            <if test="invoiceInvalidDate != null" >
+                INVOICE_INVALID_DATE,
+            </if>
+            <if test="createdBy != null" >
+                CREATED_BY,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="updatedBy != null" >
+                UPDATED_BY,
+            </if>
+            <if test="updateTime != null" >
+                UPDATE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="billType != null" >
+                #{billType,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceCode != null" >
+                #{invoiceCode,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceNumber != null" >
+                #{invoiceNumber,jdbcType=VARCHAR},
+            </if>
+            <if test="billMachineNum != null" >
+                #{billMachineNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceTitle != null" >
+                #{invoiceTitle,jdbcType=VARCHAR},
+            </if>
+            <if test="taxRegistryNum != null" >
+                #{taxRegistryNum,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceObjectAddressPhone != null" >
+                #{invoiceObjectAddressPhone,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceObjectBankAccount != null" >
+                #{invoiceObjectBankAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="issuedTime != null" >
+                #{issuedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="submitType != null" >
+                #{submitType,jdbcType=VARCHAR},
+            </if>
+            <if test="submitLog != null" >
+                #{submitLog,jdbcType=VARCHAR},
+            </if>
+            <if test="issuedMonth != null" >
+                #{issuedMonth,jdbcType=VARCHAR},
+            </if>
+            <if test="totalAmount != null" >
+                #{totalAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="taxRate != null" >
+                #{taxRate,jdbcType=DECIMAL},
+            </if>
+            <if test="taxAmount != null" >
+                #{taxAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="productName != null" >
+                #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productTaxItem != null" >
+                #{productTaxItem,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceMemo != null" >
+                #{invoiceMemo,jdbcType=VARCHAR},
+            </if>
+            <if test="issuer != null" >
+                #{issuer,jdbcType=VARCHAR},
+            </if>
+            <if test="accountPayee != null" >
+                #{accountPayee,jdbcType=VARCHAR},
+            </if>
+            <if test="printType != null" >
+                #{printType,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidFlag != null" >
+                #{invoiceInvalidFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="listType != null" >
+                #{listType,jdbcType=VARCHAR},
+            </if>
+            <if test="repareType != null" >
+                #{repareType,jdbcType=VARCHAR},
+            </if>
+            <if test="reviewer != null" >
+                #{reviewer,jdbcType=VARCHAR},
+            </if>
+            <if test="saleDepartment != null" >
+                #{saleDepartment,jdbcType=VARCHAR},
+            </if>
+            <if test="invoiceInvalidDate != null" >
+                #{invoiceInvalidDate,jdbcType=TIMESTAMP},
             </if>
             <if test="createdBy != null" >
                 #{createdBy,jdbcType=INTEGER},

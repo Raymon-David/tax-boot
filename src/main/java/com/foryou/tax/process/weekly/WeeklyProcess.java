@@ -6,6 +6,7 @@ import com.foryou.tax.api.bean.success.SuccessDesc;
 import com.foryou.tax.api.bean.success.SuccessInfo;
 import com.foryou.tax.api.excel.ImportExcel;
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
+import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.weekly.DcflEleInvoiceImportTempService;
 import com.foryou.tax.util.LoggerUtils;
@@ -40,6 +41,40 @@ public class WeeklyProcess extends BaseProcess {
                  */
                 List<Map<String, Object>> list = ImportExcel.importExcel(file);
                 LoggerUtils.debug(getClass(), "paperFile list is: " + list);
+
+                for (int i = 0; i < list.size(); i++) {
+                    DcflPaperInvoiceImportTemp dcflPaperInvoiceImportTemp = new DcflPaperInvoiceImportTemp();
+                    dcflPaperInvoiceImportTemp.setBillType(Convert.toStr(list.get(i).get("0")));
+                    dcflPaperInvoiceImportTemp.setInvoiceCode(Convert.toStr(list.get(i).get("1")));
+                    dcflPaperInvoiceImportTemp.setInvoiceNumber(Convert.toStr(list.get(i).get("2")));
+                    dcflPaperInvoiceImportTemp.setBillMachineNum(Convert.toStr(list.get(i).get("3")));
+                    dcflPaperInvoiceImportTemp.setInvoiceTitle(Convert.toStr(list.get(i).get("4")));
+                    dcflPaperInvoiceImportTemp.setTaxRegistryNum(Convert.toStr(list.get(i).get("5")));
+                    dcflPaperInvoiceImportTemp.setInvoiceObjectAddressPhone(Convert.toStr(list.get(i).get("6")));
+                    dcflPaperInvoiceImportTemp.setInvoiceObjectBankAccount(Convert.toStr(list.get(i).get("7")));
+                    dcflPaperInvoiceImportTemp.setIssuedTime(Convert.toDate(list.get(i).get("8")));
+                    dcflPaperInvoiceImportTemp.setSubmitType(Convert.toStr(list.get(i).get("9")));
+                    dcflPaperInvoiceImportTemp.setSubmitLog(Convert.toStr(list.get(i).get("10")));
+                    dcflPaperInvoiceImportTemp.setIssuedMonth(Convert.toStr(list.get(i).get("11")));
+                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(list.get(i).get("12")));
+                    dcflPaperInvoiceImportTemp.setTaxRate(Convert.toBigDecimal(list.get(i).get("13")));
+                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(list.get(i).get("14")));
+                    dcflPaperInvoiceImportTemp.setProductName(Convert.toStr(list.get(i).get("15")));
+                    dcflPaperInvoiceImportTemp.setProductTaxItem(Convert.toStr(list.get(i).get("16")));
+                    dcflPaperInvoiceImportTemp.setInvoiceMemo(Convert.toStr(list.get(i).get("17")));
+                    dcflPaperInvoiceImportTemp.setIssuer(Convert.toStr(list.get(i).get("18")));
+                    dcflPaperInvoiceImportTemp.setAccountPayee(Convert.toStr(list.get(i).get("19")));
+                    dcflPaperInvoiceImportTemp.setPrintType(Convert.toStr(list.get(i).get("20")));
+                    dcflPaperInvoiceImportTemp.setInvoiceInvalidFlag(Convert.toStr(list.get(i).get("21")));
+                    dcflPaperInvoiceImportTemp.setListType(Convert.toStr(list.get(i).get("22")));
+                    dcflPaperInvoiceImportTemp.setRepareType(Convert.toStr(list.get(i).get("23")));
+                    dcflPaperInvoiceImportTemp.setReviewer(Convert.toStr(list.get(i).get("24")));
+                    dcflPaperInvoiceImportTemp.setSaleDepartment(Convert.toStr(list.get(i).get("25")));
+                    dcflPaperInvoiceImportTemp.setInvoiceInvalidDate(Convert.toDate(list.get(i).get("26")));
+
+                    LoggerUtils.debug(getClass(), "DcflPaperInvoiceImportTemp is: " + dcflPaperInvoiceImportTemp);
+                    dcflEleInvoiceImportTempService.insetPaperData(dcflPaperInvoiceImportTemp);
+                }
 
                 SuccessBean successBean = new SuccessBean();
                 SuccessInfo successInfo = new SuccessInfo();
@@ -93,7 +128,7 @@ public class WeeklyProcess extends BaseProcess {
                     dcflEleInvoiceImportTemp.setInvoiceInvalidFlag(Convert.toStr(list.get(i).get("21")));
 
                     LoggerUtils.debug(getClass(), "DcflEleInvoiceImportTemp is: " + dcflEleInvoiceImportTemp);
-                    dcflEleInvoiceImportTempService.insetData(dcflEleInvoiceImportTemp);
+                    dcflEleInvoiceImportTempService.insetEleData(dcflEleInvoiceImportTemp);
                 }
 
                 SuccessBean successBean = new SuccessBean();

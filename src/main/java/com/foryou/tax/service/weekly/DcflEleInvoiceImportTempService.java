@@ -1,6 +1,7 @@
 package com.foryou.tax.service.weekly;
 
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
+import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
 
 /**
  * <p>
@@ -12,5 +13,7 @@ import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
  */
 public interface DcflEleInvoiceImportTempService {
 
-    int insetData(DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp);
+    int insetEleData(DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp);
+
+    int insetPaperData(DcflPaperInvoiceImportTemp dcflPaperInvoiceImportTemp);
 }
