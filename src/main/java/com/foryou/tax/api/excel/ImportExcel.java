@@ -53,9 +53,9 @@ public class ImportExcel {
                     /**
                      * 如果当前行没有数据，跳出循环 这样写会导致第一列为空就默认为这一行没数据
                      */
-//                   if(row.getCell(0).toString().equals("")){
-//                      return null;
-//                    }
+                   if(row.getCell(0).toString().equals("")){
+                      return null;
+                    }
 
                     //获取总列数(空格的不计算)
                     int columnTotalNum = row.getPhysicalNumberOfCells();
