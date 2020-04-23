@@ -126,7 +126,7 @@
             <label class="control-label col-md-3">纸质发票明细</label>
             <div class="controls col-md-9">
 
-              <form id="paperFileupload" enctype="multipart/form-data">
+              <form id="paperFileupload" enctype="multipart/form-data" action="/paperInvoice/importFile" method="post">
                 <div class="row fileupload-buttonbar">
                   <div class="col-lg-8">
                     <!-- The fileinput-button span is used to style the file input field as button -->
@@ -135,7 +135,7 @@
                       <span>Add files...</span>
                       <input name="paperFile" id="paperFile" type="file"/>
                     </span>
-                    <button class="btn btn-theme start" onclick="savePaperClick()">
+                    <button class="btn btn-theme start" onclick="savePaperClick()" type="submit">
                       <i class="glyphicon glyphicon-upload"></i>
                       <span>Start upload</span>
                     </button>
@@ -156,7 +156,7 @@
             <label class="control-label col-md-3">电子发票明细</label>
             <div class="col-md-9">
 
-              <form id="eleFileupload" enctype="multipart/form-data">
+              <form id="eleFileupload" enctype="multipart/form-data" method="post" action="/eleInvoice/importFile">
                 <div class="row fileupload-buttonbar">
                   <div class="col-lg-8">
                     <!-- The fileinput-button span is used to style the file input field as button -->
@@ -165,7 +165,7 @@
                       <span>Add files...</span>
                       <input name="eleUploadFile" id="eleUploadFile" type="file"/>
                     </span>
-                    <button class="btn btn-theme start" onclick="saveEleClick()">
+                    <button class="btn btn-theme start" onclick="saveEleClick()" type="submit">
                       <i class="glyphicon glyphicon-upload"></i>
                       <span>Start upload</span>
                     </button>
@@ -210,8 +210,9 @@
 <script type="text/javascript" src="/static/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
 <script type="text/javascript" src="/static/lib/bootstrap-daterangepicker/moment.min.js"></script>
 <script type="text/javascript" src="/static/lib/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-<script src="/static/lib/advanced-form-components.js"></script>
+<script type="text/javascript" src="/static/lib/advanced-form-components.js"></script>
 <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery.form.js"></script>
 
   <script>
 
@@ -224,24 +225,31 @@
         if (fileType != '.xls' && fileType != '.xlsx') {
           alert('请选择正确的导入文件!');
         } else {
-          $.ajax({
-            type: 'POST', // HTTP请求方式
-            enctype: 'multipart/form-data',
-            url: '/paperInvoice/importFile', // 请求的URL地址
-            dataType: 'text', // 服务器返回数据转换成的类型
-            data: fd,
-            processData: false, //prevent jQuery from automatically transforming the data into a query string
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-              alert(data);
-              backView();
-            },
-            error: function (data) {
-              alert('oh,似乎出现点问题了！');
-              backView();
-            }
+          //第一种写法
+          // $.ajax({
+          //   type: 'POST', // HTTP请求方式
+          //   enctype: 'multipart/form-data',
+          //   url: '/paperInvoice/importFile', // 请求的URL地址
+          //   dataType: 'text', // 服务器返回数据转换成的类型
+          //   data: fd,
+          //   processData: false, //prevent jQuery from automatically transforming the data into a query string
+          //   contentType: false,
+          //   cache: false,
+          //   timeout: 600000,
+          //   success: function (data) {
+          //     alert(data);
+          //     backView();
+          //   },
+          //   error: function (data) {
+          //     alert('oh,似乎出现点问题了！');
+          //     backView();
+          //   }
+          // });
+
+          //第二种写法，这种比较好，可以传大容量的excel
+          $('#paperFileupload').ajaxForm(function(data){
+            alert(data.message);
+            backView();
           });
         }
       }else{
@@ -258,24 +266,31 @@
         if (fileType != '.xls' && fileType != '.xlsx') {
           alert('请选择正确的导入文件!');
         } else {
-          $.ajax({
-            type: 'POST', // HTTP请求方式
-            enctype: 'multipart/form-data',
-            url: '/eleInvoice/importFile', // 请求的URL地址
-            dataType: 'text', // 服务器返回数据转换成的类型
-            data: fd,
-            processData: false, //prevent jQuery from automatically transforming the data into a query string
-            contentType: false,
-            cache: false,
-            timeout: 600000,
-            success: function (data) {
-              alert("上传成功！");
-              backView();
-            },
-            error: function (data) {
-              alert('oh,似乎出现点问题了！');
-              backView();
-            }
+          //第一种写法
+          // $.ajax({
+          //   type: 'POST', // HTTP请求方式
+          //   enctype: 'multipart/form-data',
+          //   url: '/eleInvoice/importFile', // 请求的URL地址
+          //   dataType: 'text', // 服务器返回数据转换成的类型
+          //   data: fd,
+          //   processData: false, //prevent jQuery from automatically transforming the data into a query string
+          //   contentType: false,
+          //   cache: false,
+          //   timeout: 600000,
+          //   success: function (data) {
+          //     alert("上传成功！");
+          //     backView();
+          //   },
+          //   error: function (data) {
+          //     alert('oh,似乎出现点问题了！');
+          //     backView();
+          //   }
+          // });
+
+          //第二种写法，这种比较好，可以传大容量的excel
+          $('#eleFileupload').ajaxForm(function(data){
+            alert(data.message);
+            backView();
           });
         }
       }else{
