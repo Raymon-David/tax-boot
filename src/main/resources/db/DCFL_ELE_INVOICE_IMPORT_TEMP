@@ -1,6 +1,6 @@
 CREATE TABLE DCFL_ELE_INVOICE_IMPORT_TEMP (
   SERIAL_NUM varchar(50) NOT NULL COMMENT '请求流水号',
-  BILL_TYPE varchar(10) COMMENT '发票种类',
+  BILL_TYPE varchar(50) COMMENT '发票种类',
   INVOICE_TYPE varchar(20) COMMENT '开票类型',
   INVOICE_CODE varchar(20) NULL COMMENT '发票代码',
   INVOICE_NUMBER varchar(20) NULL COMMENT '发票号',
