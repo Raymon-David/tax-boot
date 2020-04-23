@@ -3,6 +3,7 @@ package com.foryou.tax.dao.weekly;
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
 import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -20,4 +21,12 @@ public interface DcflEleInvoiceImportTempMapper {
     int insertEleData(DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp);
 
     int insetPaperData(DcflPaperInvoiceImportTemp dcflPaperInvoiceImportTemp);
+
+    int backUpPaperData(@Param("newTableName")String newTableName);
+
+    int deletePaperData();
+
+    int backUpEleData(@Param("newTableName")String newTableName);
+
+    int deleteEleData();
 }

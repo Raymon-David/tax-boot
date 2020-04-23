@@ -9,6 +9,7 @@ import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
 import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.weekly.DcflEleInvoiceImportTempService;
+import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +37,18 @@ public class WeeklyProcess extends BaseProcess {
         try {
             if(!multipartfile.isEmpty()){
                 File file = ImportExcel.multipartToFile(multipartfile);
+
+                /**
+                 * 先备份表，然后删除表里的数据，再插入新数据
+                 */
+                LoggerUtils.debug(getClass(), "DCFL_PAPER_INVOICE_IMPORT_TEMP 备份开始");
+                String newTableName = "DCFL_PAPER_INVOICE_IMPORT_TEMP_" + DateUtil.parseDate(new Date());
+                dcflEleInvoiceImportTempService.backUpPaperData(newTableName);
+                LoggerUtils.debug(getClass(),"DCFL_PAPER_INVOICE_IMPORT_TEMP 备份结束");
+
+                LoggerUtils.debug(getClass(), "DCFL_PAPER_INVOICE_IMPORT_TEMP 删除开始");
+                dcflEleInvoiceImportTempService.deletePaperData();
+                LoggerUtils.debug(getClass(), "DCFL_PAPER_INVOICE_IMPORT_TEMP 删除结束");
 
                 /**
                  * excel处理
@@ -95,6 +109,18 @@ public class WeeklyProcess extends BaseProcess {
         try {
             if(!multipartfile.isEmpty()){
                 File file = ImportExcel.multipartToFile(multipartfile);
+
+                /**
+                 * 先备份表，然后删除表里的数据，再插入新数据
+                 */
+                LoggerUtils.debug(getClass(), "DCFL_ELE_INVOICE_IMPORT_TEMP 备份开始");
+                String newTableName = "DCFL_ELE_INVOICE_IMPORT_TEMP_" + DateUtil.parseDate(new Date());
+                dcflEleInvoiceImportTempService.backUpEleData(newTableName);
+                LoggerUtils.debug(getClass(),"DCFL_ELE_INVOICE_IMPORT_TEMP 备份结束");
+
+                LoggerUtils.debug(getClass(), "DCFL_ELE_INVOICE_IMPORT_TEMP 删除开始");
+                dcflEleInvoiceImportTempService.deleteEleData();
+                LoggerUtils.debug(getClass(), "DCFL_ELE_INVOICE_IMPORT_TEMP 删除结束");
 
                 /**
                  * excel处理

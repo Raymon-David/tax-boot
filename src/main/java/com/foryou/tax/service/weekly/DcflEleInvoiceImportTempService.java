@@ -2,6 +2,7 @@ package com.foryou.tax.service.weekly;
 
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
 import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -16,4 +17,12 @@ public interface DcflEleInvoiceImportTempService {
     int insetEleData(DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp);
 
     int insetPaperData(DcflPaperInvoiceImportTemp dcflPaperInvoiceImportTemp);
+
+    int backUpPaperData(@Param("newTableName")String newTableName);
+
+    int deletePaperData();
+
+    int backUpEleData(@Param("newTableName")String newTableName);
+
+    int deleteEleData();
 }
