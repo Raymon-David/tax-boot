@@ -248,7 +248,7 @@
 
           //第二种写法，这种比较好，可以传大容量的excel
           $('#paperFileupload').ajaxForm(function(data){
-            alert(data.message);
+            alert(data.success.successDesc.message);
             backView();
           });
         }
@@ -289,7 +289,7 @@
 
           //第二种写法，这种比较好，可以传大容量的excel
           $('#eleFileupload').ajaxForm(function(data){
-            alert(data.message);
+            alert(data.success.successDesc.message);
             backView();
           });
         }

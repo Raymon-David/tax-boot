@@ -6,6 +6,7 @@ import com.foryou.tax.api.bean.error.ErrorDesc;
 import com.foryou.tax.api.bean.error.ErrorInfo;
 import com.foryou.tax.api.constant.StatusCode;
 import com.foryou.tax.util.*;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import java.util.Set;
  * @date ：Created in 2020/3/10
  * @description :通用process顶级父类
  */
+@Service
 public class BaseProcess implements ICommonProcess {
 
     /**
@@ -31,8 +33,9 @@ public class BaseProcess implements ICommonProcess {
      */
     @Override
     public void writeClientJson(HttpServletResponse response, Object obj, String callback) {
-        response.setContentType("text/json;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
+
         PrintWriter pw = null;
         try {
             pw = response.getWriter();
@@ -43,11 +46,11 @@ public class BaseProcess implements ICommonProcess {
                 resultJson.append(JSONObject.toJSON(obj).toString());
             }
             pw.write(resultJson.toString());
+            pw.flush();
         } catch (IOException e) {
             LoggerUtils.fmtError(getClass(), "返回客户端json出错:"+JSONObject.toJSON(obj).toString(), e);
         } finally {
             if (null != pw) {
-                pw.flush();
                 pw.close();
             }
         }

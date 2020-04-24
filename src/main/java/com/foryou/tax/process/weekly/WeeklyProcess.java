@@ -34,6 +34,11 @@ public class WeeklyProcess extends BaseProcess {
     private DcflEleInvoiceImportTempService dcflEleInvoiceImportTempService;
 
     public void paperInvoiceImport(HttpServletRequest request, HttpServletResponse response, MultipartFile multipartfile) {
+
+        SuccessBean successBean = new SuccessBean();
+        SuccessInfo successInfo = new SuccessInfo();
+        SuccessDesc successDesc = new SuccessDesc();
+
         try {
             if(!multipartfile.isEmpty()){
                 File file = ImportExcel.multipartToFile(multipartfile);
@@ -56,49 +61,47 @@ public class WeeklyProcess extends BaseProcess {
                 List<Map<String, Object>> list = ImportExcel.importExcel(file);
                 LoggerUtils.debug(getClass(), "paperFile list is: " + list);
 
-                for (int i = 0; i < list.size(); i++) {
+                for (Map<String, Object> stringObjectMap : list) {
                     DcflPaperInvoiceImportTemp dcflPaperInvoiceImportTemp = new DcflPaperInvoiceImportTemp();
-                    dcflPaperInvoiceImportTemp.setBillType(Convert.toStr(list.get(i).get("0")));
-                    dcflPaperInvoiceImportTemp.setInvoiceCode(Convert.toStr(list.get(i).get("1")));
-                    dcflPaperInvoiceImportTemp.setInvoiceNumber(Convert.toStr(list.get(i).get("2")));
-                    dcflPaperInvoiceImportTemp.setBillMachineNum(Convert.toStr(list.get(i).get("3")));
-                    dcflPaperInvoiceImportTemp.setInvoiceTitle(Convert.toStr(list.get(i).get("4")));
-                    dcflPaperInvoiceImportTemp.setTaxRegistryNum(Convert.toStr(list.get(i).get("5")));
-                    dcflPaperInvoiceImportTemp.setInvoiceObjectAddressPhone(Convert.toStr(list.get(i).get("6")));
-                    dcflPaperInvoiceImportTemp.setInvoiceObjectBankAccount(Convert.toStr(list.get(i).get("7")));
-                    dcflPaperInvoiceImportTemp.setIssuedTime(Convert.toDate(list.get(i).get("8")));
-                    dcflPaperInvoiceImportTemp.setSubmitType(Convert.toStr(list.get(i).get("9")));
-                    dcflPaperInvoiceImportTemp.setSubmitLog(Convert.toStr(list.get(i).get("10")));
-                    dcflPaperInvoiceImportTemp.setIssuedMonth(Convert.toStr(list.get(i).get("11")));
-                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(list.get(i).get("12")));
-                    dcflPaperInvoiceImportTemp.setTaxRate(Convert.toBigDecimal(list.get(i).get("13")));
-                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(list.get(i).get("14")));
-                    dcflPaperInvoiceImportTemp.setProductName(Convert.toStr(list.get(i).get("15")));
-                    dcflPaperInvoiceImportTemp.setProductTaxItem(Convert.toStr(list.get(i).get("16")));
-                    dcflPaperInvoiceImportTemp.setInvoiceMemo(Convert.toStr(list.get(i).get("17")));
-                    dcflPaperInvoiceImportTemp.setIssuer(Convert.toStr(list.get(i).get("18")));
-                    dcflPaperInvoiceImportTemp.setAccountPayee(Convert.toStr(list.get(i).get("19")));
-                    dcflPaperInvoiceImportTemp.setPrintType(Convert.toStr(list.get(i).get("20")));
-                    dcflPaperInvoiceImportTemp.setInvoiceInvalidFlag(Convert.toStr(list.get(i).get("21")));
-                    dcflPaperInvoiceImportTemp.setListType(Convert.toStr(list.get(i).get("22")));
-                    dcflPaperInvoiceImportTemp.setRepareType(Convert.toStr(list.get(i).get("23")));
-                    dcflPaperInvoiceImportTemp.setReviewer(Convert.toStr(list.get(i).get("24")));
-                    dcflPaperInvoiceImportTemp.setSaleDepartment(Convert.toStr(list.get(i).get("25")));
-                    dcflPaperInvoiceImportTemp.setInvoiceInvalidDate(Convert.toDate(list.get(i).get("26")));
+                    dcflPaperInvoiceImportTemp.setBillType(Convert.toStr(stringObjectMap.get("0")));
+                    dcflPaperInvoiceImportTemp.setInvoiceCode(Convert.toStr(stringObjectMap.get("1")));
+                    dcflPaperInvoiceImportTemp.setInvoiceNumber(Convert.toStr(stringObjectMap.get("2")));
+                    dcflPaperInvoiceImportTemp.setBillMachineNum(Convert.toStr(stringObjectMap.get("3")));
+                    dcflPaperInvoiceImportTemp.setInvoiceTitle(Convert.toStr(stringObjectMap.get("4")));
+                    dcflPaperInvoiceImportTemp.setTaxRegistryNum(Convert.toStr(stringObjectMap.get("5")));
+                    dcflPaperInvoiceImportTemp.setInvoiceObjectAddressPhone(Convert.toStr(stringObjectMap.get("6")));
+                    dcflPaperInvoiceImportTemp.setInvoiceObjectBankAccount(Convert.toStr(stringObjectMap.get("7")));
+                    dcflPaperInvoiceImportTemp.setIssuedTime(Convert.toDate(stringObjectMap.get("8")));
+                    dcflPaperInvoiceImportTemp.setSubmitType(Convert.toStr(stringObjectMap.get("9")));
+                    dcflPaperInvoiceImportTemp.setSubmitLog(Convert.toStr(stringObjectMap.get("10")));
+                    dcflPaperInvoiceImportTemp.setIssuedMonth(Convert.toStr(stringObjectMap.get("11")));
+                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(stringObjectMap.get("12")));
+                    dcflPaperInvoiceImportTemp.setTaxRate(Convert.toBigDecimal(stringObjectMap.get("13")));
+                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(stringObjectMap.get("14")));
+                    dcflPaperInvoiceImportTemp.setProductName(Convert.toStr(stringObjectMap.get("15")));
+                    dcflPaperInvoiceImportTemp.setProductTaxItem(Convert.toStr(stringObjectMap.get("16")));
+                    dcflPaperInvoiceImportTemp.setInvoiceMemo(Convert.toStr(stringObjectMap.get("17")));
+                    dcflPaperInvoiceImportTemp.setIssuer(Convert.toStr(stringObjectMap.get("18")));
+                    dcflPaperInvoiceImportTemp.setAccountPayee(Convert.toStr(stringObjectMap.get("19")));
+                    dcflPaperInvoiceImportTemp.setPrintType(Convert.toStr(stringObjectMap.get("20")));
+                    dcflPaperInvoiceImportTemp.setInvoiceInvalidFlag(Convert.toStr(stringObjectMap.get("21")));
+                    dcflPaperInvoiceImportTemp.setListType(Convert.toStr(stringObjectMap.get("22")));
+                    dcflPaperInvoiceImportTemp.setRepareType(Convert.toStr(stringObjectMap.get("23")));
+                    dcflPaperInvoiceImportTemp.setReviewer(Convert.toStr(stringObjectMap.get("24")));
+                    dcflPaperInvoiceImportTemp.setSaleDepartment(Convert.toStr(stringObjectMap.get("25")));
+                    dcflPaperInvoiceImportTemp.setInvoiceInvalidDate(Convert.toDate(stringObjectMap.get("26")));
 
                     LoggerUtils.debug(getClass(), "DcflPaperInvoiceImportTemp is: " + dcflPaperInvoiceImportTemp);
                     dcflEleInvoiceImportTempService.insetPaperData(dcflPaperInvoiceImportTemp);
                 }
 
-                SuccessBean successBean = new SuccessBean();
-                SuccessInfo successInfo = new SuccessInfo();
-                SuccessDesc successDesc = new SuccessDesc();
                 successDesc.setCode("200");
                 successDesc.setMessage("上传成功！");
                 successInfo.setType("success");
                 successInfo.setSuccessDesc(successDesc);
                 successBean.setSuccess(successInfo);
-                writeClientJson(response, successBean, null);
+                writeClientJson(response, successBean, "");
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,6 +109,11 @@ public class WeeklyProcess extends BaseProcess {
     }
 
     public void eleInvoiceImport(HttpServletRequest request, HttpServletResponse response, MultipartFile multipartfile) {
+
+        SuccessBean successBean = new SuccessBean();
+        SuccessInfo successInfo = new SuccessInfo();
+        SuccessDesc successDesc = new SuccessDesc();
+
         try {
             if(!multipartfile.isEmpty()){
                 File file = ImportExcel.multipartToFile(multipartfile);
@@ -128,38 +136,35 @@ public class WeeklyProcess extends BaseProcess {
                 List<Map<String, Object>> list = ImportExcel.importExcel(file);
                 LoggerUtils.debug(getClass(), "eleUploadFile list is: " + list);
 
-                for (int i = 0; i < list.size(); i++) {
+                for (Map<String, Object> stringObjectMap : list) {
                     DcflEleInvoiceImportTemp dcflEleInvoiceImportTemp = new DcflEleInvoiceImportTemp();
-                    dcflEleInvoiceImportTemp.setSerialNum(Convert.toStr(list.get(i).get("0")));
-                    dcflEleInvoiceImportTemp.setBillType(Convert.toStr(list.get(i).get("1")));
-                    dcflEleInvoiceImportTemp.setInvoiceType(Convert.toStr(list.get(i).get("2")));
-                    dcflEleInvoiceImportTemp.setInvoiceCode(Convert.toStr(list.get(i).get("3")));
-                    dcflEleInvoiceImportTemp.setInvoiceNumber(Convert.toStr(list.get(i).get("4")));
-                    dcflEleInvoiceImportTemp.setBillMachineNum(Convert.toStr(list.get(i).get("5")));
-                    dcflEleInvoiceImportTemp.setInvoiceTitle(Convert.toStr(list.get(i).get("6")));
-                    dcflEleInvoiceImportTemp.setTaxRegistryNum(Convert.toStr(list.get(i).get("7")));
-                    dcflEleInvoiceImportTemp.setInvoiceObjectAddressPhone(Convert.toStr(list.get(i).get("8")));
-                    dcflEleInvoiceImportTemp.setInvoiceObjectBankAccount(Convert.toStr(list.get(i).get("9")));
-                    dcflEleInvoiceImportTemp.setIssuedTime(Convert.toDate(list.get(i).get("10")));
-                    dcflEleInvoiceImportTemp.setIssuedMonth(Convert.toStr(list.get(i).get("11")));
-                    dcflEleInvoiceImportTemp.setTotalAmount(Convert.toBigDecimal(list.get(i).get("12")));
-                    dcflEleInvoiceImportTemp.setTaxNetAmount(Convert.toBigDecimal(list.get(i).get("13")));
-                    dcflEleInvoiceImportTemp.setTaxRate(Convert.toBigDecimal(list.get(i).get("14")));
-                    dcflEleInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(list.get(i).get("15")));
-                    dcflEleInvoiceImportTemp.setProductName(Convert.toStr(list.get(i).get("16")));
-                    dcflEleInvoiceImportTemp.setInvoiceMemo(Convert.toStr(list.get(i).get("17")));
-                    dcflEleInvoiceImportTemp.setIssuer(Convert.toStr(list.get(i).get("18")));
-                    dcflEleInvoiceImportTemp.setAccountPayee(Convert.toStr(list.get(i).get("19")));
-                    dcflEleInvoiceImportTemp.setReviewer(Convert.toStr(list.get(i).get("20")));
-                    dcflEleInvoiceImportTemp.setInvoiceInvalidFlag(Convert.toStr(list.get(i).get("21")));
+                    dcflEleInvoiceImportTemp.setSerialNum(Convert.toStr(stringObjectMap.get("0")));
+                    dcflEleInvoiceImportTemp.setBillType(Convert.toStr(stringObjectMap.get("1")));
+                    dcflEleInvoiceImportTemp.setInvoiceType(Convert.toStr(stringObjectMap.get("2")));
+                    dcflEleInvoiceImportTemp.setInvoiceCode(Convert.toStr(stringObjectMap.get("3")));
+                    dcflEleInvoiceImportTemp.setInvoiceNumber(Convert.toStr(stringObjectMap.get("4")));
+                    dcflEleInvoiceImportTemp.setBillMachineNum(Convert.toStr(stringObjectMap.get("5")));
+                    dcflEleInvoiceImportTemp.setInvoiceTitle(Convert.toStr(stringObjectMap.get("6")));
+                    dcflEleInvoiceImportTemp.setTaxRegistryNum(Convert.toStr(stringObjectMap.get("7")));
+                    dcflEleInvoiceImportTemp.setInvoiceObjectAddressPhone(Convert.toStr(stringObjectMap.get("8")));
+                    dcflEleInvoiceImportTemp.setInvoiceObjectBankAccount(Convert.toStr(stringObjectMap.get("9")));
+                    dcflEleInvoiceImportTemp.setIssuedTime(Convert.toDate(stringObjectMap.get("10")));
+                    dcflEleInvoiceImportTemp.setIssuedMonth(Convert.toStr(stringObjectMap.get("11")));
+                    dcflEleInvoiceImportTemp.setTotalAmount(Convert.toBigDecimal(stringObjectMap.get("12")));
+                    dcflEleInvoiceImportTemp.setTaxNetAmount(Convert.toBigDecimal(stringObjectMap.get("13")));
+                    dcflEleInvoiceImportTemp.setTaxRate(Convert.toBigDecimal(stringObjectMap.get("14")));
+                    dcflEleInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(stringObjectMap.get("15")));
+                    dcflEleInvoiceImportTemp.setProductName(Convert.toStr(stringObjectMap.get("16")));
+                    dcflEleInvoiceImportTemp.setInvoiceMemo(Convert.toStr(stringObjectMap.get("17")));
+                    dcflEleInvoiceImportTemp.setIssuer(Convert.toStr(stringObjectMap.get("18")));
+                    dcflEleInvoiceImportTemp.setAccountPayee(Convert.toStr(stringObjectMap.get("19")));
+                    dcflEleInvoiceImportTemp.setReviewer(Convert.toStr(stringObjectMap.get("20")));
+                    dcflEleInvoiceImportTemp.setInvoiceInvalidFlag(Convert.toStr(stringObjectMap.get("21")));
 
                     LoggerUtils.debug(getClass(), "DcflEleInvoiceImportTemp is: " + dcflEleInvoiceImportTemp);
                     dcflEleInvoiceImportTempService.insetEleData(dcflEleInvoiceImportTemp);
                 }
 
-                SuccessBean successBean = new SuccessBean();
-                SuccessInfo successInfo = new SuccessInfo();
-                SuccessDesc successDesc = new SuccessDesc();
                 successDesc.setCode("200");
                 successDesc.setMessage("上传成功！");
                 successInfo.setType("success");

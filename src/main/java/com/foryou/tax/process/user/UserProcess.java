@@ -1,11 +1,14 @@
 package com.foryou.tax.process.user;
 
 import com.alibaba.fastjson.JSONObject;
+import com.foryou.tax.api.bean.SuccessBean;
+import com.foryou.tax.api.bean.success.SuccessDesc;
+import com.foryou.tax.api.bean.success.SuccessInfo;
 import com.foryou.tax.api.constant.Constants;
 import com.foryou.tax.process.common.BaseProcess;
+import com.foryou.tax.service.UserService;
 import com.foryou.tax.service.redis.RedisService;
 import com.foryou.tax.service.user.LoginService;
-import com.foryou.tax.service.UserService;
 import com.foryou.tax.util.MemberTools;
 import com.foryou.tax.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +69,22 @@ public class UserProcess extends BaseProcess {
             MemberTools.deleteCookie(request, response, Constants.USERlOGIN_KEY_EXT);
         }
         writeClientJson(response, jsonObject, null);
+    }
+
+    public void testJson(HttpServletRequest request, HttpServletResponse response) {
+        response.setContentType("application/json;charset=UTF-8");
+        response.setCharacterEncoding("UTF-8");
+
+        SuccessBean successBean = new SuccessBean();
+        SuccessInfo successInfo = new SuccessInfo();
+        SuccessDesc successDesc = new SuccessDesc();
+
+        successDesc.setCode("200");
+        successDesc.setMessage("上传成功！");
+        successInfo.setType("success");
+        successInfo.setSuccessDesc(successDesc);
+        successBean.setSuccess(successInfo);
+
+        writeClientJson(response, successBean, null);
     }
 }

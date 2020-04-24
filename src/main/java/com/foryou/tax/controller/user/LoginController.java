@@ -72,4 +72,9 @@ public class LoginController {
     public String ad() {
         return "user/file_upload";
     }
+
+    @RequestMapping(value = "/testJson")
+    public void testJson(HttpServletRequest request, HttpServletResponse response) {
+        userProcess.testJson(request, response);
+    }
 }

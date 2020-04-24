@@ -1,4 +1,5 @@
 package com.foryou.tax.api.excel;
+import cn.hutool.core.convert.Convert;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -53,8 +54,8 @@ public class ImportExcel {
                     /**
                      * 如果当前行没有数据，跳出循环 这样写会导致第一列为空就默认为这一行没数据
                      */
-                   if(row.getCell(0).toString().equals("")){
-                      return null;
+                   if("".equals(Convert.toStr(row.getCell(0))) || row.getCell(0) == null){
+                      continue;
                     }
 
                     //获取总列数(空格的不计算)
