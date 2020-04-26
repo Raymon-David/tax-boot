@@ -5,6 +5,7 @@ import com.foryou.tax.process.weekly.writeoffinfo.WriteOffInfoProcess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,12 +26,20 @@ public class WriteOffInfoTempController {
     private WriteOffInfoProcess writeOffInfoProcess;
 
     /**
-     * 发票总表导入系统
+     * 导入系统
      */
     @RequestMapping(value = "/writeOffInfo/import")
     public void writeOffInfoImport(HttpServletRequest request, HttpServletResponse response){
 
         writeOffInfoProcess.writeOffInfoImport(request, response);
+    }
+
+    /**
+     * 从缓存中获取一周核销的数据
+     */
+    @RequestMapping(value = "/writeOffInfo/queryWeekly", method = RequestMethod.POST)
+    public void writeOffInfoQueryWeekly(HttpServletRequest request, HttpServletResponse response){
+        writeOffInfoProcess.writeOffInfoQueryWeekly(request, response);
     }
 
 }

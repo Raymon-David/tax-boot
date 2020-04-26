@@ -2,6 +2,7 @@ package com.foryou.tax.process.weekly.writeoffinfo;
 
 import cn.hutool.core.convert.Convert;
 import com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp;
+import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.weekly.writeoffinfo.WriteOffInfoTempService;
 import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.JDBCUtil;
@@ -21,7 +22,7 @@ import java.util.Map;
  * @description : 核销事务 process
  */
 @Service
-public class WriteOffInfoProcess {
+public class WriteOffInfoProcess extends BaseProcess {
 
     @Autowired
     WriteOffInfoTempService writeOffInfoTempService;
@@ -132,5 +133,11 @@ public class WriteOffInfoProcess {
             LoggerUtils.debug(getClass(), "writeOffInfoTemp is: " + writeOffInfoTemp);
             writeOffInfoTempService.insertData(writeOffInfoTemp);
         }
+    }
+
+    public void writeOffInfoQueryWeekly(HttpServletRequest request, HttpServletResponse response) {
+
+        List<Map<String, Object>> mapList = writeOffInfoTempService.writeOffInfoQueryWeekly();
+        writeClientJson(response, mapList, null);
     }
 }

@@ -3,6 +3,9 @@ package com.foryou.tax.service.weekly.writeoffinfo;
 import com.foryou.tax.pojo.weekly.writeoffinfo.WriteOffInfoTemp;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 核销事务查询临时表 服务类
@@ -18,4 +21,6 @@ public interface WriteOffInfoTempService{
     int backUpData(@Param("newTableName") String newTableName);
 
     int deleteData();
+
+    List<Map<String, Object>> writeOffInfoQueryWeekly();
 }

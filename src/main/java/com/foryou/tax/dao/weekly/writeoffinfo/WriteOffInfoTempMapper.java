@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 核销事务查询临时表 Mapper 接口
@@ -22,4 +25,6 @@ public interface WriteOffInfoTempMapper{
     int backUpData(@Param("newTableName") String newTableName);
 
     int deleteData();
+
+    List<Map<String, Object>> writeOffInfoQueryWeekly();
 }
