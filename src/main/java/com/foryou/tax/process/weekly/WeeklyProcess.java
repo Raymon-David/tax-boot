@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -71,12 +72,26 @@ public class WeeklyProcess extends BaseProcess {
                     dcflPaperInvoiceImportTemp.setTaxRegistryNum(Convert.toStr(stringObjectMap.get("5")));
                     dcflPaperInvoiceImportTemp.setInvoiceObjectAddressPhone(Convert.toStr(stringObjectMap.get("6")));
                     dcflPaperInvoiceImportTemp.setInvoiceObjectBankAccount(Convert.toStr(stringObjectMap.get("7")));
-                    dcflPaperInvoiceImportTemp.setIssuedTime(Convert.toDate(stringObjectMap.get("8")));
+                    String iss = Convert.toStr(stringObjectMap.get("8"));
+                    Date is = Convert.toDate(iss);
+                    dcflPaperInvoiceImportTemp.setIssuedTime(is);
                     dcflPaperInvoiceImportTemp.setSubmitType(Convert.toStr(stringObjectMap.get("9")));
                     dcflPaperInvoiceImportTemp.setSubmitLog(Convert.toStr(stringObjectMap.get("10")));
                     dcflPaperInvoiceImportTemp.setIssuedMonth(Convert.toStr(stringObjectMap.get("11")));
-                    dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(stringObjectMap.get("12")));
-                    dcflPaperInvoiceImportTemp.setTaxRate(Convert.toBigDecimal(stringObjectMap.get("13")));
+                    dcflPaperInvoiceImportTemp.setTotalAmount(Convert.toBigDecimal(stringObjectMap.get("12")));
+                    /**
+                     * 纸质发票的税率包含 %
+                     */
+                    String rate = Convert.toStr(stringObjectMap.get("13"));
+                    BigDecimal bigDecimal = null;
+                    if (rate.contains("%")) {
+                        String[] newRate = rate.split("%");
+                        String r = newRate[0];
+                        bigDecimal = Convert.toBigDecimal(new Double(r) / 100);
+                    }else {
+                        bigDecimal = Convert.toBigDecimal(rate);
+                    }
+                    dcflPaperInvoiceImportTemp.setTaxRate(bigDecimal);
                     dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(stringObjectMap.get("14")));
                     dcflPaperInvoiceImportTemp.setProductName(Convert.toStr(stringObjectMap.get("15")));
                     dcflPaperInvoiceImportTemp.setProductTaxItem(Convert.toStr(stringObjectMap.get("16")));
