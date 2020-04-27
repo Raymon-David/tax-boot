@@ -34,7 +34,7 @@ public class ContractController {
     /**
      * 通过redis查询合同信息
      */
-    @RequestMapping(value ="/contract/queryContractInfoByRedis" ,method = RequestMethod.GET)
+    @RequestMapping(value ="/contract/queryContractInfoByRedis" ,method = RequestMethod.POST)
     public void queryContractInfoByRedis(HttpServletRequest request, HttpServletResponse response){
 
         contractProcess.queryContractInfoByRedis(request, response);

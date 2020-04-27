@@ -138,6 +138,8 @@ public class WriteOffInfoProcess extends BaseProcess {
     public void writeOffInfoQueryWeekly(HttpServletRequest request, HttpServletResponse response) {
 
         List<Map<String, Object>> mapList = writeOffInfoTempService.writeOffInfoQueryWeekly();
+        LoggerUtils.debug(getClass(), "从缓存中获取核销的数据 maplist is: " + mapList);
+
         writeClientJson(response, mapList, null);
     }
 }

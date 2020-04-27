@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * @author ：Raymon
@@ -37,7 +38,7 @@ public class ContractProcess extends BaseProcess {
      * 通过redis查询合同信息
      */
     public void queryContractInfoByRedis(HttpServletRequest request, HttpServletResponse response){
-        ContractInfoPojo contractInfo = contractService.queryContractInfoByRedis();
+        List<ContractInfoPojo> contractInfo = contractService.queryContractInfoByRedis();
         LoggerUtils.debug(getClass(),"通过redis查询合同信息" + contractInfo);
         writeClientJson(response, contractInfo, null);
     }
