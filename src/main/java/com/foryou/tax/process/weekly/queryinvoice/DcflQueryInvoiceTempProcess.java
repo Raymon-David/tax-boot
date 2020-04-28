@@ -82,7 +82,7 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             dcflQueryInvoiceTemp.setTotalAmount(Convert.toBigDecimal(mapList.get(i).get("total_amount")));
             dcflQueryInvoiceTemp.setTaxAmount(Convert.toBigDecimal(mapList.get(i).get("tax_amount")));
             dcflQueryInvoiceTemp.setTaxNetAmount(Convert.toBigDecimal(mapList.get(i).get("total_amount")).subtract(Convert.toBigDecimal(mapList.get(i).get("tax_amount"))));
-            dcflQueryInvoiceTemp.setTaxRate(Convert.toBigDecimal(mapList.get(i).get("tax_amount")).divide(Convert.toBigDecimal(mapList.get(i).get("total_amount")), 2));
+            dcflQueryInvoiceTemp.setTaxRate(Convert.toBigDecimal(mapList.get(i).get("tax_amount")).divide(Convert.toBigDecimal(mapList.get(i).get("total_amount")).subtract(Convert.toBigDecimal(mapList.get(i).get("tax_amount"))), 2));
             dcflQueryInvoiceTemp.setInvoiceMemo(Convert.toStr(mapList.get(i).get("description")));
             dcflQueryInvoiceTemp.setIssuer(Convert.toStr(mapList.get(i).get("created_by_n")));
             dcflQueryInvoiceTemp.setReviewer(Convert.toStr(mapList.get(i).get("confirmed_by_n")));
