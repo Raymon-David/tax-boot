@@ -1,6 +1,7 @@
 package com.foryou.tax.api.quartz;
 
 import com.foryou.tax.process.allinvoice.AllInvoiceProcess;
+import com.foryou.tax.process.weekly.queryinvoice.DcflQueryInvoiceTempProcess;
 import com.foryou.tax.process.weekly.writeoffinfo.WriteOffInfoProcess;
 import com.foryou.tax.util.LoggerUtils;
 import org.quartz.JobExecutionContext;
@@ -24,6 +25,9 @@ public class InvoiceTask extends QuartzJobBean {
     @Autowired
     private AllInvoiceProcess allInvoiceProcess;
 
+    @Autowired
+    private DcflQueryInvoiceTempProcess dcflQueryInvoiceTempProcess;
+
     public InvoiceTask(){}
 
     @Override
@@ -33,13 +37,17 @@ public class InvoiceTask extends QuartzJobBean {
 
         LoggerUtils.debug(getClass(), "InvoiceTask start");
 
-        LoggerUtils.debug(getClass(), "发票创建导入 开始");
+        LoggerUtils.debug(getClass(), "导入发票创建 开始");
         allInvoiceProcess.dcflCreateInvoiceImport(request, response);
-        LoggerUtils.debug(getClass(), "发票创建导入 结束");
+        LoggerUtils.debug(getClass(), "导入发票创建 结束");
 
-        LoggerUtils.debug(getClass(), "现金事务查询 开始");
+        LoggerUtils.debug(getClass(), "导入现金事务查询 开始");
         writeOffInfoProcess.writeOffInfoImport(request, response);
-        LoggerUtils.debug(getClass(), "现金事务查询 结束");
+        LoggerUtils.debug(getClass(), "导入现金事务查询 结束");
+
+        LoggerUtils.debug(getClass(), "导入销项发票查询 开始");
+        dcflQueryInvoiceTempProcess.dcflQueryInvoiceTempImport(request, response);
+        LoggerUtils.debug(getClass(), "导入销项发票查询 结束");
 
         LoggerUtils.debug(getClass(), "InvoiceTask end");
     }

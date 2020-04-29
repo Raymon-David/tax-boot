@@ -4,6 +4,7 @@ import cn.hutool.core.convert.Convert;
 import com.foryou.tax.pojo.weekly.queryinvoice.DcflQueryInvoiceTemp;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.weekly.queryinvoice.DcflQueryInvoiceTempService;
+import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.JDBCUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +72,15 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             "  where ah.accounting_date between sysdate - 7 and sysdate";
 
     public void dcflQueryInvoiceTempImport(HttpServletRequest request, HttpServletResponse response) {
+
+        LoggerUtils.debug(getClass(), "DCFL_QUERY_INVOICE_TEMP 备份开始");
+        String newTableName = "DCFL_QUERY_INVOICE_TEMP_" + DateUtil.parseDate(new Date());
+        dcflQueryInvoiceTempService.backUpData(newTableName);
+        LoggerUtils.debug(getClass(), "DCFL_QUERY_INVOICE_TEMP 备份结束");
+
+        LoggerUtils.debug(getClass(), "DCFL_QUERY_INVOICE_TEMP 删除开始");
+        dcflQueryInvoiceTempService.deleteData();
+        LoggerUtils.debug(getClass(), "DCFL_QUERY_INVOICE_TEMP 删除结束");
 
         LoggerUtils.debug(getClass(), "DCFL_QUERY_INVOICE_TEMP sql is: " + sql);
 

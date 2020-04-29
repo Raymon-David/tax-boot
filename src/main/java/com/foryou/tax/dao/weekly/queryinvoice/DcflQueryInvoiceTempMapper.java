@@ -2,6 +2,7 @@ package com.foryou.tax.dao.weekly.queryinvoice;
 
 import com.foryou.tax.pojo.weekly.queryinvoice.DcflQueryInvoiceTemp;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,4 +18,8 @@ import org.springframework.stereotype.Component;
 public interface DcflQueryInvoiceTempMapper{
 
     int insertData(DcflQueryInvoiceTemp dcflQueryInvoiceTemp);
+
+    int backUpData(@Param("newTableName")String newTableName);
+
+    int deleteData();
 }

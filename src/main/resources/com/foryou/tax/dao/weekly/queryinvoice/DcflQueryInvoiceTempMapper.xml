@@ -171,5 +171,15 @@
             </if>
         </trim>
     </insert>
+    <update id="backUpData">
+        create table ${newTableName}
+        as
+        select *
+        from DCFL_QUERY_INVOICE_TEMP
+        where 1 = 1
+    </update>
+    <delete id="deleteData">
+        delete from DCFL_QUERY_INVOICE_TEMP
+    </delete>
 
 </mapper>

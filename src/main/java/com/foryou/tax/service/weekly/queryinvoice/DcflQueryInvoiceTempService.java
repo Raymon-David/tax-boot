@@ -1,6 +1,7 @@
 package com.foryou.tax.service.weekly.queryinvoice;
 
 import com.foryou.tax.pojo.weekly.queryinvoice.DcflQueryInvoiceTemp;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +14,8 @@ import com.foryou.tax.pojo.weekly.queryinvoice.DcflQueryInvoiceTemp;
 public interface DcflQueryInvoiceTempService {
 
     int insertData(DcflQueryInvoiceTemp dcflQueryInvoiceTemp);
+
+    int backUpData(@Param("newTableName")String newTableName);
+
+    int deleteData();
 }
