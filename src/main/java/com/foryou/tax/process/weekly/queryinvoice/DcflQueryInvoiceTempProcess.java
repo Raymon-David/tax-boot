@@ -60,7 +60,8 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             "                FROM acr_ele_invoice_hd he\n" +
             "               WHERE he.invoice_hd_id = ah.invoice_hd_id)))\n" +
             "          vat_invoice_code                                            -- 发票代码\n" +
-            "  FROM acr_invoice_hd ah";
+            "  FROM acr_invoice_hd ah \n" +
+            "  where ah.accounting_date between sysdate - 7 and sysdate" ;
 
     public void dcflQueryInvoiceTempImport(HttpServletRequest request, HttpServletResponse response) {
 
