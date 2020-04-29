@@ -33,6 +33,12 @@ SELECT ah.document_number,                                              --单据
        (DECODE (ah.contract_id, NULL, NULL, ah.description)) AS description,  --备注
        NVL (ah.total_amount_old, ah.total_amount) AS total_amount,  --总金额
        ah.tax_amount,   --税额
+       (select max(al.tax_type_rate)
+        from acr_invoice_ln al
+        where al.invoice_hd_id = ah.invoice_hd_id ) as tax_type_rate,
+       (select sum(al.net_amount)
+        from acr_invoice_ln al
+        where al.invoice_hd_id = ah.invoice_hd_id ) as net_amount,
        ah.internal_period_num,   --区间
        (NVL ( (SELECT he.bill_date
                  FROM acr_ele_invoice_hd he
