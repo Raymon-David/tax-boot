@@ -92,6 +92,9 @@ public class WeeklyProcess extends BaseProcess {
                         bigDecimal = Convert.toBigDecimal(rate);
                     }
                     dcflPaperInvoiceImportTemp.setTaxRate(bigDecimal);
+                    /**
+                     * 纸票上的这个字段代表的是不含税金额，在视图中处理，上传不处理
+                     */
                     dcflPaperInvoiceImportTemp.setTaxAmount(Convert.toBigDecimal(stringObjectMap.get("14")));
                     dcflPaperInvoiceImportTemp.setProductName(Convert.toStr(stringObjectMap.get("15")));
                     dcflPaperInvoiceImportTemp.setProductTaxItem(Convert.toStr(stringObjectMap.get("16")));

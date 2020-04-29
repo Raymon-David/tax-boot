@@ -33,6 +33,12 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             "       (DECODE (ah.contract_id, NULL, NULL, ah.description)) AS description,  --备注\n" +
             "       NVL (ah.total_amount_old, ah.total_amount) AS total_amount,  --总金额\n" +
             "       ah.tax_amount,   --税额\n" +
+            "       (select max(al.tax_type_rate)\n" +
+            "        from acr_invoice_ln al\n" +
+            "        where al.invoice_hd_id = ah.invoice_hd_id ) as tax_type_rate,\n" +
+            "       (select sum(al.net_amount)\n" +
+            "        from acr_invoice_ln al\n" +
+            "        where al.invoice_hd_id = ah.invoice_hd_id ) as net_amount,\n" +
             "       ah.internal_period_num,   --区间\n" +
             "       (NVL ( (SELECT he.bill_date\n" +
             "                 FROM acr_ele_invoice_hd he\n" +
@@ -60,8 +66,8 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             "                FROM acr_ele_invoice_hd he\n" +
             "               WHERE he.invoice_hd_id = ah.invoice_hd_id)))\n" +
             "          vat_invoice_code                                            -- 发票代码\n" +
-            "  FROM acr_invoice_hd ah \n" +
-            "  where ah.accounting_date between sysdate - 7 and sysdate" ;
+            "  FROM acr_invoice_hd ah\n" +
+            "  where ah.accounting_date between sysdate - 7 and sysdate";
 
     public void dcflQueryInvoiceTempImport(HttpServletRequest request, HttpServletResponse response) {
 
@@ -82,8 +88,8 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             dcflQueryInvoiceTemp.setIssuedMonth(Convert.toStr(mapList.get(i).get("internal_period_num")));
             dcflQueryInvoiceTemp.setTotalAmount(Convert.toBigDecimal(mapList.get(i).get("total_amount")));
             dcflQueryInvoiceTemp.setTaxAmount(Convert.toBigDecimal(mapList.get(i).get("tax_amount")));
-            dcflQueryInvoiceTemp.setTaxNetAmount(Convert.toBigDecimal(mapList.get(i).get("total_amount")).subtract(Convert.toBigDecimal(mapList.get(i).get("tax_amount"))));
-            dcflQueryInvoiceTemp.setTaxRate(Convert.toBigDecimal(mapList.get(i).get("tax_amount")).divide(Convert.toBigDecimal(mapList.get(i).get("total_amount")).subtract(Convert.toBigDecimal(mapList.get(i).get("tax_amount"))), 2));
+            dcflQueryInvoiceTemp.setTaxNetAmount(Convert.toBigDecimal(mapList.get(i).get("net_amount")));
+            dcflQueryInvoiceTemp.setTaxRate(Convert.toBigDecimal(mapList.get(i).get("tax_type_rate")));
             dcflQueryInvoiceTemp.setInvoiceMemo(Convert.toStr(mapList.get(i).get("description")));
             dcflQueryInvoiceTemp.setIssuer(Convert.toStr(mapList.get(i).get("created_by_n")));
             dcflQueryInvoiceTemp.setReviewer(Convert.toStr(mapList.get(i).get("confirmed_by_n")));
