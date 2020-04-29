@@ -61,3 +61,4 @@ SELECT ah.document_number,                                              --单据
                WHERE he.invoice_hd_id = ah.invoice_hd_id)))
           vat_invoice_code                                            -- 发票代码
   FROM acr_invoice_hd ah
+  where ah.accounting_date between sysdate - 7 and sysdate
