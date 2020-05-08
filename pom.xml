@@ -227,5 +227,29 @@
 			</plugin>
 		</plugins>
 	</build>
-
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<profile.env>dev</profile.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>sit</id>
+			<activation/>
+			<properties>
+				<profile.env>sit</profile.env>
+			</properties>
+		</profile>
+		<profile>
+			<id>pro</id>
+			<activation/>
+			<properties>
+				<profile.env>pro</profile.env>
+			</properties>
+		</profile>
+	</profiles>
 </project>
