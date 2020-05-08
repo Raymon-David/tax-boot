@@ -351,7 +351,7 @@ public class AllInvoiceProcess extends BaseProcess {
             allInvoiceInfoTemp.setBillingAmount(Convert.toBigDecimal(mapList.get(i).get("billing_amount"), null));
             allInvoiceInfoTemp.setBillingPrincipal(Convert.toBigDecimal(mapList.get(i).get("billing_principal"), null));
             allInvoiceInfoTemp.setBillingInterest(Convert.toBigDecimal(mapList.get(i).get("billing_interest"), null));
-            allInvoiceInfoTemp.setNeedBillingAmount(Convert.toBigDecimal(mapList.get(i).get("notbilling_amount"), null));
+            allInvoiceInfoTemp.setNotbillingAmount(Convert.toBigDecimal(mapList.get(i).get("notbilling_amount"), null));
             allInvoiceInfoTemp.setNotbillingPrincipal(Convert.toBigDecimal(mapList.get(i).get("notbilling_principal"), null));
             allInvoiceInfoTemp.setNotbillingInterest(Convert.toBigDecimal(mapList.get(i).get("notbilling_interest"), null));
             allInvoiceInfoTemp.setVatDueAmount(Convert.toBigDecimal(mapList.get(i).get("vat_due_amount"), null));
