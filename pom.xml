@@ -19,8 +19,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<activiti.version>6.0.0</activiti.version>
-		<activiti-exp.version>5.22.0</activiti-exp.version>
 	</properties>
 
 	<dependencies>
@@ -81,37 +79,6 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.0.1</version>
 			<scope>provided</scope>
-		</dependency>
-		<!-- Activiti -->
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring-boot-starter-rest-api</artifactId>
-			<version>6.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring-boot-starter-actuator</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-spring-boot-starter-jpa</artifactId>
-			<version>${activiti.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-explorer</artifactId>
-			<version>${activiti-exp.version}</version>
-		</dependency>
-		<!--<dependency> 这个包看起来没什么用，一旦加入的话由于他依赖于5.22的activiti-engine包，所以不能兼容6.0.0
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-diagram-rest</artifactId>
-            <version>${activiti-exp.version}</version>
-        </dependency>-->
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-simple-workflow</artifactId>
-			<version>${activiti-exp.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
@@ -268,6 +235,9 @@
 					<resource>
 						<directory>src/main/resources/profiles/dev</directory>
 					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
 				</resources>
 			</build>
 		</profile>
@@ -281,6 +251,9 @@
 					<resource>
 						<directory>src/main/resources/profiles/sit</directory>
 					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
+					</resource>
 				</resources>
 			</build>
 		</profile>
@@ -293,6 +266,9 @@
 				<resources>
 					<resource>
 						<directory>src/main/resources/profiles/pro</directory>
+					</resource>
+					<resource>
+						<directory>src/main/resources</directory>
 					</resource>
 				</resources>
 			</build>
