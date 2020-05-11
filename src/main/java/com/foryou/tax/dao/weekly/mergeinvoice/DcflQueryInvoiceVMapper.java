@@ -5,6 +5,8 @@ import com.foryou.tax.pojo.weekly.mergeinvoice.DcflQueryInvoiceV;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 /**
  * <p>
  * VIEW Mapper 接口
@@ -18,4 +20,6 @@ import org.springframework.stereotype.Component;
 public interface DcflQueryInvoiceVMapper extends BaseMapper<DcflQueryInvoiceV> {
 
     DcflQueryInvoiceV dcflQueryInvoiceDataByKeywords(String keyWords);
+
+    List<DcflQueryInvoiceV> queryDcflInvoiceData();
 }

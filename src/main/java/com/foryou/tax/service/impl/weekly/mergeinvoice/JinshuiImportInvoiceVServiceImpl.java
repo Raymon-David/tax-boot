@@ -46,7 +46,7 @@ public class JinshuiImportInvoiceVServiceImpl implements JinshuiImportInvoiceVSe
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject jsonObject = JSONObject.parseObject(Convert.toStr(jsonArray.get(i)));
                 jinshuiImportInvoiceV = JSON.toJavaObject(jsonObject, JinshuiImportInvoiceV.class);
-                LoggerUtils.debug(getClass(), "JinshuiImportInvoiceVServiceImpl queryJinshuiImportData List<JinshuiImportInvoiceV> JSONObject to contractInfo is: " + jinshuiImportInvoiceV);
+                LoggerUtils.debug(getClass(), "JinshuiImportInvoiceVServiceImpl queryJinshuiImportData List<JinshuiImportInvoiceV> JSONObject to JinshuiImportInvoiceV is: " + jinshuiImportInvoiceV);
                 list.add(jinshuiImportInvoiceV);
             }
             LoggerUtils.debug(getClass(), "JinshuiImportInvoiceVServiceImpl queryJinshuiImportData List<JinshuiImportInvoiceV> from redis is: " + list);

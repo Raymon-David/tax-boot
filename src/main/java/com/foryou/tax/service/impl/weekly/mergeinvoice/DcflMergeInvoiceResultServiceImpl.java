@@ -51,7 +51,7 @@ public class DcflMergeInvoiceResultServiceImpl implements DcflMergeInvoiceResult
             for (int i = 0; i < jsonArray.size(); i++) {
                 JSONObject jsonObject = JSONObject.parseObject(Convert.toStr(jsonArray.get(i)));
                 dcflMergeInvoiceResult = JSON.toJavaObject(jsonObject, DcflMergeInvoiceResult.class);
-                LoggerUtils.debug(getClass(), "DcflMergeInvoiceResultServiceImpl queryMergeResultData List<DcflMergeInvoiceResult> JSONObject to contractInfo is: " + dcflMergeInvoiceResult);
+                LoggerUtils.debug(getClass(), "DcflMergeInvoiceResultServiceImpl queryMergeResultData List<DcflMergeInvoiceResult> JSONObject to DcflMergeInvoiceResult is: " + dcflMergeInvoiceResult);
                 list.add(dcflMergeInvoiceResult);
             }
             LoggerUtils.debug(getClass(), "DcflMergeInvoiceResultServiceImpl queryMergeResultData List<DcflMergeInvoiceResult> from redis is: " + list);

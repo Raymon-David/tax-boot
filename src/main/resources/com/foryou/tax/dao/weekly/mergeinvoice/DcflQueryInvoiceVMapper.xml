@@ -49,5 +49,26 @@
         from DCFL_QUERY_INVOICE_V
         where KEYWORDS =  #{keyWords}
     </select>
+    <select id="queryDcflInvoiceData" resultMap="BaseResultMap">
+        select
+        DOCUMENT_NUMBER,
+        KEYWORDS,
+        INVOICE_CODE,
+        INVOICE_NUMBER,
+        INVOICE_TITLE,
+        TAX_REGISTRY_NUM,
+        INVOICE_OBJECT_ADDRESS_PHONE,
+        date_format(ISSUED_TIME,'%Y-%m-%d') as ISSUED_TIME,
+        ISSUED_MONTH,
+        TOTAL_AMOUNT,
+        TAX_NET_AMOUNT,
+        TAX_RATE,
+        TAX_AMOUNT,
+        INVOICE_MEMO,
+        ISSUER,
+        REVIEWER,
+        INVOICE_INVALID_FLAG
+        from DCFL_QUERY_INVOICE_V
+    </select>
 
 </mapper>

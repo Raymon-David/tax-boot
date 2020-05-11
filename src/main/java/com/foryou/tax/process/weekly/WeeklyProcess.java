@@ -357,10 +357,32 @@ public class WeeklyProcess extends BaseProcess {
      * @param request
      * @param response
      */
-    public void createInvoiceExcel(HttpServletRequest request, HttpServletResponse response) {
+    public void exportInvoiceMergeExcel(HttpServletRequest request, HttpServletResponse response) {
 
         List<DcflMergeInvoiceResult> list = dcflMergeInvoiceResultService.queryMergeResultData();
         String filename = "发票merge周报.xlsx";
+        try {
+            ExportExcel.getExcel(response, list, filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportDcflInvoiceExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        List<DcflQueryInvoiceV> list = dcflQueryInvoiceVService.queryDcflInvoiceData();
+        String filename = "一周DCFL销项发票查询中的数据.xlsx";
+        try {
+            ExportExcel.getExcel(response, list, filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportJinshuiInvoiceExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        List<JinshuiImportInvoiceV> list = jinshuiImportInvoiceVService.queryJinshuiImportData();
+        String filename = "一周金税纸票、电票导入的数据.xlsx";
         try {
             ExportExcel.getExcel(response, list, filename);
         } catch (Exception e) {

@@ -58,12 +58,31 @@ public class WeeklyController {
     }
 
     /**
-     * 生成周报
+     * 导出merge周报excel
      */
-    @RequestMapping(value = "/weekly/createInvoiceExcel", method = {RequestMethod.GET})
-    public void createInvoiceExcel(HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/weekly/exportInvoiceMergeExcel", method = {RequestMethod.POST})
+    public void exportInvoiceMergeExcel(HttpServletRequest request, HttpServletResponse response){
 
-        weeklyProcess.createInvoiceExcel(request, response);
+        weeklyProcess.exportInvoiceMergeExcel(request, response);
+    }
+
+    /**
+     * 导出一周DCFL销项发票查询中的数据
+     */
+    @RequestMapping(value = "/weekly/exportDcflInvoiceExcel", method = {RequestMethod.POST})
+    public void exportDcflInvoiceExcel(HttpServletRequest request, HttpServletResponse response){
+
+        weeklyProcess.exportDcflInvoiceExcel(request, response);
+    }
+
+
+    /**
+     * 导出一周金税纸票、电票导入的数据
+     */
+    @RequestMapping(value = "/weekly/exportJinshuiInvoiceExcel", method = {RequestMethod.POST})
+    public void exportJinshuiInvoiceExcel(HttpServletRequest request, HttpServletResponse response){
+
+        weeklyProcess.exportJinshuiInvoiceExcel(request, response);
     }
 
 

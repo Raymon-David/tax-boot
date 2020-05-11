@@ -2,6 +2,8 @@ package com.foryou.tax.service.weekly.mergeinvoice;
 
 import com.foryou.tax.pojo.weekly.mergeinvoice.DcflQueryInvoiceV;
 
+import java.util.List;
+
 /**
  * <p>
  * VIEW 服务类
@@ -13,4 +15,6 @@ import com.foryou.tax.pojo.weekly.mergeinvoice.DcflQueryInvoiceV;
 public interface DcflQueryInvoiceVService {
 
     DcflQueryInvoiceV dcflQueryInvoiceDataByKeywords(String keyWords);
+
+    List<DcflQueryInvoiceV> queryDcflInvoiceData();
 }
