@@ -56,7 +56,7 @@ public class JinshuiImportInvoiceVServiceImpl implements JinshuiImportInvoiceVSe
             redisService.putValue("queryJinshuiImportDataByRedis", ll, 3000);
             list = ll;
         }
-
+        LoggerUtils.debug(getClass(), "------ JinshuiImportInvoiceVServiceImpl queryJinshuiImportData end --------");
         return list;
     }
 }

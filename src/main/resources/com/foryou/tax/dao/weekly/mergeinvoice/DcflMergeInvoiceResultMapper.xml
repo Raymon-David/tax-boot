@@ -185,5 +185,10 @@
             </if>
         </trim>
     </insert>
+    <select id="queryMergeResultData" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from DCFL_MERGE_INVOICE_RESULT
+    </select>
 
 </mapper>

@@ -5,6 +5,7 @@ import com.foryou.tax.api.bean.SuccessBean;
 import com.foryou.tax.api.bean.success.SuccessDesc;
 import com.foryou.tax.api.bean.success.SuccessInfo;
 import com.foryou.tax.api.constant.InvoiceMergeErrorEnum;
+import com.foryou.tax.api.excel.ExportExcel;
 import com.foryou.tax.api.excel.ImportExcel;
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
 import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
@@ -214,6 +215,10 @@ public class WeeklyProcess extends BaseProcess {
     public void weeklyInvoiceMerge(HttpServletRequest request, HttpServletResponse response) {
 
         LoggerUtils.debug(getClass(), "Weekly invoice merge start");
+        SuccessBean successBean = new SuccessBean();
+        SuccessInfo successInfo = new SuccessInfo();
+        SuccessDesc successDesc = new SuccessDesc();
+
         List<JinshuiImportInvoiceV> jinshuiList = jinshuiImportInvoiceVService.queryJinshuiImportData();
 
         for(int i = 0; i < jinshuiList.size(); i++){
@@ -338,5 +343,28 @@ public class WeeklyProcess extends BaseProcess {
         }
         LoggerUtils.debug(getClass(), "Weekly invoice merge end");
 
+        successDesc.setCode("200");
+        successDesc.setMessage("merge成功！");
+        successInfo.setType("success");
+        successInfo.setSuccessDesc(successDesc);
+        successBean.setSuccess(successInfo);
+        writeClientJson(response, successBean, "");
+
+    }
+
+    /**
+     * 生成周报 excel
+     * @param request
+     * @param response
+     */
+    public void createInvoiceExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        List<DcflMergeInvoiceResult> list = dcflMergeInvoiceResultService.queryMergeResultData();
+        String filename = "发票merge周报.xlsx";
+        try {
+            ExportExcel.getExcel(response, list, filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

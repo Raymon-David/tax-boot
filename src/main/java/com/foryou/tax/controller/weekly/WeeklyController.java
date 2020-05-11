@@ -57,5 +57,14 @@ public class WeeklyController {
         weeklyProcess.weeklyInvoiceMerge(request, response);
     }
 
+    /**
+     * 生成周报
+     */
+    @RequestMapping(value = "/weekly/createInvoiceExcel", method = {RequestMethod.GET})
+    public void createInvoiceExcel(HttpServletRequest request, HttpServletResponse response){
+
+        weeklyProcess.createInvoiceExcel(request, response);
+    }
+
 
 }
