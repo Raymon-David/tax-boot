@@ -9,7 +9,7 @@ CREATE TABLE DCFL_QUERY_INVOICE_TEMP (
   ISSUED_TIME timestamp NULL COMMENT '开票日期',
   ISSUED_MONTH varchar(10) COMMENT '所属月份',
   TOTAL_AMOUNT decimal(12,2) NULL COMMENT '含税金额 订单总价合计',
-  TAX_NET_AMOUNT decimal(12) NULL COMMENT '不含税金额 合计金额',
+  TAX_NET_AMOUNT decimal(12,2) NULL COMMENT '不含税金额 合计金额',
   TAX_RATE decimal(12,2) COMMENT '税率',
   TAX_AMOUNT decimal(12,2) NULL COMMENT '税额 合计税额',
   INVOICE_MEMO varchar(2000) NULL COMMENT '备注',
@@ -68,3 +68,28 @@ SELECT ah.document_number,                                              --单据
           vat_invoice_code                                            -- 发票代码
   FROM acr_invoice_hd ah
   where ah.accounting_date between sysdate - 7 and sysdate
+
+
+CREATE VIEW DCFL_QUERY_INVOICE_V
+AS
+SELECT
+DOCUMENT_NUMBER,
+concat(INVOICE_CODE, INVOICE_NUMBER) AS KEYWORDS,
+INVOICE_CODE,
+INVOICE_NUMBER,
+INVOICE_TITLE,
+TAX_REGISTRY_NUM,
+INVOICE_OBJECT_ADDRESS_PHONE,
+INVOICE_OBJECT_BANK_ACCOUNT,
+ISSUED_TIME,
+ISSUED_MONTH,
+TOTAL_AMOUNT,
+TAX_NET_AMOUNT,
+TAX_RATE,
+TAX_AMOUNT,
+INVOICE_MEMO,
+ISSUER,
+REVIEWER,
+CASE WHEN INVOICE_INVALID_FLAG = 'Y' THEN '作废'
+WHEN INVOICE_INVALID_FLAG = 'N' THEN '未作废' END AS INVOICE_INVALID_FLAG
+FROM DCFL_QUERY_INVOICE_TEMP

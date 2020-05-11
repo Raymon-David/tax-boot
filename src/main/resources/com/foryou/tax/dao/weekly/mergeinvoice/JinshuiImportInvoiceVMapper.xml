@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.foryou.tax.dao.weekly.mergeinvoice.JinshuiImportInvoiceVMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.foryou.tax.pojo.weekly.mergeinvoice.JinshuiImportInvoiceV">
+        <result column="BILL_TYPE" property="billType" />
+        <result column="KEYWORDS" property="keywords" />
+        <result column="INVOICE_CODE" property="invoiceCode" />
+        <result column="INVOICE_NUMBER" property="invoiceNumber" />
+        <result column="INVOICE_TITLE" property="invoiceTitle" />
+        <result column="TAX_REGISTRY_NUM" property="taxRegistryNum" />
+        <result column="INVOICE_OBJECT_ADDRESS_PHONE" property="invoiceObjectAddressPhone" />
+        <result column="INVOICE_OBJECT_BANK_ACCOUNT" property="invoiceObjectBankAccount" />
+        <result column="ISSUED_TIME" property="issuedTime" />
+        <result column="ISSUED_MONTH" property="issuedMonth" />
+        <result column="TOTAL_AMOUNT" property="totalAmount" />
+        <result column="TAX_NET_AMOUNT" property="taxNetAmount" />
+        <result column="TAX_RATE" property="taxRate" />
+        <result column="TAX_AMOUNT" property="taxAmount" />
+        <result column="PRODUCT_NAME" property="productName" />
+        <result column="INVOICE_MEMO" property="invoiceMemo" />
+        <result column="ISSUER" property="issuer" />
+        <result column="ACCOUNT_PAYEE" property="accountPayee" />
+        <result column="REVIEWER" property="reviewer" />
+        <result column="INVOICE_INVALID_FLAG" property="invoiceInvalidFlag" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        BILL_TYPE, KEYWORDS, INVOICE_CODE, INVOICE_NUMBER, INVOICE_TITLE, TAX_REGISTRY_NUM, INVOICE_OBJECT_ADDRESS_PHONE, INVOICE_OBJECT_BANK_ACCOUNT, ISSUED_TIME, ISSUED_MONTH, TOTAL_AMOUNT, TAX_NET_AMOUNT, TAX_RATE, TAX_AMOUNT, PRODUCT_NAME, INVOICE_MEMO, ISSUER, ACCOUNT_PAYEE, REVIEWER, INVOICE_INVALID_FLAG
+    </sql>
+    <select id="queryJinshuiImportData" resultMap="BaseResultMap">
+        select
+        BILL_TYPE,
+        KEYWORDS,
+        INVOICE_CODE,
+        INVOICE_NUMBER,
+        INVOICE_TITLE,
+        TAX_REGISTRY_NUM,
+        INVOICE_OBJECT_ADDRESS_PHONE,
+        INVOICE_OBJECT_BANK_ACCOUNT,
+        date_format(ISSUED_TIME,'%Y-%m-%d') as ISSUED_TIME,
+        ISSUED_MONTH,
+        TOTAL_AMOUNT,
+        TAX_NET_AMOUNT,
+        TAX_RATE,
+        TAX_AMOUNT,
+        PRODUCT_NAME,
+        INVOICE_MEMO,
+        ISSUER,
+        ACCOUNT_PAYEE,
+        REVIEWER,
+        INVOICE_INVALID_FLAG
+        from JINSHUI_IMPORT_INVOICE_V
+    </select>
+
+</mapper>

@@ -4,11 +4,18 @@ import cn.hutool.core.convert.Convert;
 import com.foryou.tax.api.bean.SuccessBean;
 import com.foryou.tax.api.bean.success.SuccessDesc;
 import com.foryou.tax.api.bean.success.SuccessInfo;
+import com.foryou.tax.api.constant.InvoiceMergeErrorEnum;
 import com.foryou.tax.api.excel.ImportExcel;
 import com.foryou.tax.pojo.weekly.DcflEleInvoiceImportTemp;
 import com.foryou.tax.pojo.weekly.DcflPaperInvoiceImportTemp;
+import com.foryou.tax.pojo.weekly.mergeinvoice.DcflMergeInvoiceResult;
+import com.foryou.tax.pojo.weekly.mergeinvoice.DcflQueryInvoiceV;
+import com.foryou.tax.pojo.weekly.mergeinvoice.JinshuiImportInvoiceV;
 import com.foryou.tax.process.common.BaseProcess;
 import com.foryou.tax.service.weekly.DcflEleInvoiceImportTempService;
+import com.foryou.tax.service.weekly.mergeinvoice.DcflMergeInvoiceResultService;
+import com.foryou.tax.service.weekly.mergeinvoice.DcflQueryInvoiceVService;
+import com.foryou.tax.service.weekly.mergeinvoice.JinshuiImportInvoiceVService;
 import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +40,15 @@ public class WeeklyProcess extends BaseProcess {
 
     @Autowired
     private DcflEleInvoiceImportTempService dcflEleInvoiceImportTempService;
+
+    @Autowired
+    private JinshuiImportInvoiceVService jinshuiImportInvoiceVService;
+
+    @Autowired
+    private DcflQueryInvoiceVService dcflQueryInvoiceVService;
+
+    @Autowired
+    private DcflMergeInvoiceResultService dcflMergeInvoiceResultService;
 
     public void paperInvoiceImport(HttpServletRequest request, HttpServletResponse response, MultipartFile multipartfile) {
 
@@ -193,5 +209,134 @@ public class WeeklyProcess extends BaseProcess {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void weeklyInvoiceMerge(HttpServletRequest request, HttpServletResponse response) {
+
+        LoggerUtils.debug(getClass(), "Weekly invoice merge start");
+        List<JinshuiImportInvoiceV> jinshuiList = jinshuiImportInvoiceVService.queryJinshuiImportData();
+
+        for(int i = 0; i < jinshuiList.size(); i++){
+            DcflMergeInvoiceResult dcflMergeInvoiceResult = new DcflMergeInvoiceResult();
+
+            String keyWords = jinshuiList.get(i).getKeywords();
+            LoggerUtils.debug(getClass(), "Weekly invoice merge keyWords is " + keyWords);
+            dcflMergeInvoiceResult.setKeywords(keyWords);
+            dcflMergeInvoiceResult.setInvoiceCode(jinshuiList.get(i).getInvoiceCode());
+            dcflMergeInvoiceResult.setInvoiceNumber(jinshuiList.get(i).getInvoiceNumber());
+
+            /**
+             * 发票备注
+             */
+            String invoiceMemo = jinshuiList.get(i).getInvoiceMemo();
+            dcflMergeInvoiceResult.setInvoiceMemo(invoiceMemo);
+
+            /**
+             * 按照左括号分隔, 二手机的左括号是中文的
+             * 合同号
+             */
+            String[] memo = null;
+            if (invoiceMemo.contains("(")) {
+                memo = invoiceMemo.split("[(]");
+            }else if (invoiceMemo.contains("（")) {
+                memo = invoiceMemo.split("[（]");
+            }
+
+            assert memo != null;
+            String contractNumber = memo[1].substring(0, 11);
+            LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
+            dcflMergeInvoiceResult.setContractNumber(contractNumber);
+
+            DcflQueryInvoiceV dcflQueryInvoiceV = dcflQueryInvoiceVService.dcflQueryInvoiceDataByKeywords(keyWords);
+            if (dcflQueryInvoiceV == null) {
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10007.getErrorMsg());
+                dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
+                dcflMergeInvoiceResult.setIssuedTime(jinshuiList.get(i).getIssuedTime());
+                dcflMergeInvoiceResult.setIssuedMonth(jinshuiList.get(i).getIssuedMonth());
+                dcflMergeInvoiceResult.setTaxRegistryNum(jinshuiList.get(i).getTaxRegistryNum());
+                dcflMergeInvoiceResult.setInvoiceObjectAddressPhone(jinshuiList.get(i).getInvoiceObjectAddressPhone());
+                dcflMergeInvoiceResult.setInvoiceObjectBankAccount(jinshuiList.get(i).getInvoiceObjectBankAccount());
+                dcflMergeInvoiceResult.setTotalAmount(jinshuiList.get(i).getTotalAmount());
+                dcflMergeInvoiceResult.setTaxNetAmount(jinshuiList.get(i).getTaxNetAmount());
+                dcflMergeInvoiceResult.setTaxAmount(jinshuiList.get(i).getTaxAmount());
+                dcflMergeInvoiceResult.setIssuer(jinshuiList.get(i).getIssuer());
+                dcflMergeInvoiceResult.setReviewer(jinshuiList.get(i).getReviewer());
+                dcflMergeInvoiceResult.setInvoiceInvalidFlag(jinshuiList.get(i).getInvoiceInvalidFlag());
+                dcflMergeInvoiceResult.setTaxRate(jinshuiList.get(i).getTaxRate());
+
+                dcflMergeInvoiceResultService.insertData(dcflMergeInvoiceResult);
+                continue;
+            }
+
+            /**
+             * 发票备注上的名称和购货名称merge
+             */
+            String memoTitle = memo[0].trim();
+            if (!memoTitle.equals(jinshuiList.get(i).getInvoiceTitle().trim())) {
+                LoggerUtils.debug(getClass(), "memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10001.getErrorMsg() + "---memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
+            }
+            dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
+
+            /**
+             * 金税系统与融资租赁系统开票日期merge
+             */
+            Date jinshuiIssuedDate = Convert.toDate(jinshuiList.get(i).getIssuedTime());
+            Date dcflIssuedDate = Convert.toDate(dcflQueryInvoiceV.getIssuedTime().trim());
+            if (!jinshuiIssuedDate.equals(dcflIssuedDate)) {
+                LoggerUtils.debug(getClass(), "jinshuiIssuedDate is: " + jinshuiIssuedDate + " and dcflIssuedDate is: " + dcflIssuedDate);
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10002.getErrorMsg() + "---jinshuiIssuedDate is: " + jinshuiIssuedDate + " and dcflIssuedDate is: " + dcflIssuedDate);
+            }
+            dcflMergeInvoiceResult.setIssuedTime(jinshuiList.get(i).getIssuedTime());
+            dcflMergeInvoiceResult.setIssuedMonth(jinshuiList.get(i).getIssuedMonth());
+
+            /**
+             * 金税系统与融资租赁系统含税金额merge
+             */
+            if (!jinshuiList.get(i).getTotalAmount().equals(dcflQueryInvoiceV.getTotalAmount())) {
+                LoggerUtils.debug(getClass(), "jinshui totalAmount is: " + jinshuiList.get(i).getTotalAmount() + " and dcfl totalAmount is: " + dcflQueryInvoiceV.getTotalAmount());
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10003.getErrorMsg() + "---jinshui totalAmount is: " + jinshuiList.get(i).getTotalAmount() + " and dcfl totalAmount is: " + dcflQueryInvoiceV.getTotalAmount());
+            }
+            dcflMergeInvoiceResult.setTotalAmount(jinshuiList.get(i).getTotalAmount());
+
+            /**
+             * 金税系统与融资租赁系统不含税金额merge
+             */
+            if (!jinshuiList.get(i).getTaxNetAmount().equals(dcflQueryInvoiceV.getTaxNetAmount())) {
+                LoggerUtils.debug(getClass(), "jinshui taxNetAmount is: " + jinshuiList.get(i).getTaxNetAmount() + " and dcfl taxNetAmount is: " + dcflQueryInvoiceV.getTaxNetAmount());
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10004.getErrorMsg() + "---jinshui taxNetAmount is: " + jinshuiList.get(i).getTaxNetAmount() + " and dcfl taxNetAmount is: " + dcflQueryInvoiceV.getTaxNetAmount());
+            }
+            dcflMergeInvoiceResult.setTaxNetAmount(jinshuiList.get(i).getTaxNetAmount());
+
+            /**
+             * 金税系统与融资租赁系统税额merge
+             */
+            if (!jinshuiList.get(i).getTaxAmount().equals(dcflQueryInvoiceV.getTaxAmount())) {
+                LoggerUtils.debug(getClass(), "jinshui taxAmount is: " + jinshuiList.get(i).getTaxAmount() + " and dcfl taxAmount is: " + dcflQueryInvoiceV.getTaxAmount());
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10005.getErrorMsg() + "---jinshui taxAmount is: " + jinshuiList.get(i).getTaxAmount() + " and dcfl taxAmount is: " + dcflQueryInvoiceV.getTaxAmount());
+            }
+            dcflMergeInvoiceResult.setTaxAmount(jinshuiList.get(i).getTaxAmount());
+
+
+            /**
+             * 金税系统与融资租赁系统反冲标志merge
+             */
+            if (!jinshuiList.get(i).getInvoiceInvalidFlag().trim().equals(dcflQueryInvoiceV.getInvoiceInvalidFlag().trim())) {
+                LoggerUtils.debug(getClass(), "jinshui invoiceInvalidFlag is: " + jinshuiList.get(i).getInvoiceInvalidFlag() + " and dcfl invoiceInvalidFlag is: " + dcflQueryInvoiceV.getInvoiceInvalidFlag());
+                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10006.getErrorMsg() + "---jinshui invoiceInvalidFlag is: " + jinshuiList.get(i).getInvoiceInvalidFlag() + " and dcfl invoiceInvalidFlag is: " + dcflQueryInvoiceV.getInvoiceInvalidFlag());
+            }
+            dcflMergeInvoiceResult.setInvoiceInvalidFlag(jinshuiList.get(i).getInvoiceInvalidFlag());
+
+            dcflMergeInvoiceResult.setTaxRegistryNum(jinshuiList.get(i).getTaxRegistryNum());
+            dcflMergeInvoiceResult.setInvoiceObjectAddressPhone(jinshuiList.get(i).getInvoiceObjectAddressPhone());
+            dcflMergeInvoiceResult.setInvoiceObjectBankAccount(jinshuiList.get(i).getInvoiceObjectBankAccount());
+            dcflMergeInvoiceResult.setIssuer(jinshuiList.get(i).getIssuer());
+            dcflMergeInvoiceResult.setReviewer(jinshuiList.get(i).getReviewer());
+            dcflMergeInvoiceResult.setTaxRate(jinshuiList.get(i).getTaxRate());
+
+            dcflMergeInvoiceResultService.insertData(dcflMergeInvoiceResult);
+        }
+        LoggerUtils.debug(getClass(), "Weekly invoice merge end");
+
     }
 }
