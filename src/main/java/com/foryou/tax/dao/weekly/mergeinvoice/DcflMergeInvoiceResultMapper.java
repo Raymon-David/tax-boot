@@ -22,4 +22,6 @@ public interface DcflMergeInvoiceResultMapper extends BaseMapper<DcflMergeInvoic
     int insertData(DcflMergeInvoiceResult dcflMergeInvoiceResult);
 
     List<DcflMergeInvoiceResult> queryMergeResultData();
+
+    int deleteData();
 }

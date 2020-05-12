@@ -187,8 +187,30 @@
     </insert>
     <select id="queryMergeResultData" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List" />
+        DOCUMENT_NUMBER,
+        KEYWORDS,
+        CONTRACT_NUMBER,
+        INVOICE_CODE,
+        INVOICE_NUMBER,
+        INVOICE_TITLE,
+        TAX_REGISTRY_NUM,
+        INVOICE_OBJECT_ADDRESS_PHONE,
+        INVOICE_OBJECT_BANK_ACCOUNT,
+        ISSUED_TIME,
+        ISSUED_MONTH,
+        TOTAL_AMOUNT,
+        TAX_NET_AMOUNT,
+        TAX_RATE,
+        TAX_AMOUNT,
+        INVOICE_MEMO,
+        ISSUER,
+        REVIEWER,
+        INVOICE_INVALID_FLAG,
+        INVOICE_MERGE_RESULT
         from DCFL_MERGE_INVOICE_RESULT
     </select>
+    <delete id="deleteData">
+        delete from DCFL_MERGE_INVOICE_RESULT
+    </delete>
 
 </mapper>

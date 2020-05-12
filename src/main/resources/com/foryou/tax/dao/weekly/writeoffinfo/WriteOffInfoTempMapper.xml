@@ -329,13 +329,13 @@
         delete from WRITE_OFF_INFO_TEMP
     </delete>
     <select id="writeOffInfoQueryWeekly" resultType="java.util.Map">
-        SELECT A.CASHFLOW_NAME,
-               SUM(A.WRITE_OFF_DUE_AMOUNT) AS WRITE_OFF_DUE_AMOUNT,
-                     SUM(A.WRITE_OFF_PRINCIPAL) AS WRITE_OFF_PRINCIPAL,
-                     SUM(A.WRITE_OFF_INTEREST) AS WRITE_OFF_INTEREST
-        FROM WRITE_OFF_INFO A
+        SELECT A.CASHFLOW_NAME AS 现金流项目,
+               SUM(A.WRITE_OFF_DUE_AMOUNT) AS 收款核销金额,
+               SUM(A.WRITE_OFF_PRINCIPAL) AS 收款核销本金,
+               SUM(A.WRITE_OFF_INTEREST) AS 收款核销利息
+        FROM WRITE_OFF_INFO_V A
         GROUP BY A.CASHFLOW_NAME
-        ORDER BY A.CASHFLOW_NAME
+        ORDER BY A.CASHFLOW_NAME DESC
     </select>
 
 </mapper>

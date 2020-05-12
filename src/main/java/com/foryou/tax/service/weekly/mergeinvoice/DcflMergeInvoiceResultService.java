@@ -17,4 +17,6 @@ public interface DcflMergeInvoiceResultService {
     int insertData(DcflMergeInvoiceResult dcflMergeInvoiceResult);
 
     List<DcflMergeInvoiceResult> queryMergeResultData();
+
+    int deleteData();
 }

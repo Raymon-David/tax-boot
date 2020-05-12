@@ -640,5 +640,14 @@
     <delete id="deleteData">
         delete from ALL_INVOICE_INFO_TEMP
     </delete>
+    <select id="createInvoiceQueryWeekly" resultType="java.util.Map">
+        SELECT A.CASHFLOW_NAME AS 现金流项目,
+               SUM(A.NOTBILLING_AMOUNT) AS 未开发票金额,
+               SUM(A.NOTBILLING_PRINCIPAL) AS 未开发票本金,
+               SUM(A.NOTBILLING_INTEREST) AS 未开发票利息
+        FROM ALL_INVOICE_INFO_TEMP_V A
+        GROUP BY A.CASHFLOW_NAME
+        ORDER BY A.CASHFLOW_NAME DESC
+    </select>
 
 </mapper>

@@ -85,5 +85,32 @@ public class WeeklyController {
         weeklyProcess.exportJinshuiInvoiceExcel(request, response);
     }
 
+    /**
+     *导出核销的一周报表
+     */
+    @RequestMapping(value = "/weekly/exportWriteOffExcel", method = {RequestMethod.POST})
+    public void exportWriteOffExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        weeklyProcess.exportWriteOffExcel(request, response);
+    }
+
+    /**
+     *导出发票创建的一周报表
+     */
+    @RequestMapping(value = "/weekly/exportCreateInvoiceExcel", method = {RequestMethod.POST})
+    public void exportCreateInvoiceExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        weeklyProcess.exportCreateInvoiceExcel(request, response);
+    }
+
+    /**
+     *导出All 一周报表
+     */
+    @RequestMapping(value = "/weekly/exportAllExcel", method = {RequestMethod.POST})
+    public void exportAllExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        weeklyProcess.exportAllExcel(request, response);
+    }
+
 
 }

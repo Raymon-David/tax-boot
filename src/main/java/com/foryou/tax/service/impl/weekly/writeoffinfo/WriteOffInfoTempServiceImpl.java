@@ -65,7 +65,7 @@ public class WriteOffInfoTempServiceImpl implements WriteOffInfoTempService {
         }else {
             List<Map<String, Object>> list = writeOffInfoTempMapper.writeOffInfoQueryWeekly();
             LoggerUtils.debug(getClass(), "writeOffInfoQueryWeekly from DB is: " + list);
-            redisService.putValue("writeOffInfoQueryWeekly", list, 3000);
+            redisService.putValue("writeOffInfoQueryWeekly", list, 10);
             mapList = list;
         }
 

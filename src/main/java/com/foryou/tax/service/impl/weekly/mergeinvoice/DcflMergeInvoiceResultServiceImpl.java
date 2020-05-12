@@ -64,4 +64,9 @@ public class DcflMergeInvoiceResultServiceImpl implements DcflMergeInvoiceResult
         LoggerUtils.debug(getClass(), "------ DcflMergeInvoiceResultServiceImpl queryMergeResultData end --------");
         return list;
     }
+
+    @Override
+    public int deleteData() {
+        return dcflMergeInvoiceResultMapper.deleteData();
+    }
 }

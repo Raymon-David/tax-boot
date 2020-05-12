@@ -13,10 +13,12 @@ import com.foryou.tax.pojo.weekly.mergeinvoice.DcflMergeInvoiceResult;
 import com.foryou.tax.pojo.weekly.mergeinvoice.DcflQueryInvoiceV;
 import com.foryou.tax.pojo.weekly.mergeinvoice.JinshuiImportInvoiceV;
 import com.foryou.tax.process.common.BaseProcess;
+import com.foryou.tax.service.allinvoice.AllInvoiceInfoTempService;
 import com.foryou.tax.service.weekly.DcflEleInvoiceImportTempService;
 import com.foryou.tax.service.weekly.mergeinvoice.DcflMergeInvoiceResultService;
 import com.foryou.tax.service.weekly.mergeinvoice.DcflQueryInvoiceVService;
 import com.foryou.tax.service.weekly.mergeinvoice.JinshuiImportInvoiceVService;
+import com.foryou.tax.service.weekly.writeoffinfo.WriteOffInfoTempService;
 import com.foryou.tax.util.DateUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ：Raymon
@@ -50,6 +50,12 @@ public class WeeklyProcess extends BaseProcess {
 
     @Autowired
     private DcflMergeInvoiceResultService dcflMergeInvoiceResultService;
+
+    @Autowired
+    private WriteOffInfoTempService writeOffInfoTempService;
+
+    @Autowired
+    private AllInvoiceInfoTempService allInvoiceInfoTempService;
 
     public void paperInvoiceImport(HttpServletRequest request, HttpServletResponse response, MultipartFile multipartfile) {
 
@@ -219,6 +225,10 @@ public class WeeklyProcess extends BaseProcess {
         SuccessInfo successInfo = new SuccessInfo();
         SuccessDesc successDesc = new SuccessDesc();
 
+        LoggerUtils.debug(getClass(), "DCFL_MERGE_INVOICE_RESULT 删除开始");
+        dcflMergeInvoiceResultService.deleteData();
+        LoggerUtils.debug(getClass(), "DCFL_MERGE_INVOICE_RESULT 删除结束");
+
         List<JinshuiImportInvoiceV> jinshuiList = jinshuiImportInvoiceVService.queryJinshuiImportData();
 
         for(int i = 0; i < jinshuiList.size(); i++){
@@ -338,6 +348,7 @@ public class WeeklyProcess extends BaseProcess {
             dcflMergeInvoiceResult.setIssuer(jinshuiList.get(i).getIssuer());
             dcflMergeInvoiceResult.setReviewer(jinshuiList.get(i).getReviewer());
             dcflMergeInvoiceResult.setTaxRate(jinshuiList.get(i).getTaxRate());
+            dcflMergeInvoiceResult.setDocumentNumber(dcflQueryInvoiceV.getDocumentNumber());
 
             dcflMergeInvoiceResultService.insertData(dcflMergeInvoiceResult);
         }
@@ -385,6 +396,81 @@ public class WeeklyProcess extends BaseProcess {
         String filename = "一周金税纸票、电票导入的数据.xlsx";
         try {
             ExportExcel.getExcel(response, list, filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportWriteOffExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        String filename = "核销的一周报表.xlsx";
+        /**
+         * 核销报表
+         */
+        List<Map<String, Object>> mapList = writeOffInfoTempService.writeOffInfoQueryWeekly();
+        try {
+            ExportExcel.getExcel(response, mapList, filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportCreateInvoiceExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        String filename = "发票创建的一周报表.xlsx";
+        /**
+         * 发票创建报表
+         */
+        List<Map<String, Object>> list = allInvoiceInfoTempService.createInvoiceQueryWeekly();
+        try {
+            ExportExcel.getExcel(response, list, filename);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void exportAllExcel(HttpServletRequest request, HttpServletResponse response) {
+
+        List<Map<String, Object>> list = new ArrayList<>();
+        Map<String, Object> map = new HashMap<>();
+        String filename = "All一周报表.xlsx";
+
+        /**
+         * 发票创建报表
+         */
+        List<Map<String, Object>> list1 = allInvoiceInfoTempService.createInvoiceQueryWeekly();
+
+        /**
+         * 核销报表
+         */
+        List<Map<String, Object>> list2 = writeOffInfoTempService.writeOffInfoQueryWeekly();
+
+        /**
+         * 一周金税纸票、电票导入的数据
+         */
+        List<JinshuiImportInvoiceV> list3 = jinshuiImportInvoiceVService.queryJinshuiImportData();
+
+        /**
+         * 一周DCFL销项发票查询中的数据
+         */
+        List<DcflQueryInvoiceV> list4 = dcflQueryInvoiceVService.queryDcflInvoiceData();
+
+        /**
+         * 发票merge周报
+         */
+        List<DcflMergeInvoiceResult> list5 = dcflMergeInvoiceResultService.queryMergeResultData();
+
+
+        map.put("发票创建报表", list1);
+        map.put("核销报表", list2);
+        map.put("一周金税纸票、电票导入的数据", list3);
+        map.put("一周DCFL销项发票查询中的数据", list4);
+        map.put("发票merge周报", list5);
+
+        list.add(map);
+
+        try {
+            ExportExcel.getManySheetExcel(response, list, filename);
         } catch (Exception e) {
             e.printStackTrace();
         }
