@@ -36,8 +36,6 @@
     <link rel="stylesheet" href="/static/lib/file-uploader/css/jquery.fileupload-ui-noscript.css">
   </noscript>
 
-
-
 </head>
 
 <body>
@@ -221,11 +219,21 @@
 <script type="text/javascript" src="/static/lib/advanced-form-components.js"></script>
 <script type="text/javascript" src="/static/js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="/static/js/jquery.form.js"></script>
+<script type="text/javascript" src="/static/js/jquery.blockUI.js"></script>
 
   <script>
 
     function savePaperClick(){
-      debugger;
+      $.blockUI({ css: {
+          border: 'none',
+          padding: '15px',
+          backgroundColor: '#000',
+          '-webkit-border-radius': '10px',
+          '-moz-border-radius': '10px',
+          opacity: .5,
+          color: '#fff'
+        } });
+
       var fileName = $("#paperFile").val();
       var fd = new FormData($("#paperFileupload")[0]);
       if (fileName.length != 0) {
@@ -258,16 +266,28 @@
           //第二种写法，这种比较好，可以传大容量的excel
           $('#paperFileupload').ajaxForm(function(data){
             alert(data.success.successDesc.message);
+            $.unblockUI(); //解屏
             backView();
           });
         }
       }else{
         alert('请先选择上传文件！');
+        $.unblockUI(); //解屏
         backView();
       }
     }
 
     function saveEleClick(){
+      $.blockUI({ css: {
+          border: 'none',
+          padding: '15px',
+          backgroundColor: '#000',
+          '-webkit-border-radius': '10px',
+          '-moz-border-radius': '10px',
+          opacity: .5,
+          color: '#fff'
+        } });
+
       var fileName = $("#eleUploadFile").val();
       var fd = new FormData($("#eleFileupload")[0]);
       if (fileName.length != 0) {
@@ -301,16 +321,28 @@
           //第二种写法，这种比较好，可以传大容量的excel
           $('#eleFileupload').ajaxForm(function(data){
             alert(data.success.successDesc.message);
+            $.unblockUI(); //解屏
             backView();
           });
         }
       }else{
         alert('请先选择上传文件！');
+        $.unblockUI(); //解屏
         backView();
       }
     }
 
     function invoiceMergeClick(){
+      $.blockUI({ css: {
+          border: 'none',
+          padding: '15px',
+          backgroundColor: '#000',
+          '-webkit-border-radius': '10px',
+          '-moz-border-radius': '10px',
+          opacity: .5,
+          color: '#fff'
+        } });
+
       $.ajax({
         type: 'POST', // HTTP请求方式
         enctype: 'multipart/form-data',
@@ -322,10 +354,12 @@
         timeout: 600000,
         success: function (data) {
           alert("金税系统的开票数据和融资资料系统的开票数据对比成功！");
+          $.unblockUI(); //解屏
           backView();
         },
         error: function (data) {
           alert('oh,似乎出现点问题了！');
+          $.unblockUI(); //解屏
           backView();
         }
       });
