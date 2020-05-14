@@ -58,7 +58,7 @@ public class DcflMergeInvoiceResultServiceImpl implements DcflMergeInvoiceResult
         }else{
             List<DcflMergeInvoiceResult> ll = dcflMergeInvoiceResultMapper.queryMergeResultData();
             LoggerUtils.debug(getClass(), "DcflMergeInvoiceResultServiceImpl queryMergeResultData List<DcflMergeInvoiceResult> from DB is: " + ll);
-            redisService.putValue("queryMergeResultDataByRedis", ll, 3000);
+            redisService.putValue("queryMergeResultDataByRedis", ll, 60);
             list = ll;
         }
         LoggerUtils.debug(getClass(), "------ DcflMergeInvoiceResultServiceImpl queryMergeResultData end --------");

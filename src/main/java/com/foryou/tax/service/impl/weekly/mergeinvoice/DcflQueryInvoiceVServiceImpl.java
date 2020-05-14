@@ -58,7 +58,7 @@ public class DcflQueryInvoiceVServiceImpl implements DcflQueryInvoiceVService {
         }else{
             List<DcflQueryInvoiceV> ll = dcflQueryInvoiceVMapper.queryDcflInvoiceData();
             LoggerUtils.debug(getClass(), "DcflQueryInvoiceVServiceImpl queryDcflInvoiceData List<DcflQueryInvoiceV> from DB is: " + ll);
-            redisService.putValue("queryDcflImportDataByRedis", ll, 3000);
+            redisService.putValue("queryDcflImportDataByRedis", ll, 60);
             list = ll;
         }
         LoggerUtils.debug(getClass(), "------ DcflQueryInvoiceVServiceImpl queryDcflInvoiceData end --------");

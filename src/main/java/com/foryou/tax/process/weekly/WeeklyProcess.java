@@ -248,19 +248,58 @@ public class WeeklyProcess extends BaseProcess {
 
             /**
              * 按照左括号分隔, 二手机的左括号是中文的
+             * 备注里没有合同号就不截取
              * 合同号
              */
             String[] memo = null;
             if (invoiceMemo.contains("(")) {
                 memo = invoiceMemo.split("[(]");
+                String contractNumber = null;
+                /**
+                 * 这种判断适用于发票抬头中带（北京）的情况
+                 */
+                if (memo[1].length() > 7){
+                    contractNumber = memo[1].substring(0, 11);
+                    LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
+
+                    /**
+                     * 发票备注上的名称和购货名称merge
+                     * 如果抬头中带（北京），则不验证
+                     */
+                    String memoTitle = memo[0].trim();
+                    if (!memoTitle.equals(jinshuiList.get(i).getInvoiceTitle().trim())) {
+                        LoggerUtils.debug(getClass(), "memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
+                        dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10001.getErrorMsg() + "---memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
+                    }
+                    dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
+                }else{
+                    contractNumber = memo[2].substring(0, 11);
+                    LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
+                }
+                dcflMergeInvoiceResult.setContractNumber(contractNumber);
             }else if (invoiceMemo.contains("（")) {
                 memo = invoiceMemo.split("[（]");
-            }
+                String contractNumber = null;
+                if (memo[1].length() > 7){
+                    contractNumber = memo[1].substring(0, 11);
+                    LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
 
-            assert memo != null;
-            String contractNumber = memo[1].substring(0, 11);
-            LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
-            dcflMergeInvoiceResult.setContractNumber(contractNumber);
+                    /**
+                     * 发票备注上的名称和购货名称merge
+                     * 如果抬头中带（北京），则不验证
+                     */
+                    String memoTitle = memo[0].trim();
+                    if (!memoTitle.equals(jinshuiList.get(i).getInvoiceTitle().trim())) {
+                        LoggerUtils.debug(getClass(), "memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
+                        dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10001.getErrorMsg() + "---memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
+                    }
+                    dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
+                }else{
+                    contractNumber = memo[2].substring(0, 11);
+                    LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
+                }
+                dcflMergeInvoiceResult.setContractNumber(contractNumber);
+            }
 
             DcflQueryInvoiceV dcflQueryInvoiceV = dcflQueryInvoiceVService.dcflQueryInvoiceDataByKeywords(keyWords);
             if (dcflQueryInvoiceV == null) {
@@ -282,16 +321,6 @@ public class WeeklyProcess extends BaseProcess {
                 dcflMergeInvoiceResultService.insertData(dcflMergeInvoiceResult);
                 continue;
             }
-
-            /**
-             * 发票备注上的名称和购货名称merge
-             */
-            String memoTitle = memo[0].trim();
-            if (!memoTitle.equals(jinshuiList.get(i).getInvoiceTitle().trim())) {
-                LoggerUtils.debug(getClass(), "memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
-                dcflMergeInvoiceResult.setInvoiceMergeResult(InvoiceMergeErrorEnum.IMEE_10001.getErrorMsg() + "---memoTitle is: " + memoTitle + " and invoiceTitle is: " + jinshuiList.get(i).getInvoiceTitle());
-            }
-            dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
 
             /**
              * 金税系统与融资租赁系统开票日期merge

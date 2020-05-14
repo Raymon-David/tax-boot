@@ -53,7 +53,7 @@ public class JinshuiImportInvoiceVServiceImpl implements JinshuiImportInvoiceVSe
         }else{
             List<JinshuiImportInvoiceV> ll = jinshuiImportInvoiceVMapper.queryJinshuiImportData();
             LoggerUtils.debug(getClass(), "JinshuiImportInvoiceVServiceImpl queryJinshuiImportData List<JinshuiImportInvoiceV> from DB is: " + ll);
-            redisService.putValue("queryJinshuiImportDataByRedis", ll, 3000);
+            redisService.putValue("queryJinshuiImportDataByRedis", ll, 60);
             list = ll;
         }
         LoggerUtils.debug(getClass(), "------ JinshuiImportInvoiceVServiceImpl queryJinshuiImportData end --------");
