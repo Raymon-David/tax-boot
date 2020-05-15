@@ -48,6 +48,7 @@
         INVOICE_INVALID_FLAG
         from DCFL_QUERY_INVOICE_V
         where KEYWORDS =  #{keyWords}
+        limit 1
     </select>
     <select id="queryDcflInvoiceData" resultMap="BaseResultMap">
         select

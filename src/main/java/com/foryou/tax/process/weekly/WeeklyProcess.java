@@ -273,7 +273,7 @@ public class WeeklyProcess extends BaseProcess {
                     }
                     dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
                 }else{
-                    contractNumber = memo[2].substring(0, 11);
+                    contractNumber = memo[3].substring(0, 11);
                     LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
                 }
                 dcflMergeInvoiceResult.setContractNumber(contractNumber);
@@ -295,7 +295,7 @@ public class WeeklyProcess extends BaseProcess {
                     }
                     dcflMergeInvoiceResult.setInvoiceTitle(jinshuiList.get(i).getInvoiceTitle());
                 }else{
-                    contractNumber = memo[2].substring(0, 11);
+                    contractNumber = memo[3].substring(0, 11);
                     LoggerUtils.debug(getClass(), "Weekly invoice merge contractNumber is " + contractNumber);
                 }
                 dcflMergeInvoiceResult.setContractNumber(contractNumber);
