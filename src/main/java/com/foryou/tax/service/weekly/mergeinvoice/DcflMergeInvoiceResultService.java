@@ -1,8 +1,10 @@
 package com.foryou.tax.service.weekly.mergeinvoice;
 
 import com.foryou.tax.pojo.weekly.mergeinvoice.DcflMergeInvoiceResult;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -19,4 +21,8 @@ public interface DcflMergeInvoiceResultService {
     List<DcflMergeInvoiceResult> queryMergeResultData();
 
     int deleteData();
+
+    int dropTableEveryMonth(@Param("tableName")String tableName);
+
+    List<Map<String, Object>> queryableEveryMonth(@Param("dropDate") String dropDate);
 }

@@ -29,6 +29,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -527,5 +529,53 @@ public class WeeklyProcess extends BaseProcess {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * 定时删除备份表
+     * 每月1号凌晨0点删除
+     * @param request
+     * @param response
+     */
+    public void dropTableEveryMonth(HttpServletRequest request, HttpServletResponse response) {
+
+        String startDateStr = null;
+        String endDateStr = null;
+
+        TimeZone tzES2 = TimeZone.getTimeZone("GMT+8");
+        Calendar calES2 = Calendar.getInstance(tzES2);
+        Calendar ca = Calendar.getInstance();
+        Date now = ca.getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+        dateFormat.setCalendar(calES2);
+        /**
+         * 设置当前日期为当前月的第一天
+         */
+        ca.set(Calendar.DATE, ca.getActualMinimum(Calendar.DAY_OF_MONTH));
+        now = ca.getTime();
+        startDateStr = dateFormat.format(now);
+        /**
+         * 设置当前日期为当前月的最后一天
+         */
+        ca.set(Calendar.DATE, ca.getActualMaximum(Calendar.DAY_OF_MONTH));
+        now = ca.getTime();
+        endDateStr = dateFormat.format(now);
+
+        LoggerUtils.debug(getClass(), "dropTableEveryMonth startDateStr is: " + startDateStr);
+        LoggerUtils.debug(getClass(), "dropTableEveryMonth endDateStr is: " + endDateStr);
+
+        String dropDate = endDateStr;
+
+        List<Map<String, Object>> list = dcflMergeInvoiceResultService.queryableEveryMonth(dropDate);
+        System.out.println(list);
+        String tableName = null;
+        for (int i = 0; i < list.size(); i++) {
+            tableName = list.get(i).get("TABLE_NAME").toString();
+            LoggerUtils.debug(getClass(), "dropTableEveryMonth tableName is: " + tableName);
+
+            dcflMergeInvoiceResultService.dropTableEveryMonth(tableName);
+        }
+
     }
 }

@@ -9,11 +9,13 @@ import com.foryou.tax.pojo.weekly.mergeinvoice.DcflMergeInvoiceResult;
 import com.foryou.tax.service.redis.RedisService;
 import com.foryou.tax.service.weekly.mergeinvoice.DcflMergeInvoiceResultService;
 import com.foryou.tax.util.LoggerUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -68,5 +70,15 @@ public class DcflMergeInvoiceResultServiceImpl implements DcflMergeInvoiceResult
     @Override
     public int deleteData() {
         return dcflMergeInvoiceResultMapper.deleteData();
+    }
+
+    @Override
+    public int dropTableEveryMonth(@Param("tableName")String tableName) {
+        return dcflMergeInvoiceResultMapper.dropTableEveryMonth(tableName);
+    }
+
+    @Override
+    public List<Map<String, Object>> queryableEveryMonth(@Param("dropDate") String dropDate) {
+        return dcflMergeInvoiceResultMapper.queryableEveryMonth(dropDate);
     }
 }

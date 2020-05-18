@@ -212,5 +212,14 @@
     <delete id="deleteData">
         delete from DCFL_MERGE_INVOICE_RESULT
     </delete>
+    <update id="dropTableEveryMonth">
+        drop table ${tableName}
+    </update>
+    <select id="queryableEveryMonth" parameterType="java.lang.String" resultType="Map">
+        select table_name
+        from information_schema.tables
+        where table_schema='tax'
+        and table_name like CONCAT('%',#{dropDate},'%')
+    </select>
 
 </mapper>

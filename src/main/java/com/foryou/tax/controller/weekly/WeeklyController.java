@@ -112,5 +112,15 @@ public class WeeklyController {
         weeklyProcess.exportAllExcel(request, response);
     }
 
+    /**
+     * 定时删除备份表
+     * 每月1号凌晨0点删除
+     */
+    @RequestMapping(value = "/weekly/dropTableEveryMonth", method = {RequestMethod.POST})
+    public void dropTableEveryMonth(HttpServletRequest request, HttpServletResponse response) {
+
+        weeklyProcess.dropTableEveryMonth(request, response);
+    }
+
 
 }
