@@ -548,7 +548,7 @@ public class WeeklyProcess extends BaseProcess {
         Calendar calES2 = Calendar.getInstance(tzES2);
         Calendar ca = Calendar.getInstance();
         Date now = ca.getTime();
-        DateFormat dateFormat = new SimpleDateFormat("yyyyMM");
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
         dateFormat.setCalendar(calES2);
         /**
          * 设置当前日期为当前月的第一天
@@ -566,10 +566,18 @@ public class WeeklyProcess extends BaseProcess {
         LoggerUtils.debug(getClass(), "dropTableEveryMonth startDateStr is: " + startDateStr);
         LoggerUtils.debug(getClass(), "dropTableEveryMonth endDateStr is: " + endDateStr);
 
-        String dropDate = endDateStr;
+        /**
+         * 获取上个月
+         */
+        DateFormat dateFormat1 = new SimpleDateFormat("yyyyMM");
+        ca.add(Calendar.MONTH, -1);
+        now = ca.getTime();
+        String dropDate = dateFormat1.format(now);
+        LoggerUtils.debug(getClass(), "dropTableEveryMonth dropDate is: " + dropDate);
 
         List<Map<String, Object>> list = dcflMergeInvoiceResultService.queryableEveryMonth(dropDate);
-        System.out.println(list);
+        LoggerUtils.debug(getClass(), "dropTableEveryMonth list is: " + list);
+
         String tableName = null;
         for (int i = 0; i < list.size(); i++) {
             tableName = list.get(i).get("TABLE_NAME").toString();
