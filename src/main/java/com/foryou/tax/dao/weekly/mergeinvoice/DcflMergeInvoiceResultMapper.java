@@ -30,4 +30,6 @@ public interface DcflMergeInvoiceResultMapper extends BaseMapper<DcflMergeInvoic
     int dropTableEveryMonth(@Param("tableName") String tableName);
 
     List<Map<String, Object>> queryableEveryMonth(@Param("dropDate") String dropDate);
+
+    int backUpTableEveryMonth(@Param("splitTableNameStr")String splitTableNameStr, @Param("historyTableName")String historyTableName);
 }

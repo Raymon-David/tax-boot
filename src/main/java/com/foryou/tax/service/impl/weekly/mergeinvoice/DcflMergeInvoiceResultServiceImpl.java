@@ -81,4 +81,9 @@ public class DcflMergeInvoiceResultServiceImpl implements DcflMergeInvoiceResult
     public List<Map<String, Object>> queryableEveryMonth(@Param("dropDate") String dropDate) {
         return dcflMergeInvoiceResultMapper.queryableEveryMonth(dropDate);
     }
+
+    @Override
+    public int backUpTableEveryMonth(String splitTableNameStr, String historyTableName) {
+        return dcflMergeInvoiceResultMapper.backUpTableEveryMonth(splitTableNameStr, historyTableName);
+    }
 }

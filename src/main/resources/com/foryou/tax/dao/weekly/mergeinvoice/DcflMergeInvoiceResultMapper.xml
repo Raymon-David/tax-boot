@@ -221,5 +221,11 @@
         where table_schema='tax'
         and table_name like CONCAT('%',#{dropDate},'%')
     </select>
+    <insert id="backUpTableEveryMonth" parameterType="java.lang.String">
+        insert into ${historyTableName}
+        select *
+        from ${splitTableNameStr}
+        where 1 = 1
+    </insert>
 
 </mapper>

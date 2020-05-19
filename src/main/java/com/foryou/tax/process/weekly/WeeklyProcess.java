@@ -533,6 +533,7 @@ public class WeeklyProcess extends BaseProcess {
 
 
     /**
+     * 定时备份要删除的备份表
      * 定时删除备份表
      * 每月1号凌晨0点删除
      * @param request
@@ -574,6 +575,23 @@ public class WeeklyProcess extends BaseProcess {
             tableName = list.get(i).get("TABLE_NAME").toString();
             LoggerUtils.debug(getClass(), "dropTableEveryMonth tableName is: " + tableName);
 
+            /**
+             * 先把备份表里的数据备份到history表里
+             */
+            String splitTable = "_" + dropDate;
+            String[] splitTableName = tableName.split(splitTable);
+
+            String splitTableNameStr = splitTableName[0];
+            LoggerUtils.debug(getClass(), "dropTableEveryMonth splitTableNameStr is: " + splitTableNameStr);
+
+            String historyTableName = splitTableNameStr + "_HISTORY";
+            LoggerUtils.debug(getClass(), "dropTableEveryMonth historyTableName is: " + historyTableName);
+
+            dcflMergeInvoiceResultService.backUpTableEveryMonth(splitTableNameStr, historyTableName);
+
+            /**
+             * 删除备份表
+             */
             dcflMergeInvoiceResultService.dropTableEveryMonth(tableName);
         }
 
