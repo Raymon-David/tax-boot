@@ -335,7 +335,6 @@
                SUM(A.WRITE_OFF_INTEREST) AS 收款核销利息
         FROM WRITE_OFF_INFO_V A
         GROUP BY A.CASHFLOW_NAME
-        ORDER BY A.CASHFLOW_NAME DESC
     </select>
 
 </mapper>
