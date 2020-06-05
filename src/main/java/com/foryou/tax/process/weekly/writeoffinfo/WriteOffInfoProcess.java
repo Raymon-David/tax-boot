@@ -69,7 +69,7 @@ public class WriteOffInfoProcess extends BaseProcess {
             "  CREATED_BY,\n" +
             "  CREATED_BY_N\n" +
             "FROM WRITE_OFF_QUERY_V\n" +
-            "WHERE WRITE_OFF_DATE_C between to_char(sysdate - 8, 'yyyy-mm-dd') and to_char(sysdate, 'yyyy-mm-dd')";
+            "WHERE WRITE_OFF_DATE_C between to_char(sysdate - 7, 'yyyy-mm-dd') and to_char(sysdate, 'yyyy-mm-dd')";
 
     public void writeOffInfoImport(HttpServletRequest request, HttpServletResponse response) {
 
