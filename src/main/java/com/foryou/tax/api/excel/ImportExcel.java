@@ -25,15 +25,25 @@ public class ImportExcel {
         List<Map<String, Object>> li = new ArrayList<Map<String, Object>>();
 
         try {
-            FileInputStream in = new FileInputStream(excelFile); // 文件流
-            Workbook workbook = WorkbookFactory.create(in); // 这种方式 Excel2003/2007/2010都是可以处理的
+            /**
+             * 文件流
+             */
+            FileInputStream in = new FileInputStream(excelFile);
+            /**
+             * 这种方式 Excel2003/2007/2010都是可以处理的
+             */
+            Workbook workbook = WorkbookFactory.create(in);
 
-            int sheetCount = workbook.getNumberOfSheets(); // Sheet的数量
+            /**
+             * Sheet的数量
+             */
+            int sheetCount = workbook.getNumberOfSheets();
             System.out.println("Sheet的数量" + sheetCount);
             /**
              * 设置当前excel中sheet的下标：0开始
+             * 遍历第一个Sheet
              */
-            Sheet sheet = workbook.getSheetAt(0);   // 遍历第一个Sheet
+            Sheet sheet = workbook.getSheetAt(0);
 
             //获取总行数
             System.out.println("总行数" + sheet.getLastRowNum());
