@@ -27,49 +27,35 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
     @Autowired
     private DcflQueryInvoiceTempService dcflQueryInvoiceTempService;
 
-    String sql = "SELECT ah.document_number,                                              --单据编号\n" +
-            "       ah.bp_name,                                                      --发票抬头\n" +
-            "       ah.bp_tax_registry_num,                                          --纳税人识别号\n" +
-            "       ah.bp_address_phone_num,\n" +
-            "       ah.bp_bank_account,\n" +
-            "       (DECODE (ah.contract_id, NULL, NULL, ah.description)) AS description,  --备注\n" +
-            "       NVL (ah.total_amount_old, ah.total_amount) AS total_amount,  --总金额\n" +
-            "       ah.tax_amount,   --税额\n" +
-            "       (select max(al.tax_type_rate)\n" +
-            "        from acr_invoice_ln al\n" +
-            "        where al.invoice_hd_id = ah.invoice_hd_id ) as tax_type_rate,\n" +
-            "       (select sum(al.net_amount)\n" +
-            "        from acr_invoice_ln al\n" +
-            "        where al.invoice_hd_id = ah.invoice_hd_id ) as net_amount,\n" +
-            "       ah.internal_period_num,   --区间\n" +
-            "       (NVL ( (SELECT he.bill_date\n" +
-            "                 FROM acr_ele_invoice_hd he\n" +
-            "                WHERE he.invoice_hd_id = ah.invoice_hd_id),\n" +
-            "             ah.invoice_date))\n" +
-            "          AS invoice_date,  --开票日期\n" +
-            "       (NVL (ah.invoice_number,\n" +
-            "             (SELECT he.yfphm\n" +
-            "                FROM acr_ele_invoice_hd he\n" +
-            "               WHERE he.invoice_hd_id = ah.invoice_hd_id)))\n" +
-            "          AS invoice_number,   --发票号码\n" +
-            "       ah.invalid_flag ,   --作废标志\n" +
-            "       ah.confirmed_date,                                               --复核日期\n" +
-            "       (SELECT u.description\n" +
-            "          FROM sys_user u\n" +
-            "         WHERE u.user_id = ah.confirmed_by)\n" +
-            "          AS confirmed_by_n,                                             --复核人\n" +
-            "       (SELECT u.description\n" +
-            "          FROM sys_user u\n" +
-            "         WHERE u.user_id = ah.created_by)\n" +
-            "          AS created_by_n,                                               --开票人\n" +
-            "       ah.creation_date,     --创建日期\n" +
-            "       (NVL (ah.vat_invoice_code,\n" +
-            "             (SELECT he.yfpdm\n" +
-            "                FROM acr_ele_invoice_hd he\n" +
-            "               WHERE he.invoice_hd_id = ah.invoice_hd_id)))\n" +
-            "          vat_invoice_code                                            -- 发票代码\n" +
-            "  FROM acr_invoice_hd ah\n" +
-            "  where ah.accounting_date between sysdate - 7 and sysdate";
+    String sql = "SELECT a.document_number,\n" +
+            "         MAX (a.bp_name) bp_name,\n" +
+            "         MAX (a.bp_tax_registry_num) bp_tax_registry_num,\n" +
+            "         MAX (a.bp_address_phone_num) bp_address_phone_num,\n" +
+            "         MAX (a.bp_bank_account) bp_bank_account,\n" +
+            "         MAX (a.description) description,\n" +
+            "         MAX (a.total_amount) total_amount,\n" +
+            "         SUM (a.tax_amount) tax_amount,\n" +
+            "         MAX (a.tax_type_rate) tax_type_rate,\n" +
+            "         SUM (a.net_amount) net_amount,\n" +
+            "         MAX (a.internal_period_num) internal_period_num,\n" +
+            "         MAX (a.invoice_date) invoice_date,\n" +
+            "         MAX (a.invoice_number) invoice_number,\n" +
+            "         MAX (a.invalid_flag) invalid_flag,\n" +
+            "         MAX (a.confirmed_date) confirmed_date,\n" +
+            "         MAX (a.confirmed_by_n) confirmed_by_n,\n" +
+            "         MAX (a.created_by_n) created_by_n,\n" +
+            "         MAX (a.creation_date) creation_date,\n" +
+            "         MAX (a.vat_invoice_code) vat_invoice_code,\n" +
+            "         CASE WHEN MAX (a.cf_item) = 101 THEN 1 ELSE MAX (a.cf_item) END\n" +
+            "            cf_item,\n" +
+            "         CASE\n" +
+            "            WHEN MAX (a.cf_item_n) = '租息' THEN '租金'\n" +
+            "            ELSE MAX (a.cf_item_n)\n" +
+            "         END\n" +
+            "            cf_item_desc\n" +
+            "    FROM ACR_INVOICE_HD_DETAIL_LV a\n" +
+            "   WHERE a.accounting_date BETWEEN SYSDATE - 7 AND SYSDATE\n" +
+            "GROUP BY a.document_number";
 
     public void dcflQueryInvoiceTempImport(HttpServletRequest request, HttpServletResponse response) {
 
@@ -106,6 +92,8 @@ public class DcflQueryInvoiceTempProcess extends BaseProcess {
             dcflQueryInvoiceTemp.setReviewer(Convert.toStr(mapList.get(i).get("confirmed_by_n")));
             dcflQueryInvoiceTemp.setInvoiceInvalidFlag(Convert.toStr(mapList.get(i).get("invalid_flag")));
             dcflQueryInvoiceTemp.setCreateTime(Convert.toDate(mapList.get(i).get("creation_date")));
+            dcflQueryInvoiceTemp.setCfItem(Convert.toStr(mapList.get(i).get("cf_item")));
+            dcflQueryInvoiceTemp.setCfItemDesc(mapList.get(i).get("cf_item_desc"));
 
             LoggerUtils.debug(getClass(), "DcflQueryInvoiceTemp is: " + dcflQueryInvoiceTemp);
             dcflQueryInvoiceTempService.insertData(dcflQueryInvoiceTemp);

@@ -22,6 +22,8 @@
         <result column="ACCOUNT_PAYEE" property="accountPayee" />
         <result column="INVOICE_INVALID_FLAG" property="invoiceInvalidFlag" />
         <result column="REVIEWER" property="reviewer" />
+        <result column="CF_ITEM" property="cfItem" />
+        <result column="CF_ITEM_DESC" property="cfItemDesc" />
         <result column="CREATED_BY" property="createdBy" />
         <result column="CREATE_TIME" property="createTime" />
         <result column="UPDATED_BY" property="updatedBy" />
@@ -30,9 +32,9 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        DOCUMENT_NUMBER, INVOICE_CODE, INVOICE_NUMBER, INVOICE_TITLE, TAX_REGISTRY_NUM, INVOICE_OBJECT_ADDRESS_PHONE, INVOICE_OBJECT_BANK_ACCOUNT, ISSUED_TIME, ISSUED_MONTH, TOTAL_AMOUNT, TAX_NET_AMOUNT, TAX_RATE, TAX_AMOUNT, INVOICE_MEMO, ISSUER, ACCOUNT_PAYEE, INVOICE_INVALID_FLAG, REVIEWER, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
+        DOCUMENT_NUMBER, INVOICE_CODE, INVOICE_NUMBER, INVOICE_TITLE, TAX_REGISTRY_NUM, INVOICE_OBJECT_ADDRESS_PHONE, INVOICE_OBJECT_BANK_ACCOUNT, ISSUED_TIME, ISSUED_MONTH, TOTAL_AMOUNT, TAX_NET_AMOUNT, TAX_RATE, TAX_AMOUNT, INVOICE_MEMO, ISSUER, ACCOUNT_PAYEE, INVOICE_INVALID_FLAG, REVIEWER, CF_ITEM, CF_ITEM_DESC, CREATED_BY, CREATE_TIME, UPDATED_BY, UPDATE_TIME
     </sql>
-    <insert id="insertData" parameterType="com.foryou.tax.pojo.weekly.queryinvoice.DcflQueryInvoiceTemp">
+    <insert id="insertData" parameterType="com.foryou.tax.pojo.weekly.queryinvoice.DcflQueryInvoiceTemp" >
         insert into DCFL_QUERY_INVOICE_TEMP
         <trim prefix="(" suffix=")" suffixOverrides="," >
             <if test="invoiceNumber != null" >
@@ -88,6 +90,12 @@
             </if>
             <if test="reviewer != null" >
                 REVIEWER,
+            </if>
+            <if test="cfItem != null" >
+                CF_ITEM,
+            </if>
+            <if test="cfItemDesc != null" >
+                CF_ITEM_DESC,
             </if>
             <if test="createdBy != null" >
                 CREATED_BY,
@@ -156,6 +164,12 @@
             </if>
             <if test="reviewer != null" >
                 #{reviewer,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItem != null" >
+                #{cfItem,jdbcType=VARCHAR},
+            </if>
+            <if test="cfItemDesc != null" >
+                #{cfItemDesc,jdbcType=VARCHAR},
             </if>
             <if test="createdBy != null" >
                 #{createdBy,jdbcType=INTEGER},

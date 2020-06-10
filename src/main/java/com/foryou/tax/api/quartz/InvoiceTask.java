@@ -23,9 +23,6 @@ public class InvoiceTask extends QuartzJobBean {
     private WriteOffInfoProcess writeOffInfoProcess;
 
     @Autowired
-    private AllInvoiceProcess allInvoiceProcess;
-
-    @Autowired
     private DcflQueryInvoiceTempProcess dcflQueryInvoiceTempProcess;
 
     public InvoiceTask(){}
@@ -36,10 +33,6 @@ public class InvoiceTask extends QuartzJobBean {
         HttpServletResponse response = null;
 
         LoggerUtils.debug(getClass(), "InvoiceTask start");
-
-        LoggerUtils.debug(getClass(), "导入发票创建 开始");
-        allInvoiceProcess.dcflCreateInvoiceImport(request, response);
-        LoggerUtils.debug(getClass(), "导入发票创建 结束");
 
         LoggerUtils.debug(getClass(), "导入现金事务查询 开始");
         writeOffInfoProcess.writeOffInfoImport(request, response);

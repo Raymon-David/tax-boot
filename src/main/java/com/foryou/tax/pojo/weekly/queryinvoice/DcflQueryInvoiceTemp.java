@@ -1,12 +1,11 @@
 package com.foryou.tax.pojo.weekly.queryinvoice;
 
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableName;
+import java.io.Serializable;
 
 /**
  * <p>
@@ -14,7 +13,7 @@ import java.util.Date;
  * </p>
  *
  * @author raymon
- * @since 2020-04-28
+ * @since 2020-06-10
  */
 @TableName("DCFL_QUERY_INVOICE_TEMP")
 public class DcflQueryInvoiceTemp implements Serializable {
@@ -111,6 +110,10 @@ public class DcflQueryInvoiceTemp implements Serializable {
      */
     @TableField("REVIEWER")
     private String reviewer;
+    @TableField("CF_ITEM")
+    private String cfItem;
+    @TableField("CF_ITEM_DESC")
+    private String cfItemDesc;
     @TableField("CREATED_BY")
     private Integer createdBy;
     /**
@@ -271,6 +274,22 @@ public class DcflQueryInvoiceTemp implements Serializable {
         this.reviewer = reviewer;
     }
 
+    public String getCfItem() {
+        return cfItem;
+    }
+
+    public void setCfItem(String cfItem) {
+        this.cfItem = cfItem;
+    }
+
+    public String getCfItemDesc() {
+        return cfItemDesc;
+    }
+
+    public void setCfItemDesc(String cfItemDesc) {
+        this.cfItemDesc = cfItemDesc;
+    }
+
     public Integer getCreatedBy() {
         return createdBy;
     }
@@ -324,6 +343,8 @@ public class DcflQueryInvoiceTemp implements Serializable {
                 ", accountPayee=" + accountPayee +
                 ", invoiceInvalidFlag=" + invoiceInvalidFlag +
                 ", reviewer=" + reviewer +
+                ", cfItem=" + cfItem +
+                ", cfItemDesc=" + cfItemDesc +
                 ", createdBy=" + createdBy +
                 ", createTime=" + createTime +
                 ", updatedBy=" + updatedBy +

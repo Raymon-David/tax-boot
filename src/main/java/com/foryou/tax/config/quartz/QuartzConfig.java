@@ -1,6 +1,7 @@
 package com.foryou.tax.config.quartz;
 
 import com.foryou.tax.api.quartz.DropTableTask;
+import com.foryou.tax.api.quartz.InvoiceCreatedTask;
 import com.foryou.tax.api.quartz.InvoiceTask;
 import com.foryou.tax.api.quartz.TestTask;
 import org.quartz.*;
@@ -44,11 +45,28 @@ public class QuartzConfig {
     public Trigger invoiceQuartzTrigger(){
 
         /**
-         * 每周三凌晨0点
+         * 每周二晚上10点
          */
         return TriggerBuilder.newTrigger().forJob(invoiceQuartz())
                 .withIdentity("invoiceTask")
                 .withSchedule(cronSchedule("0 0 22 ? * TUE"))
+                .build();
+    }
+
+    @Bean
+    public JobDetail InvoiceCreatedQuartz(){
+        return JobBuilder.newJob(InvoiceCreatedTask.class).withIdentity("invoiceCreatedTask").storeDurably().build();
+    }
+
+    @Bean
+    public Trigger invoiceCreatedQuartzTrigger(){
+
+        /**
+         * 每天晚上11点
+         */
+        return TriggerBuilder.newTrigger().forJob(InvoiceCreatedQuartz())
+                .withIdentity("invoiceCreatedTask")
+                .withSchedule(cronSchedule("0 0 23 * * ?"))
                 .build();
     }
 
