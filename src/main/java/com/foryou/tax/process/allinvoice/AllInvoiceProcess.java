@@ -290,9 +290,9 @@ public class AllInvoiceProcess extends BaseProcess {
         allInvoiceInfoTempService.backUpData(newTableName);
         LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 备份结束");
 
-        LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 删除开始");
-        allInvoiceInfoTempService.deleteData();
-        LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 删除结束");
+//        LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 删除开始");
+//        allInvoiceInfoTempService.deleteData();
+//        LoggerUtils.debug(getClass(), "ALL_INVOICE_INFO_TEMP 删除结束");
 
         LoggerUtils.debug(getClass(), "AllInvoiceInfoTemp sql is: " + sql);
 
