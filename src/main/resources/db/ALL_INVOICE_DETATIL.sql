@@ -43,7 +43,7 @@ Date: 2020-03-24 15:48:41
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for ALL_INVOICE_DETATIL
+-- Table structure for ALL_INVOICE_DETATIL.sql
 -- ----------------------------
 DROP TABLE IF EXISTS `ALL_INVOICE_DETAIL`;
 CREATE TABLE `ALL_INVOICE_DETAIL` (

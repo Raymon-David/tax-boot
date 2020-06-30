@@ -63,9 +63,9 @@ Date: 2020-03-18 15:14:39
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for ALL_INVOICE_INFO
+-- Table structure for ALL_INVOICE_INFO.sql
 -- ----------------------------
-DROP TABLE IF EXISTS `ALL_INVOICE_INFO`;
+DROP TABLE IF EXISTS `ALL_INVOICE_INFO.sql`;
 CREATE TABLE `ALL_INVOICE_INFO` (
   `INVOICE_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT '发票表ID/PK',
   `COMPANY_ID` int(20) NOT NULL COMMENT '公司ID',

@@ -16,9 +16,9 @@ Date: 2020-03-23 16:49:42
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for FY_COMPANIES
+-- Table structure for FY_COMPANIES.sql
 -- ----------------------------
-DROP TABLE IF EXISTS `FY_COMPANIES`;
+DROP TABLE IF EXISTS `FY_COMPANIES.sql`;
 CREATE TABLE `FY_COMPANIES` (
   `COMPANY_ID` int(20) NOT NULL AUTO_INCREMENT COMMENT '公司id',
   `COMPANY_CODE` varchar(25) DEFAULT '' COMMENT '公司code',
@@ -44,6 +44,6 @@ CREATE TABLE `FY_COMPANIES` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10784 DEFAULT CHARSET=utf8 COMMENT='公司信息表';
 
 -- ----------------------------
--- Records of FY_COMPANIES
+-- Records of FY_COMPANIES.sql
 -- ----------------------------
 INSERT INTO `FY_COMPANIES` VALUES ('1', '10001', '1', '北京市朝阳区佳程广场B座20层CD单元', '010-84547200', '1997-01-01 16:45:19', '2030-12-31 16:45:37', '斗山(中国)融资租赁有限公司', '91110000717868202R', '北京市朝阳区佳程广场B座20层CD单元', '1', '斗山（中国）融资租赁有限公司', '斗山融资租赁', '1', '99999', '6CC4352B52B36490456108B6C22158E0', null, '2020-03-23 08:48:31', null, '2020-03-23 08:48:31');
