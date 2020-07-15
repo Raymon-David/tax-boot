@@ -225,6 +225,28 @@
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.2</version>
 		</dependency>
+		<!-- 大汉三通短信服务jar包-->
+		<dependency>
+			<groupId>com.ctc</groupId>
+			<artifactId>smscloud</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/ctc-smscloud-jsonhttp.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.dahantc</groupId>
+			<artifactId>api</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/dahantc-http-json-api.jar</systemPath>
+		</dependency>
+		<dependency>
+			<groupId>com.dahantc</groupId>
+			<artifactId>api-resource</artifactId>
+			<version>1.0.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/main/resources/lib/dahantc-http-json-api-resource.jar</systemPath>
+		</dependency>
 	</dependencies>
 
 	<build>
