@@ -18,6 +18,7 @@ public class SmsSender {
 
         String sendResponse = null;
         try {
+            LoggerUtils.debug(getClass(), "短信发送开始");
             JSONHttpClient jsonHttpClient = new JSONHttpClient(smsPojo.getSubmitUrl());
             jsonHttpClient.setRetryCount(1);
             sendResponse = jsonHttpClient.sendSms(
