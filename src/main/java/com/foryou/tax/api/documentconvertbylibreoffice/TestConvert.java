@@ -61,6 +61,8 @@ public class TestConvert {
          * docker exec -it LibreOfficeOnline --convert-to pdf:writer_pdf_Export –outdir /home/workstation/Documents/documentConvert /home/workstation/Documents/documentOriginal/（approved）20200506电子发票.xlsx
          *
          * https://blog.csdn.net/u013199013/article/details/83142817
+         *
+         * https://www.csdn.net/gather_25/MtTacgzsNTA3MC1ibG9n.html
          */
         String cmd = "libreoffice --convert-to pdf:writer_pdf_Export " + documentPath + documentName + " --outdir " + documentTargetPath;
         System.out.println(cmd);
