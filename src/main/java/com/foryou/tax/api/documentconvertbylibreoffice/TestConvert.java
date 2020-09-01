@@ -34,6 +34,7 @@ public class TestConvert {
         String documentIp = null;
         String documentPath = null;
         String documentTargetPath = null;
+        String documentName = "(approved)斗山20年体检服务指南.docx";
 
         //定义map 绑定传给前台参数
         Map<String, Object> jsonMap = new HashMap<String, Object>();// 定义map
@@ -59,7 +60,7 @@ public class TestConvert {
          *
          * docker exec -it LibreOfficeOnline --convert-to pdf:writer_pdf_Export –outdir /home/workstation/Documents/documentConvert /home/workstation/Documents/documentOriginal/（approved）20200506电子发票.xlsx
          */
-        String cmd = "libreoffice --convert-to pdf:writer_pdf_Export " + documentPath + " --outdir " + documentTargetPath;
+        String cmd = "libreoffice --convert-to pdf:writer_pdf_Export " + documentPath + documentName + " --outdir " + documentTargetPath;
         System.out.println(cmd);
         try {
             Process process = Runtime.getRuntime().exec(cmd);
