@@ -261,6 +261,12 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/src/main/resources/lib/jacob.jar</systemPath>
 		</dependency>
+		<!-- 汉字转拼音，用在文档转换时给文档的命名 -->
+		<dependency>
+		    <groupId>net.sourceforge.pinyin4j</groupId>
+			<artifactId>pinyin4j</artifactId>
+			<version>2.5.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

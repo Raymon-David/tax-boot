@@ -1,11 +1,11 @@
 package com.foryou.tax.util;
 
+import org.apache.logging.log4j.util.PropertiesUtil;
+
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author ：Raymon
@@ -23,10 +23,11 @@ public class JDBCUtil {
     private static String DRVIER = "oracle.jdbc.driver.OracleDriver";
     /**
      * server
+     * private static String URL = "jdbc:oracle:thin:@10.40.128.56:6001/ZLPROD";
+     *
      * private static String URL = "jdbc:oracle:thin:@10.40.128.199:1521/ZLPROD";
      */
-    private static String URL = "jdbc:oracle:thin:@10.40.128.56:6001/ZLPROD";
-
+    private static String URL = null;
 
 
     /**
@@ -43,6 +44,17 @@ public class JDBCUtil {
      *
      */
     public static Connection getConnection() {
+
+        try {
+            Properties properties = new Properties();
+            InputStream is = PropertiesUtil.class.getClassLoader()
+                    .getResourceAsStream("application.properties");
+            properties.load(is);
+            URL = properties.getProperty("jdbc_url");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         /**
          * 创建一个数据库连接
          */
