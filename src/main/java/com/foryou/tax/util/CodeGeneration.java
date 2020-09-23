@@ -48,7 +48,7 @@ public class CodeGeneration {
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://10.40.59.129:3306/tax");
+        dsc.setUrl("jdbc:mysql://10.40.61.22:3306/tax");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -58,7 +58,7 @@ public class CodeGeneration {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude("INVOICE_OBJECT_INFO");
+        strategy.setInclude("DCFL_QUERY_INVOICE_TEMP.sql");
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
@@ -69,12 +69,12 @@ public class CodeGeneration {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.foryou.tax");
-        pc.setController("controller.invoiceobject");
-        pc.setService("service.invoiceobject");
-        pc.setServiceImpl("service.impl.invoiceobject");
-        pc.setMapper("dao.invoiceobject");
-        pc.setEntity("pojo.invoiceobject");
-        pc.setXml("dao.invoiceobject");
+        pc.setController("controller.weekly.queryinvoice");
+        pc.setService("service.weekly.queryinvoice");
+        pc.setServiceImpl("service.impl.weekly.queryinvoice");
+        pc.setMapper("dao.weekly.queryinvoice");
+        pc.setEntity("pojo.weekly.queryinvoice");
+        pc.setXml("dao.weekly.queryinvoice");
         mpg.setPackageInfo(pc);
 
         // 执行生成

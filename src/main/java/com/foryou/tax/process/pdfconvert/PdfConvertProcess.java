@@ -17,7 +17,7 @@ import java.util.Map;
 public class PdfConvertProcess extends BaseProcess {
 
     public void pdfConvert(HttpServletRequest request, HttpServletResponse response){
-        String documentName = "(approved)斗山20年体检服务指南.docx";
+        String documentName = "斗山OneID体系设计方案V1.0.docx";
         ConvertPdfByLibreOffice convertPdfByLibreOffice = new ConvertPdfByLibreOffice();
         Map<String, Object> result = convertPdfByLibreOffice.pdfConvert(documentName);
 

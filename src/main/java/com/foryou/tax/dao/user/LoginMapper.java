@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Mapper
-public interface LoginDao  extends BaseMapper {
+public interface LoginMapper extends BaseMapper {
     /**
      * 根据用户名和密码查询对应的用户
      *

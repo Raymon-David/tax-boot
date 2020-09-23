@@ -3,6 +3,8 @@ package com.foryou.tax.controller.user;
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.process.user.UserProcess;
 import com.foryou.tax.util.CommonUtil;
+import com.foryou.tax.util.LoggerUtils;
+import jdk.nashorn.internal.runtime.logging.Loggable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +33,7 @@ public class LoginController {
     @RequestMapping("/login/auth")
     public void authLogin(HttpServletRequest request, HttpServletResponse response, @RequestBody JSONObject requestJson) {
         CommonUtil.hasAllRequired(requestJson, "username,password");
+        LoggerUtils.debug(getClass(), requestJson.toJSONString());
         userProcess.authLogin(request, response, requestJson);
     }
 
@@ -55,8 +58,14 @@ public class LoginController {
 
     @RequestMapping(value = "/login", method = {RequestMethod.GET})
     public String login() {
-        return "pages/user/login";
+        return "tax/login";
     }
+
+    @RequestMapping(value = "/404", method = {RequestMethod.GET})
+    public String notFound() { return "common/404"; }
+
+    @RequestMapping(value = "/500", method = {RequestMethod.GET})
+    public String exception() { return "common/500"; }
 
     @RequestMapping(value = "/weeklyIndex", method = {RequestMethod.GET})
     public String index() {

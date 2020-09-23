@@ -2,10 +2,11 @@ package com.foryou.tax.service.impl.user;
 
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.api.constant.Constants;
-import com.foryou.tax.dao.user.LoginDao;
+import com.foryou.tax.dao.user.LoginMapper;
 import com.foryou.tax.service.user.LoginService;
 import com.foryou.tax.service.PermissionService;
 import com.foryou.tax.util.CommonUtil;
+import com.foryou.tax.util.LoggerUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -13,6 +14,8 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.logging.Logger;
 
 /**
  * @author: raymon
@@ -23,7 +26,7 @@ import org.springframework.stereotype.Service;
 public class LoginServiceImpl implements LoginService {
 
     @Autowired
-    private LoginDao loginDao;
+    private LoginMapper loginMapper;
     @Autowired
     private PermissionService permissionService;
 
@@ -48,6 +51,7 @@ public class LoginServiceImpl implements LoginService {
         } catch (AuthenticationException e) {
             returnData.put("result", "fail");
         }
+        LoggerUtils.debug(getClass(), CommonUtil.successJson(returnData).toJSONString());
         return CommonUtil.successJson(returnData);
     }
 
@@ -60,7 +64,7 @@ public class LoginServiceImpl implements LoginService {
      */
     @Override
     public JSONObject getUser(String username, String password) {
-        return loginDao.getUser(username, password);
+        return loginMapper.getUser(username, password);
     }
 
     /**
