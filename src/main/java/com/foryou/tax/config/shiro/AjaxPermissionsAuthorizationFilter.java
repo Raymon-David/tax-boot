@@ -2,6 +2,7 @@ package com.foryou.tax.config.shiro;
 
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.api.constant.ErrorEnum;
+import com.foryou.tax.util.LoggerUtils;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
@@ -17,18 +19,22 @@ import java.io.PrintWriter;
  * @date: 2017/10/24 10:11
  */
 public class AjaxPermissionsAuthorizationFilter extends FormAuthenticationFilter {
+    public static final String DEFAULT_PATH_SEPARATOR = "/";
+
+    private String pathSeparator = DEFAULT_PATH_SEPARATOR;;
 
     @Override
-    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) {
+    protected boolean onAccessDenied(ServletRequest request, ServletResponse response) throws IOException {
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("returnCode", ErrorEnum.E_20011.getErrorCode());
         jsonObject.put("returnMsg", ErrorEnum.E_20011.getErrorMsg());
+        LoggerUtils.debug(getClass(), jsonObject.toJSONString());
         PrintWriter out = null;
         HttpServletResponse res = (HttpServletResponse) response;
         try {
             res.setCharacterEncoding("UTF-8");
             res.setContentType("application/json");
-
+            res.sendRedirect("/login");
             out = response.getWriter();
             out.println(jsonObject);
         } catch (Exception e) {
@@ -47,4 +53,5 @@ public class AjaxPermissionsAuthorizationFilter extends FormAuthenticationFilter
         registration.setEnabled(false);
         return registration;
     }
+
 }

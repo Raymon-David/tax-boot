@@ -100,6 +100,10 @@
 					<artifactId>shiro-core</artifactId>
 					<groupId>org.apache.shiro</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>jedis</artifactId>
+					<groupId>redis.clients</groupId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -315,7 +319,7 @@
 						<!--<verbose />-->
 						<!-- 解决maven命令编译报错，因为rt.jar 和jce.jar在jre的lib下面，不在jdk的lib下面， 导致maven找不到（java7以后会出现这个问题），将这2个jar包拷贝到jdk的lib下面估计也好使-->
 						<!-- MAC用冒号，Windows用分号-->
-						<bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
+						<bootclasspath>${java.home}/lib/rt.jar:${java.home}/lib/jce.jar</bootclasspath>
 					</compilerArguments>
 				</configuration>
 			</plugin>

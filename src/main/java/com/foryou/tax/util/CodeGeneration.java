@@ -21,7 +21,7 @@ public class CodeGeneration {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         //输出文件路径
-        gc.setOutputDir("D://");
+        gc.setOutputDir("/Users/raymon/Desktop");
         gc.setFileOverride(true);
         // 不需要ActiveRecord特性的请改为false
         gc.setActiveRecord(false);
@@ -42,13 +42,17 @@ public class CodeGeneration {
         gc.setXmlName("%sMapper");
         mpg.setGlobalConfig(gc);
 
-        // 数据源配置
+        /**
+         * 数据源配置
+         * server
+         * dsc.setUrl("jdbc:mysql://192.168.0.119:3306/tax");
+         */
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setDbType(DbType.MYSQL);
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
-        dsc.setUrl("jdbc:mysql://10.40.61.22:3306/tax");
+        dsc.setUrl("jdbc:mysql://10.40.59.129:3306/tax");
         mpg.setDataSource(dsc);
 
         // 策略配置
@@ -58,7 +62,7 @@ public class CodeGeneration {
         // 表名生成策略
         strategy.setNaming(NamingStrategy.underline_to_camel);
         // 需要生成的表
-        strategy.setInclude("DCFL_QUERY_INVOICE_TEMP.sql");
+        strategy.setInclude("DCFL_MERGE_INVOICE_RESULT.sql");
 
         strategy.setSuperServiceClass(null);
         strategy.setSuperServiceImplClass(null);
@@ -69,12 +73,12 @@ public class CodeGeneration {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.foryou.tax");
-        pc.setController("controller.weekly.queryinvoice");
-        pc.setService("service.weekly.queryinvoice");
-        pc.setServiceImpl("service.impl.weekly.queryinvoice");
-        pc.setMapper("dao.weekly.queryinvoice");
-        pc.setEntity("pojo.weekly.queryinvoice");
-        pc.setXml("dao.weekly.queryinvoice");
+        pc.setController("controller.weekly.mergeinvoice");
+        pc.setService("service.weekly.mergeinvoice");
+        pc.setServiceImpl("service.impl.weekly.mergeinvoice");
+        pc.setMapper("dao.weekly.mergeinvoice");
+        pc.setEntity("pojo.weekly.mergeinvoice");
+        pc.setXml("dao.weekly.mergeinvoice");
         mpg.setPackageInfo(pc);
 
         // 执行生成

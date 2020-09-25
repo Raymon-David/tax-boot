@@ -103,8 +103,9 @@ public class StringUtils {
     public static String getMonth() {
         Calendar calendar = Calendar.getInstance();
         String temp = String.valueOf(calendar.get(2) + 1);
-        if (temp.length() < 2)
+        if (temp.length() < 2) {
             temp = "0" + temp;
+        }
         return temp;
     }
 

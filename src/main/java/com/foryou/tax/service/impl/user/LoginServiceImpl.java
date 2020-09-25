@@ -3,19 +3,18 @@ package com.foryou.tax.service.impl.user;
 import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.api.constant.Constants;
 import com.foryou.tax.dao.user.LoginMapper;
-import com.foryou.tax.service.user.LoginService;
 import com.foryou.tax.service.PermissionService;
+import com.foryou.tax.service.user.LoginService;
 import com.foryou.tax.util.CommonUtil;
 import com.foryou.tax.util.LoggerUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.logging.Logger;
 
 /**
  * @author: raymon
@@ -43,16 +42,24 @@ public class LoginServiceImpl implements LoginService {
         JSONObject returnData = new JSONObject();
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+        JSONObject jsonObject1 = null;
         try {
             //JSONObject jsonObject1 = this.getUser(username, password);
 
             currentUser.login(token);
             returnData.put("result", "success");
+            jsonObject1 = CommonUtil.successJson(returnData);
+        } catch (LockedAccountException lae) {
+            token.clear();
+            returnData.put("result", "用户已经被锁定不能登录，请与管理员联系！");
+            jsonObject1 = CommonUtil.successJson(returnData);
         } catch (AuthenticationException e) {
+            token.clear();
             returnData.put("result", "fail");
+            jsonObject1 = CommonUtil.successJson(returnData);
         }
-        LoggerUtils.debug(getClass(), CommonUtil.successJson(returnData).toJSONString());
-        return CommonUtil.successJson(returnData);
+        LoggerUtils.debug(getClass(), jsonObject1.toJSONString());
+        return jsonObject1;
     }
 
     /**

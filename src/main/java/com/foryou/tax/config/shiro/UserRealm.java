@@ -49,6 +49,7 @@ public class UserRealm extends AuthorizingRealm {
         String password = new String((char[]) authcToken.getCredentials());
         JSONObject user = loginService.getUser(loginName, password);
         if (user == null) {
+            LoggerUtils.error(getClass(), "error is: " , new UnknownAccountException());
             //没找到帐号
             throw new UnknownAccountException();
         }

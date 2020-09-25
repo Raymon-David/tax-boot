@@ -1,5 +1,8 @@
 package com.foryou.tax.config.shiro;
 
+import cn.hutool.core.convert.Convert;
+import com.foryou.tax.util.LoggerUtils;
+import com.foryou.tax.util.PropertyUtil;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
@@ -11,10 +14,10 @@ import org.crazycake.shiro.RedisCacheManager;
 import org.crazycake.shiro.RedisManager;
 import org.crazycake.shiro.RedisSessionDAO;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
+import org.springframework.beans.factory.annotation.Value;
 
 import javax.servlet.Filter;
 import java.util.LinkedHashMap;
@@ -86,10 +89,10 @@ public class ShiroConfiguration {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         //设置realm.
         securityManager.setRealm(userRealm());
-        // 自定义缓存实现 使用redis
-        securityManager.setCacheManager(cacheManager());
+        // 自定义缓存实现 使用redis 暂时没试通
+//        securityManager.setCacheManager(cacheManager());
         // 自定义session管理 使用redis
-        securityManager.setSessionManager(sessionManager());
+//        securityManager.setSessionManager(sessionManager());
         return securityManager;
     }
 
@@ -154,11 +157,12 @@ public class ShiroConfiguration {
      */
     public RedisManager redisManager() {
         RedisManager redisManager = new RedisManager();
-        redisManager.setHost(host);
-        redisManager.setPort(port);
+        redisManager.setHost(PropertyUtil.getProperty("spring.redis.host"));
+        redisManager.setPort(Convert.toInt(PropertyUtil.getProperty("spring.redis.port")));
         redisManager.setExpire(1800);// 配置缓存过期时间
-        redisManager.setTimeout(timeout);
+        redisManager.setTimeout(Convert.toInt(PropertyUtil.getProperty("spring.redis.timeout")));
         // redisManager.setPassword(password);
+        LoggerUtils.debug(getClass(), "RedisManager host is : " + PropertyUtil.getProperty("spring.redis.host") + " and port is : " + Convert.toInt(PropertyUtil.getProperty("spring.redis.port")));
         return redisManager;
     }
 
