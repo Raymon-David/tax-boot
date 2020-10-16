@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.foryou.tax.process.user.UserProcess;
 import com.foryou.tax.util.CommonUtil;
 import com.foryou.tax.util.LoggerUtils;
-import jdk.nashorn.internal.runtime.logging.Loggable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,16 +60,17 @@ public class LoginController {
         return "tax/login";
     }
 
+    @RequestMapping(value = "/weeklyIndex", method = {RequestMethod.GET})
+    public String weeklyIndex() {
+        LoggerUtils.debug(getClass(), "进入主页");
+        return "tax/weekly_index";
+    }
+
     @RequestMapping(value = "/404", method = {RequestMethod.GET})
     public String notFound() { return "common/404"; }
 
     @RequestMapping(value = "/500", method = {RequestMethod.GET})
     public String exception() { return "common/500"; }
-
-    @RequestMapping(value = "/weeklyIndex", method = {RequestMethod.GET})
-    public String index() {
-        return "tax/weekly_index";
-    }
 
     @RequestMapping(value = "/dashboard", method = {RequestMethod.GET})
     public String test() {

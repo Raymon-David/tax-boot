@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -38,10 +38,10 @@
           <label class="checkbox">
             <input type="checkbox" value="remember-me"> Remember me
             <span class="pull-right">
-            <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>
+            <a data-toggle="modal" href="/weeklyIndex"> Forgot Password?</a>
             </span>
             </label>
-          <button class="btn btn-theme btn-block" type="submit" onclick="sign_submit()"><i class="fa fa-lock"></i> SIGN IN</button>
+          <button type="button" class="btn btn-theme btn-block" onclick="sign_submit()"><i class="fa fa-lock"></i> SIGN IN</button>
           <hr>
           <div class="registration">
             Don't have an account yet?<br/>
@@ -64,7 +64,7 @@
               </div>
               <div class="modal-footer">
                 <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
-                <button class="btn btn-theme" type="button">Submit</button>
+<!--                <button class="btn btn-theme" type="button">Submit</button>-->
               </div>
             </div>
           </div>
@@ -99,19 +99,18 @@
           contentType: "application/json;charset=UTF-8",
           cache : false,  //禁用缓存
           dataType: "json",
+          async: false,
           success: function (data) {
             if (null != data){
-              if (data.returnData.result === "success") {
-                window.location.href = "weeklyIndex";
+              if (data.returnData.result == 'success') {
+                window.location.href = '/weeklyIndex';
               } else {
                 alert("fail");
               }
             }
-          },error: function(XMLHttpRequest, textStatus, errorThrown) {
-            alert("查询失败");
           }
       });
-      // window.location.href = "weeklyIndex";
+      return false;
     }
   </script>
 </body>
