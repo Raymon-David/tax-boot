@@ -192,6 +192,7 @@
       <p>
         <button type="button" class="btn btn-primary btn-lg" onclick="invoiceMergeClick()">Invoice Merge</button>
         <button type="button" class="btn btn-primary btn-lg" onclick="weeklyExportExcelClick()">Weekly Export Excel</button>
+        <button type="button" class="btn btn-primary btn-lg" onclick="contractBatchDownloadClick()">Download Contract Zip</button>
       </p>
     </div>
     <!-- /wrapper -->
@@ -389,6 +390,28 @@
 
     function backView() {
       location.href = '/weeklyIndex';
+    }
+
+    function contractBatchDownloadClick() {
+      var contractList = [43741, 43742, 43860, 43861, 44305, 44306];
+
+      var form = $("<form>");
+      form.attr('style', 'display:none');
+      form.attr('target', '');
+      form.attr('method', 'post');
+      form.attr('enctype', 'multipart/form-data');
+      form.attr('action', '/contract/batchDownload');
+
+      var input1 = $('<input>');
+      input1.attr('type', 'hidden');
+      input1.attr('name', 'contractList');
+      input1.attr('value', contractList);      /* JSON.stringify($.serializeObject($('#searchForm'))) */
+
+      $('body').append(form);
+      form.append(input1);
+
+      form.submit();
+      form.remove();
     }
   </script>
 </body>
